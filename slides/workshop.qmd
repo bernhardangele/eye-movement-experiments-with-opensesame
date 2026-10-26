@@ -5,67 +5,83 @@ format: revealjs
 
 ## Goals
 
-- Write one experiment that runs on **any PyGaze-supported eye tracker**
-- Develop and test with the PyGaze **advanced dummy** tracker (mouse = gaze)
-- Four experiments: reading, boundary (display change), moving window, visual world
+- One experiment file that runs on **any PyGaze-supported eye tracker**
+- Develop and test with PyGaze's **advanced dummy** tracker (mouse = gaze)
+- Four `.osexp` experiments: reading, boundary (display change), moving window, visual world
 
 ## Setup
 
 ```bash
-docker pull bangele1/opensesame-test-container
-docker run -it -v $PWD:/work bangele1/opensesame-test-container
-cd /work/experiments && python reading.py
+docker build -t eye-workshop .      # opensesame-test-container + Quarto
+docker run -it -v $PWD:/workspaces/experiments eye-workshop
 ```
 
-Set `TRACKERTYPE=eyelink` (or `tobii`, `eyetribe`, ...) to switch hardware; the default `dummy` is the advanced dummy.
+Open `experiments/osexp/*.osexp` in OpenSesame, or render these slides:
+`quarto render slides/workshop.qmd`
 
-## PyGaze building blocks
+## Anatomy of an eye-tracking experiment
+
+`pygaze_init` → instructions → **trial loop** → goodbye
+
+Trial sequence:
+
+1. `pygaze_drift_correct`
+2. `pygaze_start_recording`
+3. `pygaze_log` (trial info)
+4. `inline_script` – the paradigm
+5. `pygaze_stop_recording`, `logger`
+
+## Choosing the tracker
+
+In `pygaze_init` pick *Advanced dummy (mouse simulation)* for development.
+For real hardware choose EyeLink, Tobii, ... – nothing else changes, because inline scripts only use the generic `eyetracker` object:
 
 ```python
-disp = libscreen.Display(); kb = libinput.Keyboard()
-tracker = eyetracker.EyeTracker(disp, trackertype="dummy")
-tracker.calibrate()
-tracker.start_recording(); tracker.log("MSG"); tracker.stop_recording()
-x, y = tracker.sample()
+x, y = eyetracker.sample()
+eyetracker.log('STIMONSET')
 ```
 
-All shared code lives in `experiments/common.py`. The same code can be pasted into OpenSesame `inline_script` items.
+## Experiment 1: reading (`reading.osexp`)
 
-## Experiment 1: reading (`reading.py`)
+- Loop table with `item`, `condition`, `sentence`
+- Prepare phase: render the sentence on a `Canvas` (monospace font → known character positions)
+- Run phase: `show()`, log `STIMONSET`, wait for SPACE, log `TRIALEND`
 
-- Sentences from `stimuli/reading.csv`, one per trial
-- Drift check → start recording → show sentence → log `STIMONSET` → key press ends trial
-- Based on the sampling-rate revision study
+## Experiment 2: boundary paradigm (`boundary.osexp`)
 
-## Experiment 2: boundary paradigm (`boundary.py`)
-
-- Preview string shown in the target position
-- Poll `tracker.sample()`; when gaze passes the invisible boundary, swap to the target word
-- Log `DISPLAYCHANGE` so change latency can be analysed
+- Preview and target canvases prepared in advance
+- Poll gaze; when it crosses the invisible boundary, show the target canvas
+- Log `DISPLAYCHANGE` for latency analysis
 
 ```python
-if gaze_x(tracker) > boundary:
-    disp.fill(tar_scr); disp.show()
+if gaze_char(0) > boundary_char:
+    tar_canvas.show()
 ```
 
-## Experiment 3: moving window (`movingwindow.py`)
+## Experiment 3: moving window (`movingwindow.osexp`)
 
-- Only characters within *window* characters of gaze are visible; others become `x`
-- Screen redrawn whenever the fixated character changes
-- Window size is a column in `stimuli/movingwindow.csv`
+- Window size is a column in the loop table
+- Characters outside the window become `x`, spaces are kept
+- Redraw only when the fixated character changes; log `WINDOWMOVE`
 
-## Experiment 4: visual world (`vwp.py`)
+## Experiment 4: visual world (`vwp.osexp`)
 
-- Four objects in quadrants (drop `<name>.png` files into `stimuli/`)
-- Instruction presented; gaze samples per region counted and logged
-- Swap the on-screen text for an audio sampler in OpenSesame for real spoken stimuli
+- Four labelled boxes (swap for `canvas.image(...)`)
+- Preview → spoken-instruction onset (`SPOKEN_ONSET`; add a `sampler` for audio)
+- Gaze samples per object logged as `SAMPLES`
+
+## Building and testing the files
+
+`python experiments/build_osexp.py` regenerates the `.osexp` files (the generator holds the readable source).
+
+Headless test inside the container: run each experiment under `xvfb-run` and check the log messages.
 
 ## Analysis
 
-Logs are tracker-native (dummy: tab-separated text) and contain `TRIALSTART`, `STIMONSET`,
-`DISPLAYCHANGE`, `WINDOWMOVE`, `SAMPLES` messages. Use R (`readr`) or Python (`pandas`) to compute fixation durations and fixation proportions.
+OpenSesame writes a CSV with one row per trial; the tracker log holds the messages.
+Read in R (`readr`) or Python (`pandas`) and compute fixation measures between `STIMONSET` and `TRIALEND`.
 
 ## Next steps
 
-- Real hardware: change `TRACKERTYPE`, recalibrate
-- Check display-change timing with a photodiode
+- Replace the generic stimuli by your own loop tables
+- Test display-change timing on the real setup

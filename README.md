@@ -3,9 +3,8 @@ A workshop and template scripts for running eye-movement experiments using Opens
 
 ## Contents
 
-- `experiments/` – PyGaze scripts (usable standalone or inside OpenSesame inline_script items):
-  `reading.py`, `boundary.py` (display change), `movingwindow.py`, `vwp.py` (visual world); stimuli in `experiments/stimuli/`.
-  They use the PyGaze advanced dummy tracker by default; set `TRACKERTYPE` to use another tracker.
+- `experiments/osexp/` – OpenSesame experiments using PyGaze (advanced dummy tracker by default):
+  `reading.osexp`, `boundary.osexp` (display change), `movingwindow.osexp`, `vwp.osexp` (visual world).
+  `experiments/build_osexp.py` regenerates them.
 - `slides/workshop.qmd` – Quarto slides (`quarto render slides/workshop.qmd`).
-
-Suggested environment: `docker pull bangele1/opensesame-test-container`.
+- `Dockerfile` – `bangele1/opensesame-test-container` plus Quarto.
