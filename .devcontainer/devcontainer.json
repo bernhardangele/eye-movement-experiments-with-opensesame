@@ -1,0 +1,17 @@
+{
+  "name": "OpenSesame Eye Movement Workshop",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "ubuntu",
+  "workspaceFolder": "/workspaces/eye-movement-experiments-with-opensesame",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "quarto.quarto"
+      ]
+    }
+  }
+}
