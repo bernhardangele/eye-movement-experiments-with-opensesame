@@ -1,0 +1,71 @@
+---
+title: "Universal eye-movement experiments with OpenSesame and PyGaze"
+format: revealjs
+---
+
+## Goals
+
+- Write one experiment that runs on **any PyGaze-supported eye tracker**
+- Develop and test with the PyGaze **advanced dummy** tracker (mouse = gaze)
+- Four experiments: reading, boundary (display change), moving window, visual world
+
+## Setup
+
+```bash
+docker pull bangele1/opensesame-test-container
+docker run -it -v $PWD:/work bangele1/opensesame-test-container
+cd /work/experiments && python reading.py
+```
+
+Set `TRACKERTYPE=eyelink` (or `tobii`, `eyetribe`, ...) to switch hardware; the default `dummy` is the advanced dummy.
+
+## PyGaze building blocks
+
+```python
+disp = libscreen.Display(); kb = libinput.Keyboard()
+tracker = eyetracker.EyeTracker(disp, trackertype="dummy")
+tracker.calibrate()
+tracker.start_recording(); tracker.log("MSG"); tracker.stop_recording()
+x, y = tracker.sample()
+```
+
+All shared code lives in `experiments/common.py`. The same code can be pasted into OpenSesame `inline_script` items.
+
+## Experiment 1: reading (`reading.py`)
+
+- Sentences from `stimuli/reading.csv`, one per trial
+- Drift check → start recording → show sentence → log `STIMONSET` → key press ends trial
+- Based on the sampling-rate revision study
+
+## Experiment 2: boundary paradigm (`boundary.py`)
+
+- Preview string shown in the target position
+- Poll `tracker.sample()`; when gaze passes the invisible boundary, swap to the target word
+- Log `DISPLAYCHANGE` so change latency can be analysed
+
+```python
+if gaze_x(tracker) > boundary:
+    disp.fill(tar_scr); disp.show()
+```
+
+## Experiment 3: moving window (`movingwindow.py`)
+
+- Only characters within *window* characters of gaze are visible; others become `x`
+- Screen redrawn whenever the fixated character changes
+- Window size is a column in `stimuli/movingwindow.csv`
+
+## Experiment 4: visual world (`vwp.py`)
+
+- Four objects in quadrants (drop `<name>.png` files into `stimuli/`)
+- Instruction presented; gaze samples per region counted and logged
+- Swap the on-screen text for an audio sampler in OpenSesame for real spoken stimuli
+
+## Analysis
+
+Logs are tracker-native (dummy: tab-separated text) and contain `TRIALSTART`, `STIMONSET`,
+`DISPLAYCHANGE`, `WINDOWMOVE`, `SAMPLES` messages. Use R (`readr`) or Python (`pandas`) to compute fixation durations and fixation proportions.
+
+## Next steps
+
+- Real hardware: change `TRACKERTYPE`, recalibrate
+- Check display-change timing with a photodiode
