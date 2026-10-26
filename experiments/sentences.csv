@@ -1,0 +1,221 @@
+block,sentence_number,pretarget,target,posttarget,question,answer,changed
+practice,901,El artista creó,una,hermosa pieza de escultura en mármol.,¿Era una figura de arcilla?,NO,una
+practice,902,Realicé,la,compra para la semana en el supermercado.,NA,NA,la
+practice,903,La lógica es fundamental,para,resolver problemas matemáticos.,NA,NA,para
+practice,904,Disfrutamos la lluvia suave en,la,tarde de verano.,¿Estaba soleado?,NO,la
+practice,905,Aprendí la letra de,esa,canción en cuestión de minutos.,¿Aprendo rápido?,SI,esa
+practice,906,Decidimos decorar,el,patio trasero con luces para la fiesta.,NA,NA,el
+practice,907,El capitán obtuvo,el,rango de comandante por su valentía.,NA,NA,el
+practice,908,La escritora compartió,un,emotivo relato en su último libro.,NA,NA,un
+practice,909,El diseñador de moda creó,un,hermoso patrón floral para el vestido.,¿Será un vestido con flores?,SI,un
+practice,910,El gobierno llevó a cabo,un,censo para recopilar datos demográficos.,NA,NA,un
+1,1,El arquitecto criticó,la,forma de trabajar del albañil.,¿El albañil criticó al arquitecto?,NO,el
+1,2,En este mapa no puedo ver,la,zona que dices.,¿El mapa muestra lo necesario?,NO,el
+1,3,Para aprobar solo tienes que dominar,la,suma y nada más.,¿En el examen habrá divisiones?,NO,el
+1,4,Eso es erróneo según,la,teoría más actual.,¿Es correcto?,NO,el
+1,5,Estamos todos juntos en,la,lucha por un mundo más justo.,¿Es asunto de una sola persona?,NO,el
+1,6,Este juez imparte siempre,la,pena más dura.,¿Es un juez estricto?,SI,el
+1,7,Hablamos con,el,autor durante la firma de libros.,¿Acudimos a un evento?,SI,la
+1,8,En la excursión al museo analizamos,el,estilo artístico de las pinturas.,¿Hablamos sobre arte?,SI,la
+1,9,La noticia recorrió,el,país causando gran conmoción.,¿Dejó a la gente indiferente?,NO,la
+1,10,Borré el archivo con,el,título de los libros.,¿Eliminé la información?,SI,la
+1,11,Para comenzar la mañana preparé,el,café bien fuerte.,¿Era una bebida suave?,NO,la
+1,12,Este sábado iremos de excursión con,el,padre de mi vecino.,¿Es el fin de semana?,SI,la
+1,13,Sigue negando,los,actos delictivos.,¿Ha asumido lo que pasó?,NO,las
+1,14,El árbol fue alcanzado por,los,rayos y empezó a arder.,¿Se incendió?,SI,las
+1,15,No confundas,los,precios con la calidad.,¿La calidad y el precio son lo mismo?,NO,las
+1,16,Siempre está diciendo que las cosas estaban mejor en,los,siglos pasados.,¿Le gusta mucho hablar de otros tiempos?,SI,las
+1,17,Tuvo problemas con,los,gatos y ya no quiere ninguno.,¿Le gustaría adoptar un felino?,NO,las
+1,18,La niña no ha superado,los,miedos nocturnos.,¿Lo pasa mal por las noches?,SI,las
+1,19,Los cuadernos estaban llenos de dibujos hechos por,las,niñas pequeñas.,¿La niña dibuja mucho?,SI,los
+1,20,Se educado con,las,visitas esta tarde.,¿La visita es mañana?,NO,los
+1,21,Si veo películas de miedo por,las,noches tengo pesadillas.,¿Las películas de terror me afectan?,SI,los
+1,22,"Si le estás buscando, debe estar por",las,villas del final de la calle.,¿Le ha encontrado ya?,NO,los
+1,23,No me gusta vagabundear por,las,calles de noche.,¿Me gusta pasear de noche?,NO,los
+1,24,No puedo olvidar,las,cartas que me escribiste.,¿Tuvo impacto la correspondencia?,SI,los
+1,25,El lechero deja las botellas en la puerta por,la,mañana temprano.,NA,NA,el
+1,26,No voy a poder con,la,"clase de hoy, estoy agotada.",NA,NA,el
+1,27,En el congreso podremos hablar con,la,cabeza más brillante de este ámbito.,NA,NA,el
+1,28,Desde siempre,la,prensa sirve para aplastar cosas.,NA,NA,el
+1,29,Sin un buen equipo,la,idea no llegaría a ninguna parte.,NA,NA,el
+1,30,No podemos ignorar,la,muerte de tanta gente.,NA,NA,el
+1,31,Algunas personas tienen problemas con,la,edad de los demás.,NA,NA,el
+1,32,Mi abuela suele decir que a veces,la,verdad duele mucho.,NA,NA,el
+1,33,Mi abuelo habla mucho sobre,la,época que pasó en el campo.,NA,NA,el
+1,34,Recorrí el pasillo y abrí,la,puerta rápidamente.,NA,NA,el
+1,35,He visto a los bomberos por,la,calle del pueblo.,NA,NA,el
+1,36,Siempre recordarás mejor,la,lengua que más practiques.,NA,NA,el
+1,37,El ladrón esquivó,los,ataques del policía.,NA,NA,las
+1,38,Me encanta ver,los,teatros antes de ir a la representación.,NA,NA,las
+1,39,Para el estreno visitamos antes,los,cines y las salas.,NA,NA,las
+1,40,El alcalde se perdió al contar,los,votos electorales.,NA,NA,las
+1,41,Desarrollamos nuevas para ascender en,los,cargos de la empresa.,NA,NA,las
+1,42,Mi abuela no quiere escuchar nada sobre,los,dioses griegos del panteón.,NA,NA,las
+1,43,Está esperando,los,trenes que llevan a la ciudad.,NA,NA,las
+1,44,El testigo dejó,los,objetos sobre la mesa.,NA,NA,las
+1,45,En mi sueño estaba volando por,los,aires y veía las ciudades debajo de mí.,NA,NA,las
+1,46,Hay que abordar,los,asuntos con tacto.,NA,NA,las
+1,47,Mi padre no quiere asumir,los,riesgos de la operación.,NA,NA,las
+1,48,Para aprovechar,los,cuartos organiza mejor el espacio.,NA,NA,las
+1,49,Miramos hacia,el,lado buscando al oso.,NA,NA,la
+1,50,Para encontrar una solución debemos analizar,el,origen del problema.,NA,NA,la
+1,51,El artista seleccionó,el,papel de mejor calidad.,NA,NA,la
+1,52,Los adultos subestiman,el,efecto del estrés.,NA,NA,la
+1,53,Si vamos con,el,señor no llegaremos a tiempo.,NA,NA,la
+1,54,En clase estamos estudiado sobre,el,estado de la materia.,NA,NA,la
+1,55,Durante las vacaciones disfrutamos,el,libro por fin.,NA,NA,la
+1,56,No puede ser que,el,hijo tenga que estar a tantas cosas.,NA,NA,la
+1,57,"Hazme caso, sigue",el,camino que te dicte el estómago.,NA,NA,la
+1,58,Para hacer las cortinas necesito saber,el,tipo de tela que quieres.,NA,NA,la
+1,59,Con este examen espero conseguir,el,éxito que merezco.,NA,NA,la
+1,60,Después de entrenar estamos listas para,las,carreras solidarias.,NA,NA,los
+1,61,Era fácil admirar,las,fuentes del centro de la plaza.,NA,NA,los
+1,62,Podremos hablar con,las,mentes que han desarrollado el proyecto.,NA,NA,los
+1,63,Hay que tener en cuenta,las,figuras maternas en la infancia.,NA,NA,los
+1,64,"Era una cena especial, así que arreglamos",las,mesas elegantemente.,NA,NA,los
+1,65,No puedes tú solo con,las,cargas de la mudanza.,NA,NA,los
+1,66,Mi tío está preocupado por,las,piedras del riñón.,NA,NA,los
+1,67,Como siempre,las,labores recaen sobre mí.,NA,NA,los
+1,68,Mañana podremos ver,las,naves despegar hacia el espacio.,NA,NA,los
+1,69,Ve aminorando,las,marchas poco a poco antes de detenerte.,NA,NA,los
+1,70,El dentista debe estar cansado de ver todo el día,las,bocas de la gente.,NA,NA,los
+2,71,En clase de historia estamos haciendo un trabajo sobre,la,guerra actual.,¿Es un trabajo sobre un conflicto?,SI,el
+2,72,Se nota que es calmado por,la,manera de hablar que tiene.,¿Es una persona tranquila?,SI,el
+2,73,Hay mucha producción de aceite en,la,región del sur.,¿Es una región productora?,SI,el
+2,74,He olvidado limpiar,la,sala del fondo.,¿Está todo limpio?,NO,el
+2,75,En el centro de la ciudad puedes encontrar,la,plaza más antigua.,¿Estamos hablando del campo?,NO,el
+2,76,Tengo clases de inglés por,la,tarde a última hora.,¿Estoy aprendiendo otro idioma?,SI,el
+2,77,El documental va sobre,el,juicio del año pasado.,¿Es un documental futurista?,NO,la
+2,78,"No puedo más, voy a tomarme la medicación para",el,dolor de espalda.,¿Es una sensación muy molesta?,SI,la
+2,79,Están haciendo reformas por,el,barrio de la periferia.,¿Está habiendo cambios?,SI,la
+2,80,He acabado de limpiar,el,suelo de esta planta.,¿Está limpio el piso?,SI,la
+2,81,No juzgues tanto,el,motivo de la gente.,¿Está opinando sobre los demás?,SI,la
+2,82,Espero que no le retiren,el,apoyo o se quedará solo.,¿Está solo ahora?,NO,la
+2,83,No quiero quedarme en la ciudad durante,los,veranos calurosos.,¿Me apetece quedarme en la ciudad en verano?,NO,las
+2,84,Jugando a las cartas pasamos,los,ratos en el pueblo.,¿Nos entretenemos con juegos de mesa?,SI,las
+2,85,Entregamos el proyecto en,los,plazos previstos.,¿Nos pasamos de fecha?,NO,las
+2,86,Luego quedamos por,los,puestos de perritos.,¿Nos vemos después?,SI,las
+2,87,Me asusté muchísimo esta noche cuando escuché,los,golpes contra la pared.,¿Pasé una noche agradable?,NO,las
+2,88,Se me olvidó atar,los,cabos al barco.,¿Quedó bien amarrado?,NO,las
+2,89,Disfruté mucho al dar,las,vueltas en la noria.,¿Me lo pasé bien?,SI,los
+2,90,No puedo vencerte con,las,fuerzas que tengo.,¿Me siento invencible?,NO,los
+2,91,Espero que no cambien,las,fechas de los exámenes a estas alturas.,¿Queda poco para los exámenes?,SI,los
+2,92,Todas las semanas riego,las,plantas que tengo en el salón.,¿Riego de forma regular?,SI,los
+2,93,Está seguro de que,las,imágenes que presenta ganarán el concurso.,¿Se siente capaz de lograr el éxito?,SI,los
+2,94,El satélite capta,las,lunas perfectamente.,¿Se ven bien las lunas?,SI,los
+2,95,Es muy bonito sentirse uno más entre,la,gente del lugar.,NA,NA,el
+2,96,Tengo que tener en cuenta,la,línea discontinua para adelantar.,NA,NA,el
+2,97,Me casé para quedarme con,la,tierra de mi marido.,NA,NA,el
+2,98,Habrá un gran evento para celebrar,la,unión política.,NA,NA,el
+2,99,El camarero se enfadó con,la,mujer sin motivo.,NA,NA,el
+2,100,Estoy seguro de que tengo,la,razón necesaria para tomar esta decisión.,NA,NA,el
+2,101,Las tortugas marinas están en,la,isla para anidar.,NA,NA,el
+2,102,Mi prima estará en casa,la,semana antes del bautizo.,NA,NA,el
+2,103,Todo parece indicar que,la,obra acabará en el momento pactado.,NA,NA,el
+2,104,Espero que,la,cosa salga como planeamos.,NA,NA,el
+2,105,Este fin de semana planeo terminar,la,serie que estaba viendo.,NA,NA,el
+2,106,Me pregunto si,la,hora ha cambiado.,NA,NA,el
+2,107,El genio cumplirá,los,deseos que pidas.,NA,NA,las
+2,108,La guía muestra,los,sitios más destacados de la ciudad.,NA,NA,las
+2,109,Mi madre no puede con,los,olores del queso.,NA,NA,las
+2,110,La cantante domina perfectamente,los,tonos de voz.,NA,NA,las
+2,111,Con la autorización obtuvimos,los,accesos a la base de datos.,NA,NA,las
+2,112,Cada vez se fomenta menos la excelencia en,los,ámbitos académicos.,NA,NA,las
+2,113,Iremos a escalar,los,picos estas vacaciones.,NA,NA,las
+2,114,Quiero preguntar por,los,tamaños de las tartas que tenéis.,NA,NA,las
+2,115,Mi abuelo miraba,los,álbumes de fotos con nostalgia.,NA,NA,las
+2,116,Quiero ir a bañarme en,los,lagos esta tarde.,NA,NA,las
+2,117,"Es un especialista, ha hecho",los,marcos más espectaculares.,NA,NA,las
+2,118,Creo que si miras,el,punto fijamente empezarás a ver que se mueve.,NA,NA,la
+2,119,Esperaré hasta que des,el,paso necesario.,NA,NA,la
+2,120,En medicina estudias sobre,el,cuerpo humano.,NA,NA,la
+2,121,Esta tarde juntamos,el,grupo de amigos.,NA,NA,la
+2,122,No me sé,el,nombre de nadie aquí.,NA,NA,la
+2,123,Para una sociedad fuerte es esencial cumplir con,el,deber cívico.,NA,NA,la
+2,124,Quién iba a decir que,el,hombre llegaría tan lejos.,NA,NA,la
+2,125,No podemos ignorar,el,hecho de la semana pasada.,NA,NA,la
+2,126,En momentos difíciles valoro,el,consejo de mis amigos.,NA,NA,la
+2,127,Voy a dejar,el,debate para luego.,NA,NA,la
+2,128,Qué bonito es cuando,el,amor se corresponde.,NA,NA,la
+2,129,La calidad no siempre reside en,las,marcas de la ropa.,NA,NA,los
+2,130,Tuvimos que formar,las,colas de forma ordenada para entrar.,NA,NA,los
+2,131,Este libro contiene,las,poesías más bonitas que he leído nunca.,NA,NA,los
+2,132,Dedicó toda su vida a escribir,las,novelas de fantasía.,NA,NA,los
+2,133,No podemos sentarnos con,las,reinas de la belleza.,NA,NA,los
+2,134,No creo que esta economía pueda soportar,las,caídas de la bolsa mucho tiempo.,NA,NA,los
+2,135,Está pasando por,las,fases más intensas del duelo.,NA,NA,los
+2,136,Ya no se hace el pan como en,las,décadas pasadas.,NA,NA,los
+2,137,Ha cerrado,las,ventas de forma muy eficiente.,NA,NA,los
+2,138,El banco anunció,las,tasas de interés para préstamos.,NA,NA,los
+2,139,No encuentro,las,páginas que comentó en profesor.,NA,NA,los
+2,140,Debemos tener en cuenta,las,salidas de emergencia.,NA,NA,los
+3,141,No sé si voy a poder superar,la,prueba de acceso.,¿Estoy inseguro por test de acceso?,SI,el
+3,142,Estamos esperando pacientemente,la,ayuda pero parece que no llega.,¿Ha llegado el auxilio?,NO,el
+3,143,Con este frío ya se ve nieve en,la,cumbre de la montaña.,¿Hace mucho calor?,NO,el
+3,144,En este texto es muy fácil detectar,la,falta de ortografía.,¿Hay algún error en el texto?,SI,el
+3,145,No hay suficiente espacio en,la,cárcel del condado.,¿Hay espacio de sobra?,NO,el
+3,146,Con esta guerra,la,ciudad se ha perdido.,¿La ciudad está intacta?,NO,el
+3,147,Los niños jugaban felices en,el,campo verde y soleado.,¿Estaba lloviendo?,NO,la
+3,148,Las flores combinarán perfectamente con,el,centro de mesa.,¿Estamos decorando?,SI,la
+3,149,Para saber cuánto es pon,el,peso sobre la balanza.,¿Estás midiendo cantidades?,SI,la
+3,150,Me veo fatal con,el,pelo así de encrespado.,¿Estoy contento con mi apariencia actual?,NO,la
+3,151,Nadie se esperaba que,el,caso de corrupción fuera archivado.,¿Fue una sorpresa?,SI,la
+3,152,"Compré un boleto para la lotería, pero fallé",el,número final y no gané nada.,¿Me tocó la lotería?,NO,la
+3,153,El abuelo fue con,los,niños de paseo.,¿Se quedaron en casa?,NO,las
+3,154,Requerirás de estrategia y habilidad para ganar,los,juegos de mañana.,¿Será sencillo ganar?,NO,las
+3,155,Aún podemos escuchar,los,discos en el reproductor de vinilos.,¿Sigue funcionando el aparato?,SI,las
+3,156,No dejes que,los,perros se coman lo que hay en la mesa.,¿Tenemos un gato?,NO,las
+3,157,Mi abuelo construyó,los,muros para que no se escapen las vacas.,¿Tenía gallinas?,NO,las
+3,158,Para mi trabajo de arte quiero pintar,los,rostros de mis abuelos.,¿Voy a hacer un cuadro?,SI,las
+3,159,El profesor dejó,las,cuentas sin corregir.,¿Terminó la corrección?,NO,los
+3,160,Me han asignado,las,misiones más fáciles.,¿Va a ser una misión sencilla?,SI,los
+3,161,Queremos explorar,las,costas del sur este verano.,¿Vamos a ir a la costa norte?,NO,los
+3,162,En verano haremos,las,rutas de montaña que recorrimos año pasado.,¿Vamos a repetir el recorrido?,SI,los
+3,163,Como ya he terminado,las,tareas voy a salir a dar un paseo.,¿Voy a dar una vuelta?,SI,los
+3,164,Para terminar el trámite solo necesitamos,las,firmas de los hijos.,¿Ya está todo firmado?,NO,los
+3,165,El millonario dio a elegir entre,la,caja sorpresa o un millón de euros.,NA,NA,el
+3,166,No te entrometas en,la,vida de los demás.,NA,NA,el
+3,167,Está convencido de que,la,hija le está mintiendo.,NA,NA,el
+3,168,Al final me quede con,la,duda por no preguntar.,NA,NA,el
+3,169,Es importante establecer un acuerdo con,la,parte implicada.,NA,NA,el
+3,170,Desde este edificio,la,vista es impresionante.,NA,NA,el
+3,171,Hay que esperar unos minutos antes de quitar,la,banda de cera.,NA,NA,el
+3,172,La solidaridad impulsa,la,causa humanitaria.,NA,NA,el
+3,173,El pensamiento va antes que,la,acción casi siempre.,NA,NA,el
+3,174,Hoy es un día muy importante para,la,madre de todos.,NA,NA,el
+3,175,La receta variará mucho según,la,medida de los ingredientes.,NA,NA,el
+3,176,Me estoy estresando mucho con,los,viajes de este verano.,NA,NA,las
+3,177,Que no se me olvide hacer,los,pagos de fin de mes.,NA,NA,las
+3,178,Me aterra que suban,los,grados de dificultad.,NA,NA,las
+3,179,Esta tarde vamos a mirar,los,pisos de la agencia.,NA,NA,las
+3,180,Por fin ha asumido,los,daños que ha hecho.,NA,NA,las
+3,181,Para tomar una decisión consúltalo con,los,jefes antes de nada.,NA,NA,las
+3,182,Siempre tiene una excusa para fastidiar,los,planes a todos.,NA,NA,las
+3,183,En clase de lengua damos,los,medios de comunicación y el lenguaje.,NA,NA,las
+3,184,Mi tío preparó,los,textos que debíamos leer.,NA,NA,las
+3,185,Lo he metido todo en,los,fondos de inversión.,NA,NA,las
+3,186,Después de esta entrevista conseguiremos,los,empleos seguro.,NA,NA,las
+3,187,Estamos todavía eligiendo,los,colores para pintar las paredes.,NA,NA,las
+3,188,No me quiere decir,el,lugar que vamos a visitar.,NA,NA,la
+3,189,No puedo con,el,cambio de hora.,NA,NA,la
+3,190,No perdamos de vista,el,tiempo del marcador.,NA,NA,la
+3,191,Me gusta poder ajustar,el,nivel de dificultad en los videojuegos.,NA,NA,la
+3,192,Debemos averiguar cómo anular,el,poder del mago.,NA,NA,la
+3,193,Mi madre demostró,el,valor necesario.,NA,NA,la
+3,194,Debes confiar en,el,equipo de programadores.,NA,NA,la
+3,195,A través de los libros exploramos,el,mundo desconocido.,NA,NA,la
+3,196,Están explorando,el,sector industrial en busca de oportunidades.,NA,NA,la
+3,197,Hace unos años que,el,pueblo abandonó esta práctica.,NA,NA,la
+3,198,Asistieron al evento con,las,esposas y los hijos.,NA,NA,los
+3,199,Fuimos al teatro con,las,parejas de recién casados.,NA,NA,los
+3,200,Todos los perros son bonitos sin importar,las,razas que sean.,NA,NA,los
+3,201,En la conferencia sólo hablaban de encontrar,las,claves del éxito.,NA,NA,los
+3,202,No puedo mirar,las,caras que ponen.,NA,NA,los
+3,203,Cada vez está más de moda llevar abrigos con,las,pieles de animales.,NA,NA,los
+3,204,La semana que viene tengo,las,citas con el médico.,NA,NA,los
+3,205,Tenemos que trabajar con,las,unidades de salvamento.,NA,NA,los
+3,206,Nos hemos organizado para que,las,comidas sean a su hora.,NA,NA,los
+3,207,Mañana visitaremos,las,sedes para discutir el plan de expansión.,NA,NA,los
+3,208,Antes de salir de casa hice,las,camas de todos.,NA,NA,los
+3,209,Debemos abordar,el,"tema principal, antes de nada.",NA,NA,la
+3,210,Guardé en la nevera,el,resto de la comida.,NA,NA,la

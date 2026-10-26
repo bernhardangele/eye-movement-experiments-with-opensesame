@@ -11,9 +11,16 @@ format: revealjs
 
 ## Setup
 
+The easiest route is to reopen the folder in the devcontainer (VS Code) and open
+<http://localhost:8080> for the noVNC desktop.
+
+Or build and run the image directly:
+
 ```bash
-docker build -t eye-workshop .      # opensesame-test-container + Quarto
-docker run -it -v $PWD:/workspaces/experiments eye-workshop
+docker build -f .devcontainer/Dockerfile -t eye-workshop .
+docker run -it --rm -p 8080:8080 -v "$PWD":/workspaces/experiments eye-workshop
+# inside the container, start the X/VNC desktop:
+/home/ubuntu/start-desktop.sh &
 ```
 
 Open `experiments/osexp/*.osexp` in OpenSesame, or render these slides:
@@ -28,8 +35,11 @@ Trial sequence:
 1. `pygaze_drift_correct`
 2. `pygaze_start_recording`
 3. `pygaze_log` (trial info)
-4. `inline_script` – the paradigm
-5. `pygaze_stop_recording`, `logger`
+4. `show_gaze_target` – 50 px target at the sentence start, 250 ms fixation
+5. `inline_script` – the paradigm
+6. look at the bottom-right corner for 100 ms to end the trial
+7. `comprehension_question` + `keyboard_response` (1 = SI, 2 = NO)
+8. `logger`, `pygaze_stop_recording`
 
 ## Choosing the tracker
 
@@ -43,19 +53,24 @@ eyetracker.log('STIMONSET')
 
 ## Experiment 1: reading (`reading.osexp`)
 
-- Loop table with `item`, `condition`, `sentence`
-- Prepare phase: render the sentence on a `Canvas` (monospace font → known character positions)
-- Run phase: `show()`, log `STIMONSET`, wait for SPACE, log `TRIALEND`
+- Loop table with `item`, `condition`, `sentence`, `question`, `answer`
+- Prepare phase: render the sentence at x = 125 px, vertically centred (monospace font → known character positions)
+- Run phase: `show()`, log `STIMONSET`, wait for a 100 ms fixation in the bottom-right corner, log `TRIALEND`
+- Then show the comprehension question and collect 1 (SI) / 2 (NO)
 
 ## Experiment 2: boundary paradigm (`boundary.osexp`)
 
+- Real Spanish sentences from `sentences.csv` (10 practice + 210 experimental items)
 - Preview and target canvases prepared in advance
-- Poll gaze; when it crosses the invisible boundary, show the target canvas
-- Log `DISPLAYCHANGE` for latency analysis
+- Invisible boundary at the right edge of the pre-target word + 0.4 character
+- Poll gaze; when it crosses the boundary, show the target canvas and log `DISPLAYCHANGE` with its latency
+- Preview validity is counterbalanced by subject parity (simplified: fixed block order)
+- Trial ends at the bottom-right corner, followed by the comprehension question
 
 ```python
-if gaze_char(0) > boundary_char:
-    tar_canvas.show()
+if x > var.boundary:
+    t_post = tar_canvas.show()
+    eyetracker.log('DISPLAYCHANGE latency=%d' % (t_post - t_pre))
 ```
 
 ## Experiment 3: moving window (`movingwindow.osexp`)
@@ -63,25 +78,32 @@ if gaze_char(0) > boundary_char:
 - Window size is a column in the loop table
 - Characters outside the window become `x`, spaces are kept
 - Redraw only when the fixated character changes; log `WINDOWMOVE`
+- Same gaze target, corner end and comprehension question as the other experiments
 
 ## Experiment 4: visual world (`vwp.osexp`)
 
 - Four labelled boxes (swap for `canvas.image(...)`)
-- Preview → spoken-instruction onset (`SPOKEN_ONSET`; add a `sampler` for audio)
+- Gaze target → preview → spoken-instruction onset (`SPOKEN_ONSET`; add a `sampler` for audio)
 - Gaze samples per object logged as `SAMPLES`
+- Corner fixation ends the trial, then a comprehension question
 
 ## Building and testing the files
 
-`python experiments/build_osexp.py` regenerates the `.osexp` files (the generator holds the readable source).
+`python experiments/build_osexp.py` regenerates the `.osexp` files from the generator and
+`experiments/sentences.csv`. The generator holds the readable source; the CSV holds the real
+Spanish sentences.
 
 Headless test inside the container: run each experiment under `xvfb-run` and check the log messages.
 
 ## Analysis
 
 OpenSesame writes a CSV with one row per trial; the tracker log holds the messages.
-Read in R (`readr`) or Python (`pandas`) and compute fixation measures between `STIMONSET` and `TRIALEND`.
+Read in R (`readr`) or Python (`pandas`) and compute fixation measures between `STIMONSET` and
+`TRIALEND`. For the boundary experiment, `DISPLAYCHANGE` gives the display-change latency, and
+`preview_condition` (identical/dissimilar) identifies the condition.
 
 ## Next steps
 
-- Replace the generic stimuli by your own loop tables
+- The boundary experiment already uses the real Spanish corpus (`sentences.csv`); replace the
+  short demo stimuli in the reading and moving-window experiments with your own loop tables
 - Test display-change timing on the real setup

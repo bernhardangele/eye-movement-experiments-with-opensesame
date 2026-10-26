@@ -1,0 +1,10 @@
+services:
+  opensesame-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspaces/experiments
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

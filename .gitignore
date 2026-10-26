@@ -219,3 +219,6 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 __pycache__/
+
+# macOS
+.DS_Store
