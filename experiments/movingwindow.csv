@@ -1,0 +1,11 @@
+item,source_item,version,sentence,question,answer,corrected
+1,1001,high,El profesor ha enseñado durante muchos años en esta universidad.,¿El profesor ha enseñado durante pocos años en esta universidad?,NO,0
+2,1001,low,El profesor ha agregado algunas instrucciones importantes para el proyecto.,¿El profesor agregó instrucciones para el proyecto?,SI,0
+3,1002,high,"Aunque estaba cansado, él continuó evitando el problema complicado.",¿Dejó él de evitar el problema complicado aunque estaba cansado?,NO,0
+4,1002,low,"Aunque estaba cansado, él continuó trotando con perseverancia.",¿Él dejó de trotar aunque estaba cansado?,NO,0
+5,1003,high,"Después de terminar su tarea, leyó un libro interesante.",¿Leyó un libro interesante antes de terminar su tarea?,NO,0
+6,1003,low,"Después de terminar su tarea, pisó accidentalmente su lápiz.",¿Pisó a propósito su lápiz después de terminar su tarea?,NO,0
+7,1004,high,Al terminar la caminata llegamos a un mirador precioso.,¿Era un bonito lugar?,SI,0
+8,1004,low,Al terminar la caminata llegamos a un merendero precioso.,¿Era un bonito lugar?,SI,0
+9,1005,high,No podemos negar que el narcotráfico es un problema grave y complejo.,¿Podemos negar que el narcotráfico es un problema grave y complejo?,NO,0
+10,1005,low,No podemos negar que el supermercado tiene una gran variedad de productos frescos y de calidad.,¿Podemos negar que el supermercado tiene una gran variedad de productos frescos y de calidad?,NO,1

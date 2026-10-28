@@ -1,0 +1,139 @@
+block,item,sentence_type,comma,no_comma,question,answer,corrected
+practice,901,practice,"Hemos de elegir entre casa, piso o apartamento en la sierra de Teruel","Hemos de elegir entre casa, piso o apartamento en la sierra de Teruel",NA,NA,0
+practice,902,practice,"Las autoras Marisa Moya, Carmen Romero y Paula Soto han escrito este libro.","Las autoras Marisa Moya, Carmen Romero y Paula Soto han escrito este libro.",NA,NA,0
+practice,903,practice,"Pedro estudió mucho esta semana, ahora bien, es poco probable que apruebe.","Pedro estudió mucho esta semana, ahora bien, es poco probable que apruebe.",NA,NA,0
+practice,904,practice,"Podríamos destacar, finalmente, que este proyecto salió mejor de lo esperado.","Podríamos destacar, finalmente, que este proyecto salió mejor de lo esperado.",NA,NA,0
+practice,905,practice,"Su hermano le podía proporcionar un vehículo, pero él no sabía conducir.","Su hermano le podía proporcionar un vehículo, pero él no sabía conducir.",NA,NA,0
+practice,906,practice,"Leo no se recuperó de su enfermedad, pese a haberse intentado todo.","Leo no se recuperó de su enfermedad, pese a haberse intentado todo.",NA,NA,0
+practice,907,practice,"Mi prima Lola, la que es pelirroja, está estudiando en Nueva Zelanda.","Mi prima Lola, la que es pelirroja, está estudiando en Nueva Zelanda.",NA,NA,0
+practice,908,practice,"Quiero celebrar una fiesta después de los exámenes, aunque con poca gente.","Quiero celebrar una fiesta después de los exámenes, aunque con poca gente.",NA,NA,0
+1,1,concesiva,"Paula no podrá irse de la clase, aunque acabe el examen pronto.",Paula no podrá irse de la clase aunque acabe el examen pronto.,NA,NA,0
+1,2,concesiva,"No aprobará el curso, pese a haberse esforzado el último trimestre.",No aprobará el curso pese a haberse esforzado el último trimestre.,¿Aprobará el curso?,NO,0
+1,3,concesiva,"En verano habrá verbena, aunque prosigan las restricciones sanitarias.",En verano habrá verbena aunque prosigan las restricciones sanitarias.,NA,NA,0
+1,4,concesiva,"Déjame entrar a ver al paciente, aunque sea un momento.",Déjame entrar a ver al paciente aunque sea un momento.,NA,NA,0
+1,5,concesiva,"Me resulta difícil ser constante, aunque me guste mucho estudiar.",Me resulta difícil ser constante aunque me guste mucho estudiar.,NA,NA,0
+1,6,concesiva,"Sigo sin entenderlo bien, pese a que la maestra lo haya explicado dos veces.",Sigo sin entenderlo bien pese a que la maestra lo haya explicado dos veces.,¿Me cuesta entenderlo?,SI,0
+1,7,concesiva,"No consiguió pescar, aunque Ricardo puso todo su empeño en ello.",No consiguió pescar aunque Ricardo puso todo su empeño en ello.,NA,NA,0
+1,8,concesiva,"Permanece siempre en su recuerdo, aun intentando olvidarlo todos los días.",Permanece siempre en su recuerdo aun intentando olvidarlo todos los días.,NA,NA,0
+1,9,concesiva,"Siempre tiene flores en casa, aun siendo alérgica al polen.",Siempre tiene flores en casa aun siendo alérgica al polen.,¿Es alérgica al polen?,SI,0
+1,10,concesiva,"Continuaba teniendo errores, aun cuando pensaba que ya sabía hacerlo.",Continuaba teniendo errores aun cuando pensaba que ya sabía hacerlo.,NA,NA,0
+1,11,concesiva,"Es una persona muy responsable, aunque parezca bastante despistada.",Es una persona muy responsable aunque parezca bastante despistada.,NA,NA,0
+1,12,concesiva,"Aprobó su carrera universitaria, pese a que nadie confiara en que así fuera.",Aprobó su carrera universitaria pese a que nadie confiara en que así fuera.,NA,NA,0
+1,13,concesiva,"No descartaría la posibilidad de adoptar más, pese a que ya tengo muchos animales.",No descartaría la posibilidad de adoptar más pese a que ya tengo muchos animales.,¿Tiene pocas mascotas?,NO,0
+1,14,concesiva,"Surgieron imprevistos de última hora, aun cuando todo parecía ir encaminado.",Surgieron imprevistos de última hora aun cuando todo parecía ir encaminado.,NA,NA,0
+1,15,concesiva,"Siempre lleva ropa cara, aunque parezca un mendigo.",Siempre lleva ropa cara aunque parezca un mendigo.,NA,NA,0
+1,16,concesiva,"Retomará su vida en unas semanas, aunque sea una operación complicada.",Retomará su vida en unas semanas aunque sea una operación complicada.,NA,NA,0
+1,17,concesiva,"Sería necesario ahorrar un año más, aunque quisiera irse ya de vacaciones.",Sería necesario ahorrar un año más aunque quisiera irse ya de vacaciones.,NA,NA,0
+1,18,concesiva,"Mi madre es mayor que mi padre, aunque tenga un aspecto más juvenil.",Mi madre es mayor que mi padre aunque tenga un aspecto más juvenil.,NA,NA,0
+1,19,concesiva,"Su comida estaba deliciosa, aun llevando muy pocas especias y sal.",Su comida estaba deliciosa aun llevando muy pocas especias y sal.,¿Utilizaba muchas especias para cocinar?,NO,1
+1,20,adversativa,"Le dijo que era necesario estudiar, aunque no era lo que quería escuchar.",Le dijo que era necesario estudiar aunque no era lo que quería escuchar.,NA,NA,0
+1,21,concesiva,"Consiguió repararlo, pese a que parecía no tener solución.",Consiguió repararlo pese a que parecía no tener solución.,¿Pudo arreglarlo al final?,SI,0
+1,22,concesiva,"Nunca ganaremos sorteos, aun cuando participemos en todos los de Instagram.",Nunca ganaremos sorteos aun cuando participemos en todos los de Instagram.,NA,NA,0
+1,23,concesiva,"Carlos siempre aparece en todas las fiestas, aun cuando nunca le invitan.",Carlos siempre aparece en todas las fiestas aun cuando nunca le invitan.,¿Va Carlos a las fiestas?,SI,0
+1,24,concesiva,"Las mascarillas deberían ser obligatorias, aunque digan lo contrario.",Las mascarillas deberían ser obligatorias aunque digan lo contrario.,NA,NA,0
+1,25,concesiva,"Seguíamos manteniendo el contacto con Fernando, pese a que hacía mucho tiempo que se fue.",Seguíamos manteniendo el contacto con Fernando pese a que hacía mucho tiempo que se fue.,NA,NA,0
+1,26,concesiva,"No pienso invitarlo a mi boda, aunque mi madre esté empeñada.",No pienso invitarlo a mi boda aunque mi madre esté empeñada.,NA,NA,0
+1,27,adversativa,"Quiero contarles una cosa importante a mis abuelos, aunque no lo voy a hacer.",Quiero contarles una cosa importante a mis abuelos aunque no lo voy a hacer.,NA,NA,0
+1,28,adversativa,"Hoy hace un día buenísimo, pero mañana lloverá.",Hoy hace un día buenísimo pero mañana lloverá.,NA,NA,0
+1,29,adversativa,"Sus padres se enfadaron muchísimo, pero pronto se les pasará.",Sus padres se enfadaron muchísimo pero pronto se les pasará.,¿Estaban sus padres contentos?,NO,0
+1,30,adversativa,"Él no quiere comprarse un coche de concesionario, sino uno de segunda mano.",Él no quiere comprarse un coche de concesionario sino uno de segunda mano.,NA,NA,0
+1,31,adversativa,"No quiero que se lo entreguen en casa, sino en la oficina de correos.",No quiero que se lo entreguen en casa sino en la oficina de correos.,NA,NA,0
+1,32,adversativa,"Está lloviendo mucho, pero al menos no hace tanto calor.",Está lloviendo mucho pero al menos no hace tanto calor.,¿Hace más fresco ahora?,SI,0
+1,33,adversativa,"Todos podrán presentarse al examen, excepto aquellos que no entregaron las prácticas.",Todos podrán presentarse al examen excepto aquellos que no entregaron las prácticas.,NA,NA,0
+1,34,adversativa,"Luisa intentó convencerla, aunque no lo consiguió.",Luisa intentó convencerla aunque no lo consiguió.,NA,NA,0
+1,35,adversativa,"Juan hizo lo que quería hacer, pese a lo que tú le recomendaste.",Juan hizo lo que quería hacer pese a lo que tú le recomendaste.,NA,NA,0
+1,36,adversativa,"Tu padre no quería que lo alquilaras, sino que lo compraras.",Tu padre no quería que lo alquilaras sino que lo compraras.,¿Tu padre quería que lo alquilaras?,NO,0
+1,37,adversativa,"Mi médica me recomendó que no tomara ibuprofeno, sino paracetamol en sobres.",Mi médica me recomendó que no tomara ibuprofeno sino paracetamol en sobres.,NA,NA,0
+1,38,adversativa,"Confiaron e invirtieron dinero, pero lo perdieron todo.",Confiaron e invirtieron dinero pero lo perdieron todo.,¿Perdieron el dinero?,SI,0
+1,39,adversativa,"Se aceptaron todas las peticiones, salvo la de tu primo José.",Se aceptaron todas las peticiones salvo la de tu primo José.,NA,NA,0
+1,40,adversativa,"Creen que les traicionaron, aun y cuando dijeron que no lo volverían a hacer.",Creen que les traicionaron aun y cuando dijeron que no lo volverían a hacer.,NA,NA,0
+1,41,adversativa,"El veterinario trató de reanimarlo, pero finalmente no resultó.",El veterinario trató de reanimarlo pero finalmente no resultó.,NA,NA,0
+1,42,adversativa,"En verano no debemos consumir refrescos, sino zumos naturales de fruta.",En verano no debemos consumir refrescos sino zumos naturales de fruta.,NA,NA,0
+1,43,adversativa,"Pablo no quería estudiar medicina, pero sí trabajar como sanitario.",Pablo no quería estudiar medicina pero sí trabajar como sanitario.,¿Pablo quería ser sanitario?,SI,0
+1,44,adversativa,"El abuelo de Eva tiene neumonía, pero aparenta sentirse bien para no preocupar.",El abuelo de Eva tiene neumonía pero aparenta sentirse bien para no preocupar.,NA,NA,0
+1,45,adversativa,"Catalina no fue la culpable, sino una víctima más del accidente.",Catalina no fue la culpable sino una víctima más del accidente.,NA,NA,0
+1,46,adversativa,"Hice todo lo que tenía en mi lista, salvo limpiar la cocina y el baño.",Hice todo lo que tenía en mi lista salvo limpiar la cocina y el baño.,¿Termine todas las tareas de mi lista?,NO,0
+1,47,adversativa,"Soy intolerante a la lactosa, pero probaré tu yogurt casero.",Soy intolerante a la lactosa pero probaré tu yogurt casero.,NA,NA,0
+1,48,adversativa,"A sus padres no les gusta comprar en Mercadona, sino en tiendas del pueblo.",A sus padres no les gusta comprar en Mercadona sino en tiendas del pueblo.,NA,NA,0
+1,49,adversativa,"Todos los ríos de la zona estaban llenos de alimañas, excepto el río en el que nos bañamos.",Todos los ríos de la zona estaban llenos de alimañas excepto el río en el que nos bañamos.,NA,NA,0
+1,50,adversativa,"Desean tener descendencia, pero no están casados.",Desean tener descendencia pero no están casados.,NA,NA,0
+1,51,adversativa,"Tu primo es muy amable, excepto cuando se le lleva la contraria.",Tu primo es muy amable excepto cuando se le lleva la contraria.,NA,NA,0
+1,52,adversativa,"Eva tiene un apartamento en la playa, pero prefiere el frío del invierno.",Eva tiene un apartamento en la playa pero prefiere el frío del invierno.,¿Prefiere Eva el frío?,SI,0
+1,53,conectores,"Siempre se le veía entrenando y, finalmente, consiguió ganar el campeonato.",Siempre se le veía entrenando y finalmente consiguió ganar el campeonato.,NA,NA,0
+1,54,conectores,"Estaba disfrutando el partido y, así mismo, sus compañeros estaban muy motivados.",Estaba disfrutando el partido y así mismo sus compañeros estaban muy motivados.,NA,NA,0
+1,55,conectores,"Pablo nunca dice la verdad, es decir, es mentiroso compulsivo.",Pablo nunca dice la verdad es decir es mentiroso compulsivo.,NA,NA,0
+1,56,conectores,"No para de estudiar y, personalmente, no creo que sea necesario.",No para de estudiar y personalmente no creo que sea necesario.,NA,NA,0
+1,57,conectores,"Miriam es muy buena en matemáticas y, de hecho, se considera la mejor de su clase.",Miriam es muy buena en matemáticas y de hecho se considera la mejor de su clase.,NA,NA,0
+1,58,conectores,"Necesito acabarlo lo antes posible y, por lo tanto, no acudiré mañana a la cita.",Necesito acabarlo lo antes posible y por lo tanto no acudiré mañana a la cita.,NA,NA,0
+1,59,conectores,"Pedro falsificó sus calificaciones y, por ende, fue expulsado de la facultad.",Pedro falsificó sus calificaciones y por ende fue expulsado de la facultad.,¿Expulsaron a Pedro por golpear a un compañero?,NO,0
+1,60,conectores,"Los buitres se alimentan de carroña, es decir, comen carne en descomposición.",Los buitres se alimentan de carroña es decir comen carne en descomposición.,NA,NA,0
+1,61,conectores,"Miguel ya es veterano, es decir, lleva mucho tiempo en la empresa.",Miguel ya es veterano es decir lleva mucho tiempo en la empresa.,¿Miguel es nuevo en la empresa?,NO,0
+1,62,conectores,"Tuvieron un accidente y, en consecuencia, están en observación en el hospital.",Tuvieron un accidente y en consecuencia están en observación en el hospital.,NA,NA,0
+1,63,conectores,"Les van a embargar sus vehículos y, por tanto, no podrán irse al pueblo.",Les van a embargar sus vehículos y por tanto no podrán irse al pueblo.,NA,NA,0
+1,64,conectores,"Juan estudió magisterio y, posteriormente, se sacó psicología.",Juan estudió magisterio y posteriormente se sacó psicología.,¿Juan estudió psicología?,SI,0
+1,65,conectores,"Les gusta muchísimo el futbol, es decir, son auténticos forofos.",Les gusta muchísimo el futbol es decir son auténticos forofos.,NA,NA,0
+2,66,conectores,"Le dieron una beca y, por eso, está en la universidad.",Le dieron una beca y por eso está en la universidad.,NA,NA,0
+2,67,conectores,"Es muy indeciso y, por ello, duda mucho de lo que hace.",Es muy indeciso y por ello duda mucho de lo que hace.,¿Es una persona segura?,NO,0
+2,68,conectores,"Viajamos el mes que viene a Corea y, de hecho, tenemos ya los billetes.",Viajamos el mes que viene a Corea y de hecho tenemos ya los billetes.,NA,NA,0
+2,69,conectores,"Empezamos el viaje temprano y, por fin, llegamos a nuestro destino.",Empezamos el viaje temprano y por fin llegamos a nuestro destino.,NA,NA,0
+2,70,conectores,"No puedo soportarles, es más, preferiría no volverlos a ver.",No puedo soportarles es más preferiría no volverlos a ver.,¿Me caen mal?,SI,0
+2,71,conectores,"Te he dicho que no lo alquilaremos, es decir, olvídate de ello.",Te he dicho que no lo alquilaremos es decir olvídate de ello.,NA,NA,0
+2,72,conectores,"Hay que proponer algo, quiero decir, no deberíamos quedarnos de brazos cruzados.",Hay que proponer algo quiero decir no deberíamos quedarnos de brazos cruzados.,NA,NA,0
+2,73,conectores,"Iremos a la piscina esta tarde, ahora bien, intentaremos llegar pronto.",Iremos a la piscina esta tarde ahora bien intentaremos llegar pronto.,NA,NA,0
+2,74,conectores,"Pau veía los dibujos y, al mismo tiempo, su abuelo le preparaba el desayuno.",Pau veía los dibujos y al mismo tiempo su abuelo le preparaba el desayuno.,NA,NA,0
+2,75,conectores,"La boda de Adrián terminó tardísimo, ahora bien, nadie se quería marchar.",La boda de Adrián terminó tardísimo ahora bien nadie se quería marchar.,¿Los invitados se querían quedar en la boda?,SI,0
+2,76,conectores,"Hemos comprado quince disfraces, es más, organizaremos una fiesta para recordar.",Hemos comprado quince disfraces es más organizaremos una fiesta para recordar.,NA,NA,0
+2,77,conectores,"Sandra no come carne y, de hecho, creo que es vegetariana.",Sandra no come carne y de hecho creo que es vegetariana.,NA,NA,0
+2,78,conectores,"Sonia es más alta que Carmen, asimismo, Sonia tiene dos años más.",Sonia es más alta que Carmen asimismo Sonia tiene dos años más.,NA,NA,0
+2,79,enumeraciones,"Este año hemos viajado a Bruselas, Lanzarote y Toledo y nos ha gustado mucho.",Este año hemos viajado a Bruselas Lanzarote y Toledo y nos ha gustado mucho.,¿Nos hemos quedado en casa estas vacaciones?,NO,0
+2,80,enumeraciones,"Han de traer disfraces de sol, de luna o de nube para la representación.",Han de traer disfraces de sol de luna o de nube para la representación.,¿Es necesario traer disfraces?,SI,0
+2,81,enumeraciones,"Solo necesito a mis padres, hermanos y abuelos para vivir.",Solo necesito a mis padres hermanos y abuelos para vivir.,NA,NA,0
+2,82,enumeraciones,"Solo necesitamos dos huevos, patatas y aceite de oliva para cocinar.",Solo necesitamos dos huevos patatas y aceite de oliva para cocinar.,NA,NA,0
+2,83,enumeraciones,"Tenemos los cubiertos, el mantel y los vasos necesarios para la fiesta.",Tenemos los cubiertos el mantel y los vasos necesarios para la fiesta.,NA,NA,0
+2,84,enumeraciones,"Creo que el jazz, el folk y el blues son solo algunos de los estilos más escuchados.",Creo que el jazz el folk y el blues son solo algunos de los estilos más escuchados.,NA,NA,0
+2,85,enumeraciones,"Tengo que ir a trabajar, comprar y limpiar el coche antes de recogerlos.",Tengo que ir a trabajar comprar y limpiar el coche antes de recogerlos.,NA,NA,0
+2,86,enumeraciones,"Ana es una chica simpática, risueña y muy atenta con sus compañeros.",Ana es una chica simpática risueña y muy atenta con sus compañeros.,¿Ana es una chica agradable?,SI,0
+2,87,enumeraciones,"Pidieron pulpo a la gallega, mejillones y chipirones en el almuerzo.",Pidieron pulpo a la gallega mejillones y chipirones en el almuerzo.,NA,NA,0
+2,88,enumeraciones,"En la frutería había sandía, melón y albaricoques muy rebajados de precio.",En la frutería había sandía melón y albaricoques muy rebajados de precio.,NA,NA,0
+2,89,enumeraciones,"Con mi cámara nueva puedo grabar, montar y editar vídeos fácilmente.",Con mi cámara nueva puedo grabar montar y editar vídeos fácilmente.,¿Mi cámara nueva es útil?,SI,0
+2,90,enumeraciones,"Los colores de la bandera de Valencia son rojo, amarillo y azul en la franja.",Los colores de la bandera de Valencia son rojo amarillo y azul en la franja.,NA,NA,0
+2,91,enumeraciones,"Mi abuela Pepa era alegre, cariñosa y comprensiva con nosotros.",Mi abuela Pepa era alegre cariñosa y comprensiva con nosotros.,¿Mi abuela Pepa era una mala mujer?,NO,0
+2,92,enumeraciones,"En el festival de fin de curso participaron primaria, secundaria y bachillerato de forma voluntaria.",En el festival de fin de curso participaron primaria secundaria y bachillerato de forma voluntaria.,NA,NA,0
+2,93,enumeraciones,"Podemos elegir entre cardiología, pediatría y dermatología como especialidades.",Podemos elegir entre cardiología pediatría y dermatología como especialidades.,NA,NA,0
+2,94,enumeraciones,"Solamente falta comprar el carrito, la cuna y la silla del coche.",Solamente falta comprar el carrito la cuna y la silla del coche.,NA,NA,0
+2,95,enumeraciones,"Algunas de las indicaciones fueron darle de comer, pasear o jugar con ella.",Algunas de las indicaciones fueron darle de comer pasear o jugar con ella.,NA,NA,0
+2,96,enumeraciones,"Soledad debería tener preparados los bocatas, la bebida y el postre para la merienda.",Soledad debería tener preparados los bocatas la bebida y el postre para la merienda.,¿Soledad iba a preparar la cena?,NO,0
+2,97,enumeraciones,"¿Crees que vendrán Nuria, Pablo e Irene a la fiesta?",¿Crees que vendrán Nuria Pablo e Irene a la fiesta?,NA,NA,0
+2,98,enumeraciones,"Mi amiga dice que Cecilia, Beatriz o Noelia son algunos de los nombres para su bebé.",Mi amiga dice que Cecilia Beatriz o Noelia son algunos de los nombres para su bebé.,¿Mi amiga va a adoptar un perro?,NO,0
+2,99,enumeraciones,"A Rosario le gusta practicar yoga, pilates y meditación por las tardes.",A Rosario le gusta practicar yoga pilates y meditación por las tardes.,NA,NA,0
+2,100,enumeraciones,"Solo asistirán las empleadas, las jefas de sección y la directora a la reunión.",Solo asistirán las empleadas las jefas de sección y la directora a la reunión.,NA,NA,0
+2,101,enumeraciones,"Nos mandó una caja con galletas, bizcochos y rosquillas típicas de su pueblo.",Nos mandó una caja con galletas bizcochos y rosquillas típicas de su pueblo.,NA,NA,0
+2,102,enumeraciones,"¿Necesitaremos comprar linternas, sacos de dormir y gorras para la acampada?",¿Necesitaremos comprar linternas sacos de dormir y gorras para la acampada?,NA,NA,0
+2,103,enumeraciones,"Era conocido en el barrio por ser mezquino, grotesco y cruel con sus vecinos.",Era conocido en el barrio por ser mezquino grotesco y cruel con sus vecinos.,NA,NA,0
+2,104,enumeraciones,"Creo que Pilar, Simón y Pablo pasarán a la semifinal del campeonato de futbolín.",Creo que Pilar Simón y Pablo pasarán a la semifinal del campeonato de futbolín.,NA,NA,0
+2,105,incisos,"Mis dos tortugas, Paula y Alba, tienen más de siete años.",Mis dos tortugas Paula y Alba tienen más de siete años.,NA,NA,0
+2,106,incisos,"Los helados veganos, especialmente los que venden en Consum, están muy buenos.",Los helados veganos especialmente los que venden en Consum están muy buenos.,¿Están buenos esos helados?,SI,0
+2,107,incisos,"César Gómez, ginecólogo, atendió a mi madre.",César Gómez ginecólogo atendió a mi madre.,NA,NA,0
+2,108,incisos,"Fuimos de compras con Asier, mi amigo del colegio, por el centro de la ciudad.",Fuimos de compras con Asier mi amigo del colegio por el centro de la ciudad.,NA,NA,0
+2,109,incisos,"Yolanda Juárez, una buena amiga, convivirá con nosotros durante un mes.",Yolanda Juárez una buena amiga convivirá con nosotros durante un mes.,NA,NA,0
+2,110,incisos,"Nuestra barriada, según mi padre, era peligrosísima hasta hace pocos años.",Nuestra barriada según mi padre era peligrosísima hasta hace pocos años.,¿Era segura nuestra zona hace unos años?,NO,0
+2,111,incisos,"Los montañeros españoles, según cuentan, se adentraron en la montaña helada.",Los montañeros españoles según cuentan se adentraron en la montaña helada.,NA,NA,0
+2,112,incisos,"El bocata del almuerzo, tras haber estado en la mochila, estaba aplastado.",El bocata del almuerzo tras haber estado en la mochila estaba aplastado.,NA,NA,0
+2,113,incisos,"Sus primos lejanos, quienes tenían una gran fortuna, les invitaron a Colombia.",Sus primos lejanos quienes tenían una gran fortuna les invitaron a Colombia.,NA,NA,0
+2,114,incisos,"Luis Fernández, gran comunicador, convocará a los medios mañana.",Luis Fernández gran comunicador convocará a los medios mañana.,NA,NA,0
+2,115,incisos,"Mario Lozano, el hijo de Naomi, tiene un comportamiento ejemplar.",Mario Lozano el hijo de Naomi tiene un comportamiento ejemplar.,¿Se porta bien el niño?,SI,0
+2,116,incisos,"Las grandes estudiantes, Nerea y Maya, aprobaron la carrera con honores.",Las grandes estudiantes Nerea y Maya aprobaron la carrera con honores.,¿Nerea y Maya eran buenas estudiantes?,SI,0
+2,117,incisos,"El antiguo Hospital Provincial, uno de los mejores de la ciudad, estaba localizado a las afueras.",El antiguo Hospital Provincial uno de los mejores de la ciudad estaba localizado a las afueras.,NA,NA,0
+2,118,incisos,"Allí en Madrid, la capital española, se elaboran los mejores bocatas de calamares.",Allí en Madrid la capital española se elaboran los mejores bocatas de calamares.,NA,NA,0
+2,119,incisos,"Los nuevos inquilinos, los del cuarto, llevan taladrando desde ayer.",Los nuevos inquilinos los del cuarto llevan taladrando desde ayer.,¿Son silenciosos los nuevos vecinos?,NO,0
+2,120,incisos,"Algunos asistentes, los que estaban sentados al final, abandonaron el teatro.",Algunos asistentes los que estaban sentados al final abandonaron el teatro.,NA,NA,0
+2,121,incisos,"Margarita Domínguez, maestra de infantil, nos cuenta cómo podemos aplicar su proyecto.",Margarita Domínguez maestra de infantil nos cuenta cómo podemos aplicar su proyecto.,NA,NA,0
+2,122,incisos,"El derecho a la educación fue aprobado, según mi enciclopedia, a mediados del siglo pasado.",El derecho a la educación fue aprobado según mi enciclopedia a mediados del siglo pasado.,NA,NA,0
+2,123,incisos,"Cuando apareció Jacinta Sánchez, la bisabuela, todos aplaudimos y la felicitamos.",Cuando apareció Jacinta Sánchez la bisabuela todos aplaudimos y la felicitamos.,¿Apareció el abuelo José?,NO,0
+2,124,incisos,"Estos dos helados, el de chocolate y el de vainilla, suelen estar agotados.",Estos dos helados el de chocolate y el de vainilla suelen estar agotados.,NA,NA,0
+2,125,incisos,"Carmen Castelló, la arquitecta, diseñará el edificio.",Carmen Castelló la arquitecta diseñará el edificio.,NA,NA,0
+2,126,incisos,"Adolfo Pellicer, fotógrafo de profesión, se casó con la hija del alcalde.",Adolfo Pellicer fotógrafo de profesión se casó con la hija del alcalde.,¿La hija del alcalde se casó con un ingeniero?,NO,0
+2,127,incisos,"El padre de Marina, el farmacéutico, siempre está en la piscina.",El padre de Marina el farmacéutico siempre está en la piscina.,NA,NA,0
+2,128,incisos,"Las vecinas del quinto, María y Pilar, son las maestras de mi hija.",Las vecinas del quinto María y Pilar son las maestras de mi hija.,NA,NA,0
+2,129,incisos,"Sus dos hermanastros, Ramón y Pablo, realizaron paracaidismo este verano.",Sus dos hermanastros Ramón y Pablo realizaron paracaidismo este verano.,NA,NA,0
+2,130,incisos,"Cuando vino Alejandra, la sobrina de Marina, todo el vecindario se alarmó.",Cuando vino Alejandra la sobrina de Marina todo el vecindario se alarmó.,NA,NA,0

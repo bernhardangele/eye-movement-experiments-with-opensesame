@@ -222,3 +222,12 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Workshop: rendered slides and data from test runs
+slides/workshop.html
+slides/workshop_files/
+slides/.quarto/
+subject-*.csv
+
+# Fonts used only to verify the interest areas locally (licensed, not redistributable)
+examples/*.ttf
