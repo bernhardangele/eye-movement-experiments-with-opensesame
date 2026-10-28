@@ -1,0 +1,9 @@
+target,competitor,distractor1,distractor2,sound,target_onset,sound_duration
+candle,candy,chair,apple,click_candle.wav,672,1107
+candy,candle,chair,apple,click_candy.wav,672,1123
+bell,belt,fish,key,click_bell.wav,672,844
+belt,bell,fish,key,click_belt.wav,672,935
+cat,cap,tree,cup,click_cat.wav,672,972
+cap,cat,tree,cup,click_cap.wav,672,952
+star,stairs,moon,heart,click_star.wav,672,1217
+stairs,star,moon,heart,click_stairs.wav,672,1377

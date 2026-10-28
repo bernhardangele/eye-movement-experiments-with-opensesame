@@ -1,0 +1,508 @@
+---
+title             : |
+    | Reading(,) with and without commas
+shorttitle        : "Reading without commas"
+author: 
+    
+  - name          : "Bernhard Angele"
+    affiliation   : "1,2"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Centro de Investigación Nebrija en Cognición (CINC), Universidad Nebrija, Calle Santa Cruz del Marcenado, 27, 28015 Madrid, Spain"
+    email         : "bangele1@nebrija.es"
+  - name          : "Ismael Gutiérrez-Cordero"
+    affiliation   : "3"
+  - name          : "Manuel Perea"
+    affiliation   : "1,4"
+  - name          : "Ana Marcet"
+    affiliation   : "4"
+affiliation:
+    
+  - id            : "1"
+    institution   : "Centro de Investigación Nebrija en Cognición (CINC), Universidad Antonio de Nebrija, Madrid, Spain"
+  - id            : "2"
+    institution   : "Bournemouth University, Poole, UK"
+  - id            : "3"
+    institution   : "Universidad de Málaga, Málaga, Spain"
+  - id            : "4"
+    institution   : "Universitat de València, Valencia, Spain"
+note: "\\clearpage"
+authornote: |
+  
+  This research has been partly supported by Grant PID2020-116740 GB-I00 (funded by the MCIN/AEI/10.13039/501100011033) from the Spanish Ministry of Science and Innovation (MP), Grant CIAICO/2021/172 from the Valencian Government (MP), Grant GV/2020/074 from the Department of Innovation, Universities, Science, and Digital Society of the Valencian Government (AM) and a Convidats Grant from the University of València (BA). IGC was funded by a Ph.D. scholarship from the Universidad de Málaga. The authors report no conflict of interest.
+  
+abstract: |
+  
+  All major writing systems mandate the use of commas to separate clauses and list items. However, casual writers often omit mandatory commas (Lunsford & Lunsford, 2008). Little empirical or theoretical research has been done on the effect that omitting mandatory commas has on eye movement control during reading. We present an eye-tracking experiment in Spanish, a language with a clear standard as to mandatory comma use. Sentences were presented with or without mandatory commas while readers' eye movements were recorded. There was a local increase in in go-past time for the pre-comma region when commas were presented, which was balanced out by shorter first-pass and second-pass times on the subsequent regions. In global sentence reading time, there was no evidence for an advantage of presenting commas. These findings suggest that, even when commas are mandatory, their effect is primarily to shift when processing takes place rather than to facilitate processing overall.
+  
+keywords          : "Reading, eye movements, punctuation, sentence processing"
+wordcount         : "6893"
+floatsintext      : yes
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : no
+mask              : no
+draft             : no
+csl               : "apa.csl"
+documentclass     : "apa6"
+classoption       : "man"
+output:
+  papaja::apa6_pdf:
+    keep_tex: TRUE
+bibliography: ["references.bib", "r-references.bib"]
+editor_options: 
+  chunk_output_type: con
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup, include = FALSE}
+# packages
+library(tidyverse)
+library(kableExtra)
+library("papaja")
+library(brms)
+
+# data
+load("comma_eye_movement_measures.RData")
+
+# analyses
+
+# just loading BRMS model summaries generated and saved in comma_brms.R
+# We can put the summaries on GitHub, but not the actual MCMC samples, since they are too large
+load("brms_commas_only_summaries.RData")
+
+# make bib file for package references
+r_refs("r-references.bib")
+
+# convenience function to format descriptive summary statistics as "mean (sd)"
+print_mean_sd <- function(datum, digits_mean = 0, digits_sd = 2){
+  str_glue("{mean(datum) %>% apa_num(digits = digits_mean)} ({(sd(datum)) %>% apa_num(digits = digits_sd)})")
+}
+
+# convenience function to format inferential summary statistics as "mean (se)"
+print_mean_se <- function(datum, digits_mean = 0, digits_se = 2){
+  str_glue("{mean(datum) %>% apa_num(digits = digits_mean)} ({(sd(datum)/sqrt(length(datum))) %>% apa_num(digits = digits_se)})")
+}
+
+# convenience function to format range summary statistics as "min -- max"
+print_range <- function(datum, digits_min = 2, digits_max = 2){
+  str_glue("({min(datum) %>% apa_num(digits = digits_min)} -- {max(datum) %>% apa_num(digits = digits_max)})")
+}
+
+print_mean_sd_range <- function(datum, digits_mean = 2, digits_sd = 2, digits_min = 0, digits_max = 0){
+  str_glue("{mean(datum) %>% apa_num(digits = digits_mean)} ({(sd(datum)) %>% apa_num(digits = digits_sd)}; {min(datum) %>% apa_num(digits = digits_min)} -- {max(datum) %>% apa_num(digits = digits_max)})")
+}
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+Nowadays, all- major writing systems require the use of commas in certain situations, for example, in between clauses or between the first and second item in a list.
+Commas are thought to fulfill a dual role in most writing systems: First, to give prosodic cues to the reader indicating where a pause should be made [@chafe1988], and, second, to provide syntactic information about how the sentence should be parsed [e.g., @figuerasbatesPragmaticaPuntuacionNuevas2015].
+
+It is important to note that commas are a relatively recent addition to writing systems.
+Much of ancient writing contained neither spaces nor punctuation; where punctuation was used, it was used for the first purpose, indicating to readers where to pause when reading a text aloud.
+Commas to disambiguate the syntactic structure of a sentence in order to aid a silent reader were only established much later, first by medieval scribes and then by printers [@figuerasbatesPragmaticaPuntuacionNuevas2015].
+Over time, the rules for when to use and when to omit commas have become more and more rigid [as exemplified, e.g., by the bestselling book by @truss2003; or the style guide by @traskPenguinGuidePunctuation2019].
+However, there remain many areas, such as the so-called Oxford or serial comma, where even authors of prescriptive grammars do not agree.
+There are also some writers who purposefully do not follow standard punctuation rules, such as, in English, Gertrude Stein, who was completely against the use of commas in general [@stein1957] and James Joyce, who often omitted commas for stylistic effect [@senn2014].
+In practice, most writers will use commas on some occasions, but comma use is often inconsistent even in situations when it is mandatory according to prescriptive grammars and style guides, such as in structures such as those in examples (1) and (2) [see, for example, @baronCommasCanariesRole2001 on differences and changes in writing styles across time and culture]:
+
+> (1) The student(,) knowing she was out of time(,) decided to submit her work.
+>
+> (2) The waiter brought to the table a couple of pizzas, some different pastas (,) and drinks.
+
+In (1), the parenthetic phrase *knowing she was out of time* needs to be set off by commas according to most prescriptive grammars and style guides [e.g. @strunkElementsStyleFourth2009; @traskPenguinGuidePunctuation2019], but either one of these, or both, may be omitted by writers[^1]; (2) is of course the Oxford or serial comma, the use of which is still debated even by authors of style guides, but even writers with a strong position on this point are often inconsistent in practice.
+
+[^1]: Indeed, this flexibility is heavily used by Joyce to create an effect of density.
+
+Given many writers' apparent disregard for comma usage recommendations in practice, the question is whether this type of inconsistency can affect the reading process.
+If commas are omitted, according to the purposes of commas described above, this removes cues as to when to pause while reading a sentence and may introduce syntactic ambiguities [e.g., @hirotaniPunctuationIntonationEffects2006].
+Prior studies have shown that readers generally spend more time attending to or processing the end of syntactic structures such as clauses or sentences, whether processing spoken or written discourse [@hillCommasSpacesEffects2000; @justTheoryReadingEye1980; @raynerEffectClauseWrapUp2000].
+In reading, the increase in fixation times ahead of the end of a clause is generally known as a *wrap-up effect* [@justTheoryReadingEye1980].
+Wrap-up effects are generally interpreted to reflect the additional work needed at the end of a clause to integrate the preceding information into the syntactic and semantic structure of the sentence and to resolve any difficulties or ambiguities before updating the discourse representation and proceeding to the next clause or sentence.
+Thus, wrap-up processes may serve to incorporate new information into the text representation in long-term memory, reducing the processing load in working memory before continuing to the next clause [@hirotaniPunctuationIntonationEffects2006; @justTheoryReadingEye1980; @raynerEffectClauseWrapUp2000; @stine-morrow2010; see also @andrewsWrappingSentenceComprehension2021].
+Wrap-up effects are also triggered by pauses in spoken language, i.e., prosodic boundaries.
+Indeed, electrophysiological studies have shown that readers are sensitive to the presence of commas and segment sentences accordingly during syntactic processing [@steinhauerProsodicBoundariesComma2001], just as listeners do when presented with intonational pauses in speech [@hagoortERPEffectsListening2000; @steinhauerBrainPotentialsIndicate1999].
+
+However, it is not clear whether this additional processing time at the end of clauses is actually necessary for parsing the syntactic structure of a sentence.
+As @hirotaniPunctuationIntonationEffects2006 pointed out, early models of parsing assumed that the final syntactic structure was created at the end of the sentence [e.g., @fodorPsychologyLanguageIntroduction1974].
+However, newer models of parsing such as the Garden Path Model [@frazierMakingCorrectingErrors1982], the Unrestricted Race Model [@vangompelUnrestrictedRaceNew2000], and the stochastic multiple-channel model of ambiguity resolution [@logacevMultipleChannelModelTaskDependent2016] assume that new words are integrated into the syntactic structure (or structures) being constructed as soon as they are identified, so that a clause or sentence-final wrap-up process would seem unnecessary unless there is a particular processing difficulty at that point.
+@hirotaniPunctuationIntonationEffects2006 suggested that wrap-up effects may instead be a consequence of readers generating an implicit representation of the prosody of the sentence, which would involve an intonation boundary (i.e., a pause) after a comma.
+They hypothesise that this pause does not help with processing the sentence; instead, it would be a consequence of the "parasitic" nature of the reading process that recruits processes used in spoken language comprehension.
+Because of this, @hirotaniPunctuationIntonationEffects2006 prefer to refer to effects of longer reading times before comma as *dwell time* rather than wrap-up.
+Nonetheless, we will continue to use the term *wrap-up* as it is more established while remaining agnostic about the nature of the processes during these extended reading periods before a comma.
+
+There are not many results in the literature that speak to the question of how readers process commas.
+One exception is the study by @hirotaniPunctuationIntonationEffects2006, who reported a series of eye tracking experiments which broadly confirmed their hypothesis that increased dwell times before commas do not reflect wrap-up processes.
+When including redundant commas (i.e. commas that were not critical to the interpretation of a sentence), this seemed to facilitate overall reading, despite locally longer reading times ahead of the commas.
+However, when the commas changed the interpretation of the sentence there was no evidence for a change in global sentence reading times -- the local increase in reading time was offset by a decrease in reading time after the commas.
+An unpublished earlier study by Hirotani [cited in @hirotaniPunctuationIntonationEffects2006] found that wrap-up time ahead of the end of a sentence was not influenced by the presence or absence of commas, suggesting that the final wrap-up time does not depend on any potential processing happening before commas.
+
+@warrenInvestigatingCausesWrapup2009 and @stine-morrow2010 generalised the approach used by @hirotaniPunctuationIntonationEffects2006 with a more controlled set of materials involving both commas and full stops (e.g. *"Joe and Bob phoned. Before leaving, Bob needed directions"* vs. *"Joe and Bob phoned, before leaving. Bob needed directions"* and *"Joe and Bob phoned before leaving. Bob needed directions"*).
+@warrenInvestigatingCausesWrapup2009 found that the size of apparent wrap-up effects before commas was not influenced by the complexity of the preceding clause.
+Furthermore, the wrap-up effects were apparent even in very early measures of eye movements such as first fixation duration, which reflects processing before a word is even completely identified and as such are incompatible with the view that wrap-up effects only reflect integration processes happening later on.
+@stine-morrow2010 found that older participants appeared to show a stronger tendency to engage in apparent "wrap-up" processing where a boundary before weak clause boundaries (commas) than younger participants, followed by faster processing after the boundary.
+Strongly marked boundaries (period/full stop) triggered "wrap-up" processing in both younger and older participants, again with a subsequent facilitation.
+@stine-morrow2010 called this the "pay now or pay later" effect, where participants chose to either pay the processing cost immediately or later (but with the overall cost of processing the clauses staying the same no matter when it is paid).
+Finally, in a recent study, @andrewsWrappingSentenceComprehension2021 also examined whether this effect was modulated by the reading comprehension load (i.e., whether questions were presented after 25% of trials [as in the typical sentence reading experiments] or after each trial).
+While they found longer fixations and more regressions for the high-load conditions, these effects did not affect the "pay now or pay later" effect.
+
+One aspect that the studies by @hirotaniPunctuationIntonationEffects2006, @warrenInvestigatingCausesWrapup2009, @stine-morrow2010, and @andrewsWrappingSentenceComprehension2021 had in common is that all of the sentences presented had correct punctuation.
+While, in some of the experiments, the inclusion of commas changed the meaning of the sentences, there never was a case where the omission of a comma would result in incorrect punctuation as defined by style guides such as @strunkElementsStyleFourth2009.
+In the present study, we presented or omitted mandatory commas instead of optional commas.
+This manipulation presents a stronger test of the question of whether commas actually help the reading process, or whether they are rather a reflection of stylistic conventions without a major impact on language processing.
+Given the lack of strong evidence for the existence of wrap-up syntactic processing, and the observation that many writers, even in formal writing, do not observe the rules of comma usage as strictly as they do other punctuation and orthography rules, it may well be that commas are not as essential as they seem to be.
+For example, @lunsfordMistakesAreFact2008 found that US college students often omit mandatory commas.
+
+The main goal of the present study is to investigate the impact of comma omission during sentence reading in Spanish.
+The advantage of using Spanish is that, unlike English, there is an official authority on orthography and punctuation: the *Real Academia de la Lengua Española (RAE).* Indeed, the usage of accent marks is taught extensively in the classes of Language and Literature in primary and secondary education [e.g., @marcetUseCommasSecondaryeducation2022].
+Critically, while there are cases in which the use of comma in Spanish depends on the author's style or intentions (e.g., "De dinero no hablamos nunca" vs. "De dinero, no hablamos nunca"; [We never talk about money]), the RAE's *Diccionario panhispánico de dudas* [Pan-Hispanic Dictionary of Doubts, @realacademiadelalenguaespanolaDiccionarioPanhispanicoDudas2015] identifies a number of cases in which the use of commas is mandatory.
+Out of these, we selected five typical usage cases: enumerative, adversative, concessive, consecutive and parenthetical (for examples, see Table \@ref(tab:example-sentences-table)).
+We chose these cases because recent research has shown that university students are close to ceiling as to the use of these norms in written formal texts [e.g., see @marcetUseCommasSecondaryeducation2022]. In the present study, we include sentences containing examples of each of these prominent mandatory comma uses and investigate the effect that the presence and absence of these commas has on global and local processing as reflected by the readers' eye movement record.
+
+(ref:example-sentences-table-caption) Examples of each of the sentence types used along with translations.
+
+```{r example-sentences-table}
+example_sentences <- read_csv(file = "table_example_sentences.csv")
+apa_table(example_sentences, caption = "(ref:example-sentences-table-caption) ") %>% 
+  `attr<-`("format", "latex") %>% # fix suggested by Marius Barth at https://stackoverflow.com/questions/69301279/styling-an-apa-table-with-kableextra and may break
+  column_spec(1:3, width = "5cm") # kableExtra is needed to get the table to fit the page and introduce word wrap
+  
+```
+
+Currently, there is no model of eye movements in reading that makes concrete predictions about the effect of using or omitting mandatory commas on reading sentences.
+Wrap-up effects would be classified as higher-level processing, and models so far have been focusing on lower-level processing such as word identification.
+One exception is E-Z Reader 10 [@reichleUsingEZReader2009], which introduced two parameters related to higher-level processing: a postlexical integration stage with duration *I*, which has a probability *pF* of integration failure.
+@warrenInvestigatingCausesWrapup2009 used E-Z Reader 10 to model readers' eye movements during wrap-up triggered by a comma and a full stop (compared to a control condition without punctuation), allowing *I* and *pF* to vary between these conditions.
+They replicated, qualitatively, the general pattern.
+However, repurposing the *I* and the *pF* parameters as done by @warrenInvestigatingCausesWrapup2009 changes their interpretation compared with how they were introduced in E-Z Reader 10 [@reichleUsingEZReader2009].
+This becomes evident given that the model fits showed that the *I* parameter for the target (pre-punctuation) region was estimated to be lowest in the full stop condition and highest when there was no punctuation.
+The *pF* parameter, on the other hand, was lowest when there was no punctuation and highest in the full stop condition, while both parameters were higher for high syntactic complexity compared to low-complexity sentences.
+It is not clear why punctuation should lead to lower integration times, suggesting that the interpretation of *I* is not as straightforward as suggested.
+@warrenInvestigatingCausesWrapup2009 interpret the decrease in *I* as evidence of higher sensitivity to upcoming disruption, but this changes the original interpretation of the integration stage from a reflection of "all of the postlexical processing necessary to integrate word *n* into the higher level representations that readers construct online" [@reichleUsingEZReader2009, p. 5] to something more akin to a process that identifies potential parsing issues and then stops.
+In any case, @warrenInvestigatingCausesWrapup2009 concede that Hirotani et al.'s [-@hirotaniPunctuationIntonationEffects2006] interpretation of wrap-up effects as pauses caused by implicit prosody might also be valid.
+One important difference between Warren et al.'s [-@warrenInvestigatingCausesWrapup2009] materials and the ones used in the present study is that Warren et al.'s [-@warrenInvestigatingCausesWrapup2009] sentences all featured correct punctuation, while our sentences without commas are incorrectly missing mandatory commas.
+
+At a global level, if commas are indeed critical to the integration process, we would expect that their omission should lead to stronger and more fundamental integration issues in the present study compared to Warren et al.'s [-@warrenInvestigatingCausesWrapup2009] experiment and, thus, longer reading times.
+Alternatively, based on the lack of clear evidence for wrap-up processing described above, we might expect the difference in global reading time between the comma and no comma versions of the sentences to be rather small or non-existent.
+This last outcome would be consistent with a recent finding concerning another mandatory, but potentially redundant orthographic feature in Spanish, vowel accent marks [@marcetDoesOmittingAccent2022].
+
+At a local level, based on the observations by @hirotaniPunctuationIntonationEffects2006, @warrenInvestigatingCausesWrapup2009, @stine-morrow2010, and @andrewsWrappingSentenceComprehension2021 we do expect local wrap-up effects ahead of the commas.
+That is, in the comma version of each sentence, the words preceding the commas should be fixated longer than the same words in the no-comma version of the sentence.
+These local effects may, however, be balanced out by faster processing after the comma.
+If there are effects, we would expect them to be more evident in later processing (as reflected by go-past time and total viewing time) rather than earlier processing (as reflected by first fixation duration and gaze duration).
+
+We do not have a particular hypothesis about differences in terms of comma presence or absence between the different comma uses and therefore will not include an analysis to this effect.
+Indeed, @marcetUseCommasSecondaryeducation2022 found that university students (unlike secondary and primary school students) know the punctuation rules in all of the five comma use cases we investigated.
+We must also keep in mind that it would not be feasible to construct sentences with the various types of commas uses that are matched on all critical psycholinguistic factors, and, as a consequence, any difference between comma usages would be confounded with other systematic differences between the sentence structures.
+
+# Method
+
+We report here how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the two experiments.
+<!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) --> The experiment was preregistered; the preregistration form can be found at <https://osf.io/am9w7/?view_only=309f472bacfd4789b4e9c718cd0a0977>, while the materials, data files and R code for the analysis can be accessed at <https://osf.io/z4ptv/?view_only=37c0ba5b8fe84cdab4d60d2e829a0025>.
+
+## Participants
+
+Thirty-two undergraduate students (27 women) from the University of València, aged from 19 to 39 years (mean age 21.97), participated in this study in exchange for a small compensation (3€).
+All were native Spanish speakers, reported normal vision and no previous diagnosis of reading disorders and were naïve as to the purpose of the study.
+All the participants gave informed consent before the experiment.
+This research followed the principles and guidelines of the Declaration of Helsinki, and we obtained ethical approval from the Research Ethics Committee of the University of València.
+
+## Rationale for sample size
+
+The aim was to have a minimum of 1,800 observations per condition, using the rule of thumb recommended for small effect sizes by @brysbaertPowerAnalysisEffect2018.
+We met this goal for the comparison between the comma and non-comma conditions with 28 participants.
+
+(ref:sentence-word-statistics-table-caption) Descriptive statistics (mean, standard deviation, and range) for number of words and word length in characters for each of the interest areas. Commas are not included in the character count.
+
+```{r sentence-word-statistics-table}
+words_statistics <- read_csv(file = "words_statistics_for_manuscript.csv") %>%
+  mutate(region = factor(region, 
+         levels = c("Sentence initial",
+                  "Pre-comma",
+                  "Immediate post-comma",
+                  "Second post-comma",
+                  "Sentence final"))) 
+
+sentence_statistics <- words_statistics %>% 
+  # need to count only one condition, otherwise we are counting words in regions double
+  filter(condition == "original") %>%
+  group_by(sentence_number, region) %>%
+  summarize(region_length = n()) %>% 
+  group_by(region) %>%
+  summarize(mean_sd_length = print_mean_sd(region_length, digits_mean = 2, digits_sd = 2))
+
+words_statistics_for_manuscript <- words_statistics %>% 
+  filter(condition == "original") %>%
+  group_by(region) %>%
+  summarize(stats_n_words = print_mean_sd_range(nchar(word), digits_mean = 2))
+
+sentence_word_statistics <- cbind(sentence_statistics, words_statistics_for_manuscript %>% select(-region))
+
+colnames(sentence_word_statistics) <- c("Region", "Words in region", "Word length (characters)")
+apa_table(sentence_word_statistics, caption = "(ref:sentence-word-statistics-table-caption)", note = "Values given as Mean (SD; Range)")
+```
+
+## Materials
+
+A total of 130 sentences (in addition to eight practice sentences) containing one or more commas were generated for the experiment.
+We included the same proportion (26 sentences) of five different types of comma uses: concessive, adversative, consecutive, enumerative and parenthetical some examples are displayed in Table \@ref(tab:example-sentences-table).
+In the experiment, these sentences were either presented with the commas mandated by the RAE [@realacademiadelalenguaespanolaDiccionarioPanhispanicoDudas2015] (e.g., `Siempre tiene flores en casa, aun siendo alérgica al polen`) or without them (e.g., `Siempre tiene flores en casa aun siendo alérgica al polen`).
+Depending on the sentence type, this could be one comma or two (e.g., for the parentheticals).
+As usual in sentence reading experiments, simple comprehension questions were written for 34 of the sentences (i.e., approximately 26% of sentences; example question: `¿Es alérgica al polen? Sí/No`; translation: *Is she allergic to pollen? Yes/No*). Table \@ref(tab:sentence-word-statistics-table) shows statistics for number of words and number of characters per word for each of the interest areas.
+
+## Apparatus
+
+An SR Research Eyelink 1000+ video-based eye tracker (SR Research Ltd., Canada) was used to record participants' eye movements while reading sentences with a sampling rate of 1000 Hz.
+Sentences were presented on a 24-inch LCD Asus VG248 monitor with a refresh rate of 144 Hz using a Windows-based computer running the EyeTrack software from the University of Massachusetts (<https://blogs.umass.edu/eyelab/software/>).
+Viewing was binocular, but only eye movement data from the participant's right eye were recorded.
+During the experiment, participants were seated approximately 60 cm from the monitor with their head on a chin-and-forehead rest in order to reduce movements.
+
+## Procedure
+
+The experiment took place in a dimly lit and quiet room.
+Participants were instructed that they were going to be presented with individual sentences and asked to read them silently for comprehension.
+They were not instructed specifically about the presence or absence of commas in the sentences.
+They were informed that about 25% of the sentences would be followed by comprehension questions.
+At the beginning of the experiment, the eye-tracker was calibrated using a three-point calibration.
+This procedure was repeated whenever needed.
+Each trial started with a drift check at the centre of the screen followed by a rectangular gaze target at the left centre of the screen.
+Once participants had fixated the gaze target for 250 ms, the sentence appeared, with the first word positioned where the gaze target had been.
+The two comma presentation conditions were counterbalanced such that all participants saw the same number of sentences with and without commas and that each item was seen the same number of times with and without commas.
+Each sentence was seen by each participant exactly once.
+Participants indicated that they had finished reading each sentence by pressing a button on the Eyelink response box (Microsoft Sidewinder Gamepad).
+If the sentence had a comprehension question, it was presented after the end of the trial, with participants responding "Yes" or "No" using the response box triggers.
+The experiment lasted for about 20 min.
+
+## Data analysis and dependent variables
+
+For each trial, we calculated fixation times and positions and aggregated this information first globally into sentence reading time, number of forward, and number of regressive fixations.
+We additionally calculated local measures for each region of interest, aggregating the fixations into gaze duration (GD; first fixation on a region plus all refixations before leaving the region), go-past time (gaze duration plus any refixations prior to leaving the region towards the right, also known as regression path duration), and total viewing time (TVT; gaze duration plus any refixations at any point in time during the trial).
+We calculated these local measures for the sentence-initial region (the words up to the second last word before the comma), pre-comma region (the first word immediately prior to the first comma; e.g., in the sentence `Siempre tiene flores en casa, aun siendo alérgica al polen` the pre-comma region would be *casa*), the immediate post-comma region (the word or words immediately to the right of the comma, e.g., *aun*, *pero*, *es más*, *pediatría* and *María y Pilar* in the example sentences), and the second post-comma region (the word or phrase immediately to the right of the immediate post-comma region, except in cases where that word had only two or three letters, in which case we added the subsequent word as well (e.g., *son las* in the sentence `Las vecinas del quinto, María y Pilar, son las maestras de mi hija`).
+
+We analysed the data by fitting Bayesian linear mixed models using the *brms* package [@R-brms_a; @R-brms_b; @R-brms_c] in R[^2].
+These models included the comma presentation condition as a categorical fixed effect, with "comma present" coded as -0.5 and "comma absent" coded as 0.5 [@schadHowCapitalizePriori2020].
+We included maximum random effects structure for each global measure [@barrRandomEffectsStructure2013], using the ex-Gaussian distribution to model global sentence reading time and fixation time measures by region, with both the mean of the Gaussian component $\mu$ and the scale parameter of the exponential component $\beta$ (equaling the inverse of the rate parameter $\lambda$) being allowed to vary between conditions.
+Ex-Gaussian distributions have been shown to be more representative of distributions of reaction times [@ratcliffGroupReactionTime1979] and fixation durations during reading [@staubDistributionalEffectsWord2010] than Gaussian distributions.
+This approach also avoids non-linear transformations of the data and the associated problems [@loTransformNotTransform2015].
+We used weakly informative priors (a Gaussian distribution with a mean of 0 and an SD of 100) for each parameter, except for the global sentence time reading model, where we used a Gaussian distribution with a mean of 0 and an SD of 3000, since larger effects in this measure might be plausible[^3]
+. Each model was fitted using four chains with 5000 iterations each, for which 1000 were warm-up iterations, except for the model on gaze duration on the second post-comma region, which needed 10000 iterations (2000 warm-up) to converge
+. The models converged successfully (all $\hat{R}$s = 1.00)
+. We report the mean, the estimates (b) and the 95% Bayesian Credible Intervals (95% CrIs) based on the posterior distribution of each parameter
+. In order to simplify the interpretation of the posterior distribution, we will assume that there is evidence for an effect if 0 is not a credible value for its coefficient (i.e., if it is not part of the 95% CrI)
+. For the analysis of accuracy, we 
+
+[^2]: The versions of R and all packages used are as follows: `r cite_r("r-references.bib")`.
+
+[^3]: In the pre-registration, we planned to use Gaussian priors with a standard deviation of 100 for all coefficients, but we decided that, due to the scale of global sentence reading time, a wider prior would be more appropriate.
+    We ran the same analysis with the narrower prior and the difference in the estimate is negligible.
+
+# Results
+
+Participants answered the comprehension questions highly accurately (M = 96.1%, range: 88.2--100%). There was no evidence for a difference in accuracy between the comma (M = 95.9% and the no comma conditions (M = 96.3%).
+Overall, there were `r (nfix_total <- 49363)` fixations in the data.
+Out of these, 66 fixations (`r 66/nfix_total*100`%) were excluded as they were over 800 ms long.
+A further 1070 fixations (`r 1070/nfix_total*100`%) were under 80 ms long.
+Of these, 117 fixations occurred within 16 pixels of a longer fixation and were merged with it; the others were excluded.
+Out of the `r (total_trials <- 30*130)` experimental trials, 120 trials (`r 120/total_trials * 100`%) were excluded due to the participant blinking immediately before, during or after the fixation on the pre-comma region, as this may affect the processing of this critical region and makes it difficult to interpret the associated fixation times.
+Four additional trials (`r 4/total_trials * 100`%) were excluded because a long fixation (\> 800 ms) was observed on the pre-comma region.
+
+## Global reading time
+
+```{r prepare_descriptives_tables}
+# calculate how many observations were included/excluded per measure
+global_fix_excluded <- sum(global_fix$datum > 8000)/nrow(global_fix)
+ffd_excluded <- FFD %>% filter(region %in% 2:4 & !is.na(datum)) %>% summarise(total_included = sum(.$datum > 80 & .$datum < 800), total = n(), prop_excluded = 1-total_included/total)
+gd_excluded <- GD %>% filter(region %in% 2:4 & !is.na(datum)) %>% summarise(total_included = sum(.$datum > 80 & .$datum < 1500), total = n(), prop_excluded = 1-total_included/total)
+gopast_excluded <- GP %>% filter(region %in% 2:4 & !is.na(datum)) %>% summarise(total_included = sum(.$datum > 80 & .$datum < 1500), total = n(), prop_excluded = 1-total_included/total)
+tvt_excluded <- TVT %>% filter(region %in% 2:4 & !is.na(datum)) %>% summarise(total_included = sum(.$datum > 80 & .$datum < 1800), total = n(), prop_excluded = 1-total_included/total)
+
+# clean all data frames by removing short and long values and rename factor labels for tables
+
+global_cleaned <- global_fix %>% filter(datum < 8000) %>% mutate(sentence_type = factor(sentence_type, 
+                                                                                        levels = c("concesiva","adversativa","conectores","enumeraciones","incisos"), 
+                                                                                        labels = c("concessive", "adversative", "connective", "enumerative", "incisive")),
+                                                                 comma_cond = factor(comma_cond, levels = c("comma", "no_comma"), labels = c("Comma present", "Comma omitted")))
+
+FFD_cleaned <- FFD %>% mutate(crit_region = ifelse(region %in% 2:4, region, NA)) %>% filter(!is.na(crit_region)) %>% mutate(crit_region = factor(crit_region, levels = 2:4, labels = c("Pre-comma", "Post-comma 1", "Post-comma 2")), sentence_type = factor(sentence_type, 
+                                                                                        levels = c("concesiva","adversativa","conectores","enumeraciones","incisos"), 
+                                                                                        labels = c("concessive", "adversative", "connective", "enumerative", "incisive")),
+                                                                 comma_cond = factor(comma_cond, levels = c("comma", "no_comma"), labels = c("Comma present", "Comma omitted"))) %>%
+  filter(!is.na(crit_region) & datum < 800 & datum > 80)
+
+GD_cleaned <- GD %>% mutate(crit_region = ifelse(region %in% 2:4, region, NA)) %>% filter(!is.na(crit_region)) %>% mutate(crit_region = factor(crit_region, levels = 2:4, labels = c("Pre-comma", "Post-comma 1", "Post-comma 2")), sentence_type = factor(sentence_type, 
+                                                                                        levels = c("concesiva","adversativa","conectores","enumeraciones","incisos"), 
+                                                                                        labels = c("concessive", "adversative", "connective", "enumerative", "incisive")),
+                                                                 comma_cond = factor(comma_cond, levels = c("comma", "no_comma"), labels = c("Comma present", "Comma omitted"))) %>%
+  filter(!is.na(crit_region) & datum < 1500 & datum > 80)
+
+GP_cleaned <- GP %>% mutate(crit_region = ifelse(region %in% 2:4, region, NA)) %>% filter(!is.na(crit_region)) %>% mutate(crit_region = factor(crit_region, levels = 2:4, labels = c("Pre-comma", "Post-comma 1", "Post-comma 2")), sentence_type = factor(sentence_type, 
+                                                                                        levels = c("concesiva","adversativa","conectores","enumeraciones","incisos"), 
+                                                                                        labels = c("concessive", "adversative", "connective", "enumerative", "incisive")),
+                                                                 comma_cond = factor(comma_cond, levels = c("comma", "no_comma"), labels = c("Comma present", "Comma omitted"))) %>%
+  filter(!is.na(crit_region) & datum < 1800 & datum > 80)
+TVT_cleaned <- TVT %>% mutate(crit_region = ifelse(region %in% 2:4, region, NA)) %>% filter(!is.na(crit_region)) %>% mutate(crit_region = factor(crit_region, levels = 2:4, labels = c("Pre-comma", "Post-comma 1", "Post-comma 2")), sentence_type = factor(sentence_type, 
+                                                                                        levels = c("concesiva","adversativa","conectores","enumeraciones","incisos"), 
+                                                                                        labels = c("concessive", "adversative", "connective", "enumerative", "incisive")),
+                                                                 comma_cond = factor(comma_cond, levels = c("comma", "no_comma"), labels = c("Comma present", "Comma omitted"))) %>%
+  filter(!is.na(crit_region) & datum < 1800 & datum > 80) 
+
+
+
+# make the actual tables for the paper
+
+# global table
+global_comma_cond <- global_cleaned %>% mutate(crit_region = "Whole sentence") %>% group_by(crit_region, comma_cond) %>% filter(!is.na(datum)) %>%
+  summarise(`Mean reading time` = print_mean_se(datum))
+
+# other measures table
+
+ffd_comma_cond <- FFD_cleaned %>% group_by(crit_region, comma_cond) %>%
+  summarise(`FFD` = print_mean_se(datum))
+gd_comma_cond <- GD_cleaned %>% group_by(crit_region, comma_cond) %>%
+  summarise(`GD` = print_mean_se(datum))
+gp_comma_cond <- GP_cleaned %>% group_by(crit_region, comma_cond) %>%
+  summarise(`Go-past` = print_mean_se(datum))
+tvt_comma_cond <- TVT_cleaned %>% group_by(crit_region, comma_cond) %>%
+  summarise(`TVT` = print_mean_se(datum))
+
+all_local_measures_table <- tibble(ffd_comma_cond, GD = gd_comma_cond$GD, `Go-past` = gp_comma_cond$`Go-past`, TVT = tvt_comma_cond$TVT)
+```
+
+The means for global sentence reading time (the sum of the durations of all fixations on the sentence) are shown in Table \@ref(tab:global-means-table).
+We excluded `r sum(global_fix$datum > 8000, na.rm = TRUE) %>% as.integer %>% apa_num(numerals = sum(global_fix$datum > 8000) > 12)` data points (`r apa_num(global_fix_excluded*100)`%) because the reading time was greater than 8000 ms.
+
+(ref:global-means-table-caption) Mean sentence reading time (in ms) for the comma present and the comma omitted conditions in ms. Standard errors are in parentheses.
+
+```{r global-means-table, as.is = TRUE,echo=FALSE, message=FALSE, warning=FALSE}
+colnames(global_comma_cond)[1:2] <- c("Region", "Condition")
+apa_table(global_comma_cond, caption = "(ref:global-means-table-caption)")
+```
+
+The Bayesian linear mixed model (BLMM) for global sentence reading time indicates that there was no credible difference in the mean of the Gaussian component $\mu$ between the comma present and the comma omitted conditions, as the 95% Credible Interval (CrI) includes 0 (*b* = `r summaries$blmm_global$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_global$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_global$fixed["comma_cond1","u-95% CI"] %>% apa_num`]).
+The same is true for the shape parameter $\beta$ of the exponential component (*b* = `r summaries$blmm_global$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_global$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_global$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]), indicating that there was no credible difference in the ex-Gaussian fits for the global reading time distributions in the comma present and comma omitted conditions.
+Note that, compared to the overall mean, the effect size is very small.
+While the mean of the posterior distribution for the coefficients suggests very slightly faster reading with commas present, 0 cannot be excluded as a credible value.
+This suggests that the impact of mandatory comma usage on overall reading efficiency was limited or even non-existent.
+The size of the suggested effect means that, even if the effect is real, it is likely too small to matter in everyday reading.
+
+## Localised measures
+
+Even though overall sentence reading time seems to be largely unaffected by comma presence, there may be localised effects of it in different parts of the sentence.
+The means for all the localised fixation time measures calculated for the pre-comma, post-comma and second post comma region are reported in Table \@ref(tab:all-local-measures-table).
+Across the three regions, no first fixation durations were excluded as they were all between 80 and 800 ms, `r (GD %>% filter(region %in% 2:4 & (datum < 80 | datum > 1500))) %>% nrow %>% apa_num` gaze durations (`r (GD %>% filter(region %in% 2:4 & (datum < 80 | datum > 1500)) %>% nrow / GD %>% filter(region %in% 2:4) %>% nrow * 100) %>% apa_num`%) were excluded as they were not between 80 and 1500 ms, and `r (GP %>% filter(region %in% 2:4 & (datum < 80 | datum > 1500))) %>% nrow %>% apa_num` go-past times (`r (GP %>% filter(region %in% 2:4 & (datum < 80 | datum > 1500)) %>% nrow / GP %>% filter(region %in% 2:4) %>% nrow * 100) %>% apa_num`%) as well as `r (TVT %>% filter(region %in% 2:4 & (datum < 80 | datum > 1800))) %>% nrow %>% apa_num` total viewing times (`r (TVT %>% filter(region %in% 2:4 & (datum < 80 | datum > 1800)) %>% nrow / TVT %>% filter(region %in% 2:4) %>% nrow * 100) %>% apa_num`%) were excluded as they were not between 80 and 1800 ms.
+
+(ref:all-local-measures-table-caption) Mean localised fixation time measures (in ms) for the pre-comma, post-comma, and second post-comma regions. Standard errors in parentheses.
+
+```{r all-local-measures-table, as.is = TRUE,echo=FALSE, message=FALSE, warning=FALSE}
+colnames(all_local_measures_table)[1:2] <- c("Region", "Condition")
+apa_table(all_local_measures_table, caption = "(ref:all-local-measures-table-caption)", note = "FFD: First fixation duration; gaze duration: Gaze duration, Go-past: Go-past time/Regression path duration, TVT: Total viewing time")
+```
+
+### Pre-comma region
+
+On the pre-comma region, we expected to see wrap-up effects in the presence of commas.
+This was not evident in the BLMM for first fixation duration on the pre-target region, as the mean of the Gaussian component $\mu$ between the comma present and the comma omitted conditions, as the 95% Credible Interval (CrI) includes 0 (*b* = `r summaries$blmm_ffd_region2$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_ffd_region2$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_ffd_region2$fixed["comma_cond1","u-95% CI"] %>% apa_num`]).
+There was also no credible effect on the shape parameter $\beta$ of the exponential component (*b* = `r summaries$blmm_ffd_region2$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_ffd_region2$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_ffd_region2$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]) of the first fixation duration distribution on the pre-target region.
+Similarly, for gaze durations on the pre-target region, the 95% CrI of the comma condition coefficient includes 0, both on $\mu$ (*b* = `r summaries$blmm_gd_region2$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gd_region2$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gd_region2$fixed["comma_cond1","u-95% CI"] %>% apa_num`]) and $\beta$ (*b* = `r summaries$blmm_gd_region2$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gd_region2$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gd_region2$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]).
+
+Notably, for go-past time, a credible effect is evident both in $\mu$ (*b* = `r summaries$blmm_gopast_region2$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gopast_region2$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gopast_region2$fixed["comma_cond1","u-95% CI"] %>% apa_num`]) and $\beta$ (*b* = `r summaries$blmm_gopast_region2$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gopast_region2$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gopast_region2$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]), indicating that presence of a mandatory comma was both associated a shift in the entire distribution of go-past times for the pre-comma region to the right and with a longer right tail for that distribution.
+Despite this, there was no evidence that the distribution of total viewing times on the pre-comma region was either shifted to the right ($\mu$: *b* = `r summaries$blmm_tvt_region2$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_tvt_region2$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_tvt_region2$fixed["comma_cond1","u-95% CI"] %>% apa_num`]) or had a longer right tail ($\beta$: *b* = `r summaries$blmm_tvt_region2$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_tvt_region2$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_tvt_region2$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]).
+This suggests that readers engage in more re-reading of the earlier parts of the sentence and spend more when they encounter a comma.
+However, there is not much more time spent on the pre-comma region itself, neither in first nor in subsequent passes.
+
+### First post-comma region
+
+On the immediate post-comma region, we expected potentially shorter fixation time measures if the presence of a comma leads readers to engage in wrap-up processing which might facilitate processing the rest of the sentence.
+The mean of the posterior distributions in first-fixation duration on the first post-comma region suggest this ($\mu$: *b* = `r summaries$blmm_ffd_region3$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_ffd_region3$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_ffd_region3$fixed["comma_cond1","u-95% CI"] %>% apa_num`]; $\beta$: *b* = `r summaries$blmm_ffd_region3$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_ffd_region3$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_ffd_region3$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]), but there is not enough evidence to exclude 0 as a credible value for either the coefficient of the effect on $\mu$ or on $\beta$.
+The same is the case for gaze duration ($\mu$: *b* = `r summaries$blmm_gd_region3$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gd_region3$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gd_region3$fixed["comma_cond1","u-95% CI"] %>% apa_num`]; $\beta$: *b* = `r summaries$blmm_gd_region3$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gd_region3$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gd_region3$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]).
+Again, the pattern is stronger and more consistent in go-past time, where we observed wrap-up effects on the pre-target word: here, a credible effect is present both in $\mu$ (*b* = `r summaries$blmm_gopast_region3$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gopast_region3$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gopast_region3$fixed["comma_cond1","u-95% CI"] %>% apa_num`]) and $\beta$ (*b* = `r summaries$blmm_gopast_region3$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gopast_region3$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gopast_region3$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]).
+The direction of the effect is opposite to that of the effect observed on the pre-comma region, with the comma condition being associated with a distribution that was shifted to the left and having a weaker right tail, indicating that presence of a mandatory comma was both associated with a shift in the entire distribution of go-past times for the pre-comma region to the right and with a longer right tail for that distribution.
+Unlike on the pre-comma region, we see the effect on the distribution of total viewing times on the first post-comma region as well, with the total viewing time distribution both being shifted to the left ($\mu$, *b* = `r summaries$blmm_tvt_region3$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_tvt_region3$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_tvt_region3$fixed["comma_cond1","u-95% CI"] %>% apa_num`]) and having a shorter right tail ($\beta$, *b* = `r summaries$blmm_tvt_region3$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_tvt_region3$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_tvt_region3$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]) than when the comma was omitted.
+
+The above pattern suggests that readers do benefit from the wrap-up work they seem to engage in on the pre-comma word.
+This benefit is only evident in later processing and mostly concerns re-reading and second (and later) pass reading of the first post-comma region.
+It has to be mentioned that, in some of the constructions, the first post-comma region was surrounded by commas.
+Despite this, we do not see evidence of further wrap-up happening in this region, but rather of facilitation, which is consistent with the idea that the first comma is more important for initiating a wrap-up process than the second.
+
+### Second post-comma region
+
+On the second post-comma region, we might see further benefits of the previous time spent on the pre-comma region in the presence of commas.
+In this region, we see a credible difference between the comma present and the comma omitted condition both in first-fixation duration ($\mu$: *b* = `r summaries$blmm_ffd_region4$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_ffd_region4$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_ffd_region4$fixed["comma_cond1","u-95% CI"] %>% apa_num`]; $\beta$: *b* = `r summaries$blmm_ffd_region4$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_ffd_region4$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_ffd_region4$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]) and gaze duration ($\mu$: *b* = `r summaries$blmm_gd_region4$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gd_region4$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gd_region4$fixed["comma_cond1","u-95% CI"] %>% apa_num`]; $\beta$: *b* = `r summaries$blmm_gd_region4$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gd_region4$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gd_region4$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]), with the comma present condition being associated with both overall shorter first-fixation durations and gaze durations (distributions shifted to the left) and shorter right tails.
+It is important to point out that, both in the first and the second post-target region, the bulk of the posterior distributions for $\mu$ and $\beta$ on first-fixation duration and gaze duration is greater than 0.
+The difference between the pattern of effects in the first post-comma region and the second post-comma region is therefore clearly not a qualitative one, and to say that there was no effect on the former but an effect on the latter would be incorrect.
+There is just a bit less evidence for the effect on the first post-comma region, which leads to zero being included as a credible value.
+In any case, the suggested differences are extremely small.
+As is the case for the preceding region, the effect on go-past time was much stronger: here, the posterior distribution for the effect on $\mu$ conclusively excludes 0 as a credible value (*b* = `r summaries$blmm_gopast_region4$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gopast_region4$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gopast_region4$fixed["comma_cond1","u-95% CI"] %>% apa_num`]), while the posterior distribution for $\beta$ is much closer to 0 but still excludes it (*b* = `r summaries$blmm_gopast_region4$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_gopast_region4$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_gopast_region4$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]).
+Again, the comma present condition is associated with a distribution that is shifted to the left and has a weaker right tail than the comma omitted condition, indicating a facilitation.
+We see the same pattern in total viewing time ($\mu$, *b* = `r summaries$blmm_tvt_region4$fixed["comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_tvt_region4$fixed["comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_tvt_region4$fixed["comma_cond1","u-95% CI"] %>% apa_num`]), although the effect on the shape of the distribution is not as pronounced and we cannot exclude 0 as a credible value ($\beta$, *b* = `r summaries$blmm_tvt_region4$fixed["beta_comma_cond1","Estimate"] %>% apa_num`, 95% CrI [`r summaries$blmm_tvt_region4$fixed["beta_comma_cond1","l-95% CI"] %>% apa_num`, `r summaries$blmm_tvt_region4$fixed["beta_comma_cond1","u-95% CI"] %>% apa_num`]).
+
+The results for the second post-comma region indicate that the benefit obtained from the wrap-up processing earlier in the sentence extends to further parts of the sentence.
+Overall, the benefits in processing the later parts of the sentence seem to balance out the wrap-up costs ahead of the comma.
+
+# Discussion
+
+In the present study, we investigated how the omission of commas considered mandatory by the official authority on the Spanish language affects reading of sentences as a whole and of the regions immediately surrounding the commas.
+We suspected that, given the lack of punctuation consistency in casual writing, the overall impact of presenting or omitting the commas on skilled, native readers would be small, and indeed this is what our results reveal (e.g. the best estimate for the effect of comma omission on global reading time was less than 3% of the average global reading time). It is, however, worth stressing that the commas that were omitted were mandatory, and that, in the omitted comma condition, we were effectively presenting sentences with (according to norm) punctuation errors.
+Usually, orthographic errors such as misspellings slow down the reading process substantially [see @raynerRaedingWrodsJubmled2006; @raynerReadingMutilatedText1975; @zolaRedundancyWordPerception1984], but this was not the case in our experiment.
+This suggests that, in most situations, commas essentially provide skilled readers with somewhat redundant information, similar to what @marcetDoesOmittingAccent2022 reported for the inclusion and omission of accent marks on Spanish words during sentence reading.
+Thus, it appears that skilled readers can readily parse the syntactic structure and the semantic relationships in a sentence even in the absence of commas, at least for syntactically uncomplicated sentences.
+
+That being said, we did observe a change in how the different regions of sentences were processed in the presence and absence of commas.
+Where commas were included, their presence caused readers to slow down and process the information to the left of the comma more thoroughly, as evidenced by longer fixation times on the pre-comma region (in particular for go-past times) and increased re-reading of the previous parts of the sentence before crossing the clause boundary indicated by the comma.
+This extra time spent processing the pre-comma portion of a sentence was balanced out by more efficient processing after the comma, leading to virtually no difference in overall reading time across the sentence.
+This observation is compatible with wrap-up accounts of comma processing [@justTheoryReadingEye1980] and the hypothesis that the time spent before proceeding past commas is indeed used for further syntactic and semantic processing of the sentence so far rather than simply emulating a prosodic pause.
+
+If commas do not affect reading efficiency, why do style guides and prescriptive grammars still insist that we use them?
+One possibility is that they aid beginning and less-skilled readers precisely by providing the redundancy that skilled readers no longer need.
+Indeed, @marcetUseCommasSecondaryeducation2022 found that making more punctuation errors was associated with worse reading comprehension in secondary school students.
+In other words, in order to read well without commas, it may be that one must first be aware of how commas should be used and what they represent.
+In this way, commas could be a didactic tool helping beginning readers to understand the syntactic structure of sentences until they can parse even complex sentences quickly and confidently.
+Indeed, @robinsonPredictingFinalCourse2013 found that, in US college students, the appropriate use of commas in students' written self-introductions was associated with better grades at the end of the course.
+A future experiment might test this hypothesis directly by investigating the effect of omitting commas on less-skilled and beginning readers.
+
+A second possibility is that commas are usually redundant, but are crucially important in certain situations where they are necessary to disambiguate between different interpretations of a sentence.
+The book by @truss2003 is full of examples of such situations, e.g., "Go, get him doctors!" vs. "Go get him, doctors!".
+The issue with this argument is that many of the examples are quite contrived (such as the classic one about the necessity of the Oxford or serial comma, "I thank my parents, Ayn Rand and God"[^4]) and would almost always be disambiguated by context or everyday knowledge.
+In the very specific case of garden path sentences [@frazierMakingCorrectingErrors1982], there is substantial evidence that commas do indeed facilitate processing [e.g., @hillCommaParsingStudy1996], and commas are frequently inserted into garden-path sentences to provide non-ambiguous control sentences [e.g., @christiansonThematicRolesAssigned2001; @slatteryLingeringMisinterpretationsGarden2013].
+However, just like the serial comma examples, in @truss2003, garden-path sentences do not commonly occur in natural language.
+Our stimuli did not contain constructions that would be ambiguous without a comma.
+Future research might attempt to extend our study with garden-path stimuli that are ambiguous without the comma.
+In this situation, the disruption caused by comma omission may well be greater -- note that this latter outcome would not modify the basic take-home message from our experiment.
+
+[^4]: This example has been attributed to Teresa Nielsen Hayden, e.g. by @dodsonPERSNICKETYEDITORS2003.
+
+A final, third possibility is that commas do not strongly facilitate processing of individual sentences but that their absence leads to small deficits in comprehension that may be cumulative across longer texts.
+A similar argument was made by @vasilevReadingDisruptedIntelligible2019 for the effects of distraction by background noise and speech.
+In the present study, there was clearly no impact of the comma manipulation on comprehension since virtually all participants performed at ceiling, but future research would have to use longer texts presented either with or without commas to test this hypothesis[^5].
+
+[^5]: One might argue that, with a higher proportion (or difficulty) of the comprehension questions, the potential hindering effect of comma omission would be maximised. However, as noted in the Introduction, Andrews and Veldre (2021) found that increasing the reading comprehension load increased the overall response times and regression rates without modulating the effect of potential “wrap-up” effects.
+
+Thus, given our findings suggesting that the impact of presenting or omitting mandatory commas on skilled readers is quite limited, the assumption by @warrenInvestigatingCausesWrapup2009 that commas majorly affect syntactic integration (as implied by their interpretation of the E-Z Reader 10 parameters) may also need to be revisited.
+Based on our results, an alternative mechanism could involve an automatic pause before a comma [perhaps triggered by implicit prosody as suggested by @hirotaniPunctuationIntonationEffects2006], during which both low-level word identification and high-level syntactic processing continue as normal.
+This pre-comma pause then gives readers a head start on subsequent processing, which effectively compensates for the delay introduced by the pause.
+The duration of this pause could be added to the E-Z Reader model as a single additional parameter which would help clarify the interpretation of the existing *I* and *pF* parameters.
+Simulation work would be necessary to further explore this possibility.
+
+In summary, the present experiment examined whether the omission of mandatory commas had a deleterious effect on sentence reading.
+Our findings revealed that commas, even if they are mandated by language rules, affect the time that readers spend processing parts of sentences but, critically, the effect on the reading time of the sentences as a whole is either non-existent or extremely small.
+This may be because skilled readers have no problems parsing the vast majority of sentences even in the absence of commas.
+This may be different for less experienced readers such as the secondary school students tested by @marcetUseCommasSecondaryeducation2022, whose comma knowledge was associated with their overall reading comprehension.
+The consequences of comma omission for beginning or lesser-skilled readers as well as for reading longer passages of text remains to be investigated.
+Overall, our research lays the foundations for a more detailed study of the effects of commas (and other punctuation marks) on the reading process, both at empirical and theoretical levels, an area which has mostly been overlooked in the past.
+
+\newpage
+
+# References
+
+::: {#refs custom-style="Bibliography"}
+:::
+
+\newpage
+
+# (APPENDIX) Appendix {.unnumbered}

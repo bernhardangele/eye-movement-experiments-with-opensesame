@@ -1,0 +1,2801 @@
+%%BeginHeader
+Eyetrack reading experiment with a comma manipulation by Bernhard Angele
+output from make_script.R
+%%EndHeader
+
+set conditions = 2
+set experiments = 1
+set background =  16777215
+set foreground =  0
+set filterMode = 2
+set windowThreshold = 0
+set calibration_type = 0
+set display_type = CRT
+
+trial_type question
+
+  text_format =    "Courier New" 14 28 20 216 antialiased
+
+   button =         leftTrigger
+  cursor_size =    0
+  stimulus_delay = 500
+  revert =         0
+end question
+
+trial_type sentence
+  text_format =    "Courier New" 14 28 40 266 antialiased
+
+   button =         toggle
+  cursor_size =    0
+  dc_delay =       0
+  stimulus_delay = 0
+  revert =         0
+end sentence
+
+trial_type practice
+  text_format =    "Courier New" 14 28 40 266 antialiased
+   button =         toggle
+  cursor_size =    0
+  stimulus_delay = 0
+  revert =         0
+end practice
+
+trial P1I1D0
+inline =           |Hemos de elegir entre casa, piso o apartamento en la sierra de Teruel
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end P1I1D0
+
+trial P1I2D0
+inline =           |Las autoras Marisa Moya, Carmen Romero y Paula Soto han escrito este libro.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end P1I2D0
+
+trial P1I3D0
+inline =           |Pedro estudió mucho esta semana, ahora bien, es poco probable que apruebe.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end P1I3D0
+
+trial P1I4D0
+inline =           |Podríamos destacar, finalmente, que este proyecto salió mejor de lo esperado.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end P1I4D0
+
+trial P1I5D0
+inline =           |Su hermano le podía proporcionar un vehículo, pero él no sabía conducir.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end P1I5D0
+
+trial P1I6D0
+inline =           |Leo no se recuperó de su enfermedad, pese a haberse intentado todo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end P1I6D0
+
+trial P1I7D0
+inline =           |Mi prima Lola, la que es pelirroja, está estudiando en Nueva Zelanda.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end P1I7D0
+
+trial P1I8D0
+inline =           |Quiero celebrar una fiesta después de los exámenes, aunque con poca gente.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end P1I8D0
+
+trial E1I1D0
+inline =           |Paula no podrá irse de la clase, aunque acabe el examen pronto.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I1D0
+
+trial E2I1D0
+inline =           |Paula no podrá irse de la clase aunque acabe el examen pronto.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I1D0
+
+trial E1I2D0
+inline =           |No aprobará el curso, pese a haberse esforzado el último trimestre.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I2D0
+
+trial E2I2D0
+inline =           |No aprobará el curso pese a haberse esforzado el último trimestre.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I2D0
+
+trial E1I3D0
+inline =           |En verano habrá verbena, aunque prosigan las restricciones sanitarias.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I3D0
+
+trial E2I3D0
+inline =           |En verano habrá verbena aunque prosigan las restricciones sanitarias.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I3D0
+
+trial E1I4D0
+inline =           |Déjame entrar a ver al paciente, aunque sea un momento.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I4D0
+
+trial E2I4D0
+inline =           |Déjame entrar a ver al paciente aunque sea un momento.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I4D0
+
+trial E1I5D0
+inline =           |Me resulta difícil ser constante, aunque me guste mucho estudiar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I5D0
+
+trial E2I5D0
+inline =           |Me resulta difícil ser constante aunque me guste mucho estudiar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I5D0
+
+trial E1I6D0
+inline =           |Sigo sin entenderlo bien, pese a que la maestra lo haya explicado dos veces.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I6D0
+
+trial E2I6D0
+inline =           |Sigo sin entenderlo bien pese a que la maestra lo haya explicado dos veces.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I6D0
+
+trial E1I7D0
+inline =           |No consiguió pescar, aunque Ricardo puso todo su empeño en ello.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I7D0
+
+trial E2I7D0
+inline =           |No consiguió pescar aunque Ricardo puso todo su empeño en ello.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I7D0
+
+trial E1I8D0
+inline =           |Permanece siempre en su recuerdo, aun intentando olvidarlo todos los días.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I8D0
+
+trial E2I8D0
+inline =           |Permanece siempre en su recuerdo aun intentando olvidarlo todos los días.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I8D0
+
+trial E1I9D0
+inline =           |Siempre tiene flores en casa, aun siendo alérgica al polen.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I9D0
+
+trial E2I9D0
+inline =           |Siempre tiene flores en casa aun siendo alérgica al polen.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I9D0
+
+trial E1I10D0
+inline =           |Continuaba teniendo errores, aun cuando pensaba que ya sabía hacerlo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I10D0
+
+trial E2I10D0
+inline =           |Continuaba teniendo errores aun cuando pensaba que ya sabía hacerlo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I10D0
+
+trial E1I11D0
+inline =           |Es una persona muy responsable, aunque parezca bastante despistada.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I11D0
+
+trial E2I11D0
+inline =           |Es una persona muy responsable aunque parezca bastante despistada.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I11D0
+
+trial E1I12D0
+inline =           |Aprobó su carrera universitaria, pese a que nadie confiara en que así fuera.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I12D0
+
+trial E2I12D0
+inline =           |Aprobó su carrera universitaria pese a que nadie confiara en que así fuera.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I12D0
+
+trial E1I13D0
+inline =           |No descartaría la posibilidad de adoptar más, pese a que ya tengo muchos animales.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I13D0
+
+trial E2I13D0
+inline =           |No descartaría la posibilidad de adoptar más pese a que ya tengo muchos animales.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I13D0
+
+trial E1I14D0
+inline =           |Surgieron imprevistos de última hora, aun cuando todo parecía ir encaminado.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I14D0
+
+trial E2I14D0
+inline =           |Surgieron imprevistos de última hora aun cuando todo parecía ir encaminado.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I14D0
+
+trial E1I15D0
+inline =           |Siempre lleva ropa cara, aunque parezca un mendigo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I15D0
+
+trial E2I15D0
+inline =           |Siempre lleva ropa cara aunque parezca un mendigo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I15D0
+
+trial E1I16D0
+inline =           |Retomará su vida en unas semanas, aunque sea una operación complicada.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I16D0
+
+trial E2I16D0
+inline =           |Retomará su vida en unas semanas aunque sea una operación complicada.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I16D0
+
+trial E1I17D0
+inline =           |Sería necesario ahorrar un año más, aunque quisiera irse ya de vacaciones.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I17D0
+
+trial E2I17D0
+inline =           |Sería necesario ahorrar un año más aunque quisiera irse ya de vacaciones.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I17D0
+
+trial E1I18D0
+inline =           |Mi madre es mayor que mi padre, aunque tenga un aspecto más juvenil.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I18D0
+
+trial E2I18D0
+inline =           |Mi madre es mayor que mi padre aunque tenga un aspecto más juvenil.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I18D0
+
+trial E1I19D0
+inline =           |Su comida estaba deliciosa aun llevando muy pocas especias y sal.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I19D0
+
+trial E2I19D0
+inline =           |Su comida estaba deliciosa aun llevando muy pocas especias y sal.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I19D0
+
+trial E1I20D0
+inline =           |Le dijo que era necesario estudiar, aunque no era lo que quería escuchar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I20D0
+
+trial E2I20D0
+inline =           |Le dijo que era necesario estudiar aunque no era lo que quería escuchar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I20D0
+
+trial E1I21D0
+inline =           |Consiguió repararlo, pese a que parecía no tener solución.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I21D0
+
+trial E2I21D0
+inline =           |Consiguió repararlo pese a que parecía no tener solución.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I21D0
+
+trial E1I22D0
+inline =           |Nunca ganaremos sorteos, aun cuando participemos en todos los de Instagram.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I22D0
+
+trial E2I22D0
+inline =           |Nunca ganaremos sorteos aun cuando participemos en todos los de Instagram.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I22D0
+
+trial E1I23D0
+inline =           |Carlos siempre aparece en todas las fiestas, aun cuando nunca le invitan.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I23D0
+
+trial E2I23D0
+inline =           |Carlos siempre aparece en todas las fiestas aun cuando nunca le invitan.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I23D0
+
+trial E1I24D0
+inline =           |Las mascarillas deberían ser obligatorias, aunque digan lo contrario.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I24D0
+
+trial E2I24D0
+inline =           |Las mascarillas deberían ser obligatorias aunque digan lo contrario.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I24D0
+
+trial E1I25D0
+inline =           |Seguíamos manteniendo el contacto con Fernando, pese a que hacía mucho tiempo que se fue.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I25D0
+
+trial E2I25D0
+inline =           |Seguíamos manteniendo el contacto con Fernando pese a que hacía mucho tiempo que se fue.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I25D0
+
+trial E1I26D0
+inline =           |No pienso invitarlo a mi boda, aunque mi madre esté empeñada.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I26D0
+
+trial E2I26D0
+inline =           |No pienso invitarlo a mi boda aunque mi madre esté empeñada.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I26D0
+
+trial E1I27D0
+inline =           |Quiero contarles una cosa importante a mis abuelos, aunque no lo voy a hacer.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I27D0
+
+trial E2I27D0
+inline =           |Quiero contarles una cosa importante a mis abuelos aunque no lo voy a hacer.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I27D0
+
+trial E1I28D0
+inline =           |Hoy hace un día buenísimo, pero mañana lloverá.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I28D0
+
+trial E2I28D0
+inline =           |Hoy hace un día buenísimo pero mañana lloverá.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I28D0
+
+trial E1I29D0
+inline =           |Sus padres se enfadaron muchísimo, pero pronto se les pasará.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I29D0
+
+trial E2I29D0
+inline =           |Sus padres se enfadaron muchísimo pero pronto se les pasará.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I29D0
+
+trial E1I30D0
+inline =           |Él no quiere comprarse un coche de concesionario, sino uno de segunda mano.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I30D0
+
+trial E2I30D0
+inline =           |Él no quiere comprarse un coche de concesionario sino uno de segunda mano.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I30D0
+
+trial E1I31D0
+inline =           |No quiero que se lo entreguen en casa, sino en la oficina de correos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I31D0
+
+trial E2I31D0
+inline =           |No quiero que se lo entreguen en casa sino en la oficina de correos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I31D0
+
+trial E1I32D0
+inline =           |Está lloviendo mucho, pero al menos no hace tanto calor.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I32D0
+
+trial E2I32D0
+inline =           |Está lloviendo mucho pero al menos no hace tanto calor.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I32D0
+
+trial E1I33D0
+inline =           |Todos podrán presentarse al examen, excepto aquellos que no entregaron las prácticas.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I33D0
+
+trial E2I33D0
+inline =           |Todos podrán presentarse al examen excepto aquellos que no entregaron las prácticas.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I33D0
+
+trial E1I34D0
+inline =           |Luisa intentó convencerla, aunque no lo consiguió.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I34D0
+
+trial E2I34D0
+inline =           |Luisa intentó convencerla aunque no lo consiguió.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I34D0
+
+trial E1I35D0
+inline =           |Juan hizo lo que quería hacer, pese a lo que tú le recomendaste.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I35D0
+
+trial E2I35D0
+inline =           |Juan hizo lo que quería hacer pese a lo que tú le recomendaste.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I35D0
+
+trial E1I36D0
+inline =           |Tu padre no quería que lo alquilaras, sino que lo compraras.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I36D0
+
+trial E2I36D0
+inline =           |Tu padre no quería que lo alquilaras sino que lo compraras.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I36D0
+
+trial E1I37D0
+inline =           |Mi médica me recomendó que no tomara ibuprofeno, sino paracetamol en sobres.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I37D0
+
+trial E2I37D0
+inline =           |Mi médica me recomendó que no tomara ibuprofeno sino paracetamol en sobres.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I37D0
+
+trial E1I38D0
+inline =           |Confiaron e invirtieron dinero, pero lo perdieron todo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I38D0
+
+trial E2I38D0
+inline =           |Confiaron e invirtieron dinero pero lo perdieron todo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I38D0
+
+trial E1I39D0
+inline =           |Se aceptaron todas las peticiones, salvo la de tu primo José.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I39D0
+
+trial E2I39D0
+inline =           |Se aceptaron todas las peticiones salvo la de tu primo José.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I39D0
+
+trial E1I40D0
+inline =           |Creen que les traicionaron, aun y cuando dijeron que no lo volverían a hacer.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I40D0
+
+trial E2I40D0
+inline =           |Creen que les traicionaron aun y cuando dijeron que no lo volverían a hacer.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I40D0
+
+trial E1I41D0
+inline =           |El veterinario trató de reanimarlo, pero finalmente no resultó.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I41D0
+
+trial E2I41D0
+inline =           |El veterinario trató de reanimarlo pero finalmente no resultó.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I41D0
+
+trial E1I42D0
+inline =           |En verano no debemos consumir refrescos, sino zumos naturales de fruta.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I42D0
+
+trial E2I42D0
+inline =           |En verano no debemos consumir refrescos sino zumos naturales de fruta.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I42D0
+
+trial E1I43D0
+inline =           |Pablo no quería estudiar medicina, pero sí trabajar como sanitario.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I43D0
+
+trial E2I43D0
+inline =           |Pablo no quería estudiar medicina pero sí trabajar como sanitario.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I43D0
+
+trial E1I44D0
+inline =           |El abuelo de Eva tiene neumonía, pero aparenta sentirse bien para no preocupar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I44D0
+
+trial E2I44D0
+inline =           |El abuelo de Eva tiene neumonía pero aparenta sentirse bien para no preocupar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I44D0
+
+trial E1I45D0
+inline =           |Catalina no fue la culpable, sino una víctima más del accidente.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I45D0
+
+trial E2I45D0
+inline =           |Catalina no fue la culpable sino una víctima más del accidente.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I45D0
+
+trial E1I46D0
+inline =           |Hice todo lo que tenía en mi lista, salvo limpiar la cocina y el baño.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I46D0
+
+trial E2I46D0
+inline =           |Hice todo lo que tenía en mi lista salvo limpiar la cocina y el baño.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I46D0
+
+trial E1I47D0
+inline =           |Soy intolerante a la lactosa, pero probaré tu yogurt casero.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I47D0
+
+trial E2I47D0
+inline =           |Soy intolerante a la lactosa pero probaré tu yogurt casero.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I47D0
+
+trial E1I48D0
+inline =           |A sus padres no les gusta comprar en Mercadona, sino en tiendas del pueblo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I48D0
+
+trial E2I48D0
+inline =           |A sus padres no les gusta comprar en Mercadona sino en tiendas del pueblo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I48D0
+
+trial E1I49D0
+inline =           |Todos los ríos de la zona estaban llenos de alimañas, excepto el río en el que nos bañamos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I49D0
+
+trial E2I49D0
+inline =           |Todos los ríos de la zona estaban llenos de alimañas excepto el río en el que nos bañamos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I49D0
+
+trial E1I50D0
+inline =           |Desean tener descendencia, pero no están casados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I50D0
+
+trial E2I50D0
+inline =           |Desean tener descendencia pero no están casados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I50D0
+
+trial E1I51D0
+inline =           |Tu primo es muy amable, excepto cuando se le lleva la contraria.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I51D0
+
+trial E2I51D0
+inline =           |Tu primo es muy amable excepto cuando se le lleva la contraria.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I51D0
+
+trial E1I52D0
+inline =           |Eva tiene un apartamento en la playa, pero prefiere el frío del invierno.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I52D0
+
+trial E2I52D0
+inline =           |Eva tiene un apartamento en la playa pero prefiere el frío del invierno.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I52D0
+
+trial E1I53D0
+inline =           |Siempre se le veía entrenando y, finalmente, consiguió ganar el campeonato.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I53D0
+
+trial E2I53D0
+inline =           |Siempre se le veía entrenando y finalmente consiguió ganar el campeonato.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I53D0
+
+trial E1I54D0
+inline =           |Estaba disfrutando el partido y, así mismo, sus compañeros estaban muy motivados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I54D0
+
+trial E2I54D0
+inline =           |Estaba disfrutando el partido y así mismo sus compañeros estaban muy motivados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I54D0
+
+trial E1I55D0
+inline =           |Pablo nunca dice la verdad, es decir, es mentiroso compulsivo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I55D0
+
+trial E2I55D0
+inline =           |Pablo nunca dice la verdad es decir es mentiroso compulsivo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I55D0
+
+trial E1I56D0
+inline =           |No para de estudiar y, personalmente, no creo que sea necesario.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I56D0
+
+trial E2I56D0
+inline =           |No para de estudiar y personalmente no creo que sea necesario.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I56D0
+
+trial E1I57D0
+inline =           |Miriam es muy buena en matemáticas y, de hecho, se considera la mejor de su clase.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I57D0
+
+trial E2I57D0
+inline =           |Miriam es muy buena en matemáticas y de hecho se considera la mejor de su clase.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I57D0
+
+trial E1I58D0
+inline =           |Necesito acabarlo lo antes posible y, por lo tanto, no acudiré mañana a la cita.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I58D0
+
+trial E2I58D0
+inline =           |Necesito acabarlo lo antes posible y por lo tanto no acudiré mañana a la cita.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I58D0
+
+trial E1I59D0
+inline =           |Pedro falsificó sus calificaciones y, por ende, fue expulsado de la facultad.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I59D0
+
+trial E2I59D0
+inline =           |Pedro falsificó sus calificaciones y por ende fue expulsado de la facultad.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I59D0
+
+trial E1I60D0
+inline =           |Los buitres se alimentan de carroña, es decir, comen carne en descomposición.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I60D0
+
+trial E2I60D0
+inline =           |Los buitres se alimentan de carroña es decir comen carne en descomposición.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I60D0
+
+trial E1I61D0
+inline =           |Miguel ya es veterano, es decir, lleva mucho tiempo en la empresa.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I61D0
+
+trial E2I61D0
+inline =           |Miguel ya es veterano es decir lleva mucho tiempo en la empresa.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I61D0
+
+trial E1I62D0
+inline =           |Tuvieron un accidente y, en consecuencia, están en observación en el hospital.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I62D0
+
+trial E2I62D0
+inline =           |Tuvieron un accidente y en consecuencia están en observación en el hospital.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I62D0
+
+trial E1I63D0
+inline =           |Les van a embargar sus vehículos y, por tanto, no podrán irse al pueblo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I63D0
+
+trial E2I63D0
+inline =           |Les van a embargar sus vehículos y por tanto no podrán irse al pueblo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I63D0
+
+trial E1I64D0
+inline =           |Juan estudió magisterio y, posteriormente, se sacó psicología.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I64D0
+
+trial E2I64D0
+inline =           |Juan estudió magisterio y posteriormente se sacó psicología.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I64D0
+
+trial E1I65D0
+inline =           |Les gusta muchísimo el futbol, es decir, son auténticos forofos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I65D0
+
+trial E2I65D0
+inline =           |Les gusta muchísimo el futbol es decir son auténticos forofos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I65D0
+
+trial E1I66D0
+inline =           |Le dieron una beca y, por eso, está en la universidad.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I66D0
+
+trial E2I66D0
+inline =           |Le dieron una beca y por eso está en la universidad.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I66D0
+
+trial E1I67D0
+inline =           |Es muy indeciso y, por ello, duda mucho de lo que hace.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I67D0
+
+trial E2I67D0
+inline =           |Es muy indeciso y por ello duda mucho de lo que hace.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I67D0
+
+trial E1I68D0
+inline =           |Viajamos el mes que viene a Corea y, de hecho, tenemos ya los billetes.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I68D0
+
+trial E2I68D0
+inline =           |Viajamos el mes que viene a Corea y de hecho tenemos ya los billetes.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I68D0
+
+trial E1I69D0
+inline =           |Empezamos el viaje temprano y, por fin, llegamos a nuestro destino.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I69D0
+
+trial E2I69D0
+inline =           |Empezamos el viaje temprano y por fin llegamos a nuestro destino.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I69D0
+
+trial E1I70D0
+inline =           |No puedo soportarles, es más, preferiría no volverlos a ver.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I70D0
+
+trial E2I70D0
+inline =           |No puedo soportarles es más preferiría no volverlos a ver.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I70D0
+
+trial E1I71D0
+inline =           |Te he dicho que no lo alquilaremos, es decir, olvídate de ello.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I71D0
+
+trial E2I71D0
+inline =           |Te he dicho que no lo alquilaremos es decir olvídate de ello.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I71D0
+
+trial E1I72D0
+inline =           |Hay que proponer algo, quiero decir, no deberíamos quedarnos de brazos cruzados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I72D0
+
+trial E2I72D0
+inline =           |Hay que proponer algo quiero decir no deberíamos quedarnos de brazos cruzados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I72D0
+
+trial E1I73D0
+inline =           |Iremos a la piscina esta tarde, ahora bien, intentaremos llegar pronto.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I73D0
+
+trial E2I73D0
+inline =           |Iremos a la piscina esta tarde ahora bien intentaremos llegar pronto.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I73D0
+
+trial E1I74D0
+inline =           |Pau veía los dibujos y, al mismo tiempo, su abuelo le preparaba el desayuno.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I74D0
+
+trial E2I74D0
+inline =           |Pau veía los dibujos y al mismo tiempo su abuelo le preparaba el desayuno.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I74D0
+
+trial E1I75D0
+inline =           |La boda de Adrián terminó tardísimo, ahora bien, nadie se quería marchar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I75D0
+
+trial E2I75D0
+inline =           |La boda de Adrián terminó tardísimo ahora bien nadie se quería marchar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I75D0
+
+trial E1I76D0
+inline =           |Hemos comprado quince disfraces, es más, organizaremos una fiesta para recordar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I76D0
+
+trial E2I76D0
+inline =           |Hemos comprado quince disfraces es más organizaremos una fiesta para recordar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I76D0
+
+trial E1I77D0
+inline =           |Sandra no come carne y, de hecho, creo que es vegetariana.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I77D0
+
+trial E2I77D0
+inline =           |Sandra no come carne y de hecho creo que es vegetariana.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I77D0
+
+trial E1I78D0
+inline =           |Sonia es más alta que Carmen, asimismo, Sonia tiene dos años más.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I78D0
+
+trial E2I78D0
+inline =           |Sonia es más alta que Carmen asimismo Sonia tiene dos años más.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I78D0
+
+trial E1I79D0
+inline =           |Este año hemos viajado a Bruselas, Lanzarote y Toledo y nos ha gustado mucho.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I79D0
+
+trial E2I79D0
+inline =           |Este año hemos viajado a Bruselas Lanzarote y Toledo y nos ha gustado mucho.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I79D0
+
+trial E1I80D0
+inline =           |Han de traer disfraces de sol, de luna o de nube para la representación.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I80D0
+
+trial E2I80D0
+inline =           |Han de traer disfraces de sol de luna o de nube para la representación.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I80D0
+
+trial E1I81D0
+inline =           |Solo necesito a mis padres, hermanos y abuelos para vivir.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I81D0
+
+trial E2I81D0
+inline =           |Solo necesito a mis padres hermanos y abuelos para vivir.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I81D0
+
+trial E1I82D0
+inline =           |Solo necesitamos dos huevos, patatas y aceite de oliva para cocinar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I82D0
+
+trial E2I82D0
+inline =           |Solo necesitamos dos huevos patatas y aceite de oliva para cocinar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I82D0
+
+trial E1I83D0
+inline =           |Tenemos los cubiertos, el mantel y los vasos necesarios para la fiesta.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I83D0
+
+trial E2I83D0
+inline =           |Tenemos los cubiertos el mantel y los vasos necesarios para la fiesta.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I83D0
+
+trial E1I84D0
+inline =           |Creo que el jazz, el folk y el blues son solo algunos de los estilos más escuchados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I84D0
+
+trial E2I84D0
+inline =           |Creo que el jazz el folk y el blues son solo algunos de los estilos más escuchados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I84D0
+
+trial E1I85D0
+inline =           |Tengo que ir a trabajar, comprar y limpiar el coche antes de recogerlos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I85D0
+
+trial E2I85D0
+inline =           |Tengo que ir a trabajar comprar y limpiar el coche antes de recogerlos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I85D0
+
+trial E1I86D0
+inline =           |Ana es una chica simpática, risueña y muy atenta con sus compañeros.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I86D0
+
+trial E2I86D0
+inline =           |Ana es una chica simpática risueña y muy atenta con sus compañeros.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I86D0
+
+trial E1I87D0
+inline =           |Pidieron pulpo a la gallega, mejillones y chipirones en el almuerzo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I87D0
+
+trial E2I87D0
+inline =           |Pidieron pulpo a la gallega mejillones y chipirones en el almuerzo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I87D0
+
+trial E1I88D0
+inline =           |En la frutería había sandía, melón y albaricoques muy rebajados de precio.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I88D0
+
+trial E2I88D0
+inline =           |En la frutería había sandía melón y albaricoques muy rebajados de precio.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I88D0
+
+trial E1I89D0
+inline =           |Con mi cámara nueva puedo grabar, montar y editar vídeos fácilmente.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I89D0
+
+trial E2I89D0
+inline =           |Con mi cámara nueva puedo grabar montar y editar vídeos fácilmente.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I89D0
+
+trial E1I90D0
+inline =           |Los colores de la bandera de Valencia son rojo, amarillo y azul en la franja.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I90D0
+
+trial E2I90D0
+inline =           |Los colores de la bandera de Valencia son rojo amarillo y azul en la franja.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I90D0
+
+trial E1I91D0
+inline =           |Mi abuela Pepa era alegre, cariñosa y comprensiva con nosotros.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I91D0
+
+trial E2I91D0
+inline =           |Mi abuela Pepa era alegre cariñosa y comprensiva con nosotros.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I91D0
+
+trial E1I92D0
+inline =           |En el festival de fin de curso participaron primaria, secundaria y bachillerato de forma voluntaria.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I92D0
+
+trial E2I92D0
+inline =           |En el festival de fin de curso participaron primaria secundaria y bachillerato de forma voluntaria.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I92D0
+
+trial E1I93D0
+inline =           |Podemos elegir entre cardiología, pediatría y dermatología como especialidades.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I93D0
+
+trial E2I93D0
+inline =           |Podemos elegir entre cardiología pediatría y dermatología como especialidades.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I93D0
+
+trial E1I94D0
+inline =           |Solamente falta comprar el carrito, la cuna y la silla del coche.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I94D0
+
+trial E2I94D0
+inline =           |Solamente falta comprar el carrito la cuna y la silla del coche.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I94D0
+
+trial E1I95D0
+inline =           |Algunas de las indicaciones fueron darle de comer, pasear o jugar con ella.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I95D0
+
+trial E2I95D0
+inline =           |Algunas de las indicaciones fueron darle de comer pasear o jugar con ella.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I95D0
+
+trial E1I96D0
+inline =           |Soledad debería tener preparados los bocatas, la bebida y el postre para la merienda.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I96D0
+
+trial E2I96D0
+inline =           |Soledad debería tener preparados los bocatas la bebida y el postre para la merienda.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I96D0
+
+trial E1I97D0
+inline =           |¿Crees que vendrán Nuria, Pablo e Irene a la fiesta?
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I97D0
+
+trial E2I97D0
+inline =           |¿Crees que vendrán Nuria Pablo e Irene a la fiesta?
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I97D0
+
+trial E1I98D0
+inline =           |Mi amiga dice que Cecilia, Beatriz o Noelia son algunos de los nombres para su bebé.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I98D0
+
+trial E2I98D0
+inline =           |Mi amiga dice que Cecilia Beatriz o Noelia son algunos de los nombres para su bebé.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I98D0
+
+trial E1I99D0
+inline =           |A Rosario le gusta practicar yoga, pilates y meditación por las tardes.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I99D0
+
+trial E2I99D0
+inline =           |A Rosario le gusta practicar yoga pilates y meditación por las tardes.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I99D0
+
+trial E1I100D0
+inline =           |Solo asistirán las empleadas, las jefas de sección y la directora a la reunión.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I100D0
+
+trial E2I100D0
+inline =           |Solo asistirán las empleadas las jefas de sección y la directora a la reunión.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I100D0
+
+trial E1I101D0
+inline =           |Nos mandó una caja con galletas, bizcochos y rosquillas típicas de su pueblo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I101D0
+
+trial E2I101D0
+inline =           |Nos mandó una caja con galletas bizcochos y rosquillas típicas de su pueblo.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I101D0
+
+trial E1I102D0
+inline =           |¿Necesitaremos comprar linternas, sacos de dormir y gorras para la acampada?
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I102D0
+
+trial E2I102D0
+inline =           |¿Necesitaremos comprar linternas sacos de dormir y gorras para la acampada?
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I102D0
+
+trial E1I103D0
+inline =           |Era conocido en el barrio por ser mezquino, grotesco y cruel con sus vecinos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I103D0
+
+trial E2I103D0
+inline =           |Era conocido en el barrio por ser mezquino grotesco y cruel con sus vecinos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I103D0
+
+trial E1I104D0
+inline =           |Creo que Pilar, Simón y Pablo pasarán a la semifinal del campeonato de futbolín.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I104D0
+
+trial E2I104D0
+inline =           |Creo que Pilar Simón y Pablo pasarán a la semifinal del campeonato de futbolín.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I104D0
+
+trial E1I105D0
+inline =           |Mis dos tortugas, Paula y Alba, tienen más de siete años.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I105D0
+
+trial E2I105D0
+inline =           |Mis dos tortugas Paula y Alba tienen más de siete años.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I105D0
+
+trial E1I106D0
+inline =           |Los helados veganos, especialmente los que venden en Consum, están muy buenos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I106D0
+
+trial E2I106D0
+inline =           |Los helados veganos especialmente los que venden en Consum están muy buenos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I106D0
+
+trial E1I107D0
+inline =           |César Gómez, ginecólogo, atendió a mi madre.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I107D0
+
+trial E2I107D0
+inline =           |César Gómez ginecólogo atendió a mi madre.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I107D0
+
+trial E1I108D0
+inline =           |Fuimos de compras con Asier, mi amigo del colegio, por el centro de la ciudad.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I108D0
+
+trial E2I108D0
+inline =           |Fuimos de compras con Asier mi amigo del colegio por el centro de la ciudad.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I108D0
+
+trial E1I109D0
+inline =           |Yolanda Juárez, una buena amiga, convivirá con nosotros durante un mes.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I109D0
+
+trial E2I109D0
+inline =           |Yolanda Juárez una buena amiga convivirá con nosotros durante un mes.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I109D0
+
+trial E1I110D0
+inline =           |Nuestra barriada, según mi padre, era peligrosísima hasta hace pocos años.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I110D0
+
+trial E2I110D0
+inline =           |Nuestra barriada según mi padre era peligrosísima hasta hace pocos años.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I110D0
+
+trial E1I111D0
+inline =           |Los montañeros españoles, según cuentan, se adentraron en la montaña helada.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I111D0
+
+trial E2I111D0
+inline =           |Los montañeros españoles según cuentan se adentraron en la montaña helada.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I111D0
+
+trial E1I112D0
+inline =           |El bocata del almuerzo, tras haber estado en la mochila, estaba aplastado.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I112D0
+
+trial E2I112D0
+inline =           |El bocata del almuerzo tras haber estado en la mochila estaba aplastado.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I112D0
+
+trial E1I113D0
+inline =           |Sus primos lejanos, quienes tenían una gran fortuna, les invitaron a Colombia.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I113D0
+
+trial E2I113D0
+inline =           |Sus primos lejanos quienes tenían una gran fortuna les invitaron a Colombia.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I113D0
+
+trial E1I114D0
+inline =           |Luis Fernández, gran comunicador, convocará a los medios mañana.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I114D0
+
+trial E2I114D0
+inline =           |Luis Fernández gran comunicador convocará a los medios mañana.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I114D0
+
+trial E1I115D0
+inline =           |Mario Lozano, el hijo de Naomi, tiene un comportamiento ejemplar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I115D0
+
+trial E2I115D0
+inline =           |Mario Lozano el hijo de Naomi tiene un comportamiento ejemplar.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I115D0
+
+trial E1I116D0
+inline =           |Las grandes estudiantes, Nerea y Maya, aprobaron la carrera con honores.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I116D0
+
+trial E2I116D0
+inline =           |Las grandes estudiantes Nerea y Maya aprobaron la carrera con honores.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I116D0
+
+trial E1I117D0
+inline =           |El antiguo Hospital Provincial, uno de los mejores de la ciudad, estaba localizado a las afueras.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I117D0
+
+trial E2I117D0
+inline =           |El antiguo Hospital Provincial uno de los mejores de la ciudad estaba localizado a las afueras.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I117D0
+
+trial E1I118D0
+inline =           |Allí en Madrid, la capital española, se elaboran los mejores bocatas de calamares.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I118D0
+
+trial E2I118D0
+inline =           |Allí en Madrid la capital española se elaboran los mejores bocatas de calamares.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I118D0
+
+trial E1I119D0
+inline =           |Los nuevos inquilinos, los del cuarto, llevan taladrando desde ayer.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I119D0
+
+trial E2I119D0
+inline =           |Los nuevos inquilinos los del cuarto llevan taladrando desde ayer.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I119D0
+
+trial E1I120D0
+inline =           |Algunos asistentes, los que estaban sentados al final, abandonaron el teatro.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I120D0
+
+trial E2I120D0
+inline =           |Algunos asistentes los que estaban sentados al final abandonaron el teatro.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I120D0
+
+trial E1I121D0
+inline =           |Margarita Domínguez, maestra de infantil, nos cuenta cómo podemos aplicar su proyecto.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I121D0
+
+trial E2I121D0
+inline =           |Margarita Domínguez maestra de infantil nos cuenta cómo podemos aplicar su proyecto.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I121D0
+
+trial E1I122D0
+inline =           |El derecho a la educación fue aprobado, según mi enciclopedia, a mediados del siglo pasado.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I122D0
+
+trial E2I122D0
+inline =           |El derecho a la educación fue aprobado según mi enciclopedia a mediados del siglo pasado.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I122D0
+
+trial E1I123D0
+inline =           |Cuando apareció Jacinta Sánchez, la bisabuela, todos aplaudimos y la felicitamos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I123D0
+
+trial E2I123D0
+inline =           |Cuando apareció Jacinta Sánchez la bisabuela todos aplaudimos y la felicitamos.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I123D0
+
+trial E1I124D0
+inline =           |Estos dos helados, el de chocolate y el de vainilla, suelen estar agotados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I124D0
+
+trial E2I124D0
+inline =           |Estos dos helados el de chocolate y el de vainilla suelen estar agotados.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I124D0
+
+trial E1I125D0
+inline =           |Carmen Castelló, la arquitecta, diseñará el edificio.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I125D0
+
+trial E2I125D0
+inline =           |Carmen Castelló la arquitecta diseñará el edificio.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I125D0
+
+trial E1I126D0
+inline =           |Adolfo Pellicer, fotógrafo de profesión, se casó con la hija del alcalde.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I126D0
+
+trial E2I126D0
+inline =           |Adolfo Pellicer fotógrafo de profesión se casó con la hija del alcalde.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I126D0
+
+trial E1I127D0
+inline =           |El padre de Marina, el farmacéutico, siempre está en la piscina.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I127D0
+
+trial E2I127D0
+inline =           |El padre de Marina el farmacéutico siempre está en la piscina.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I127D0
+
+trial E1I128D0
+inline =           |Las vecinas del quinto, María y Pilar, son las maestras de mi hija.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I128D0
+
+trial E2I128D0
+inline =           |Las vecinas del quinto María y Pilar son las maestras de mi hija.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I128D0
+
+trial E1I129D0
+inline =           |Sus dos hermanastros, Ramón y Pablo, realizaron paracaidismo este verano.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I129D0
+
+trial E2I129D0
+inline =           |Sus dos hermanastros Ramón y Pablo realizaron paracaidismo este verano.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I129D0
+
+trial E1I130D0
+inline =           |Cuando vino Alejandra, la sobrina de Marina, todo el vecindario se alarmó.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E1I130D0
+
+trial E2I130D0
+inline =           |Cuando vino Alejandra la sobrina de Marina todo el vecindario se alarmó.
+gc_rect =          (354 42 414 82)
+max_display_time = 90000
+trial_type =       sentence
+end E2I130D0
+
+trial F12I2D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Aprobará el curso?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I2D1
+
+trial F12I2D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Aprobará el curso?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I2D1
+
+trial F11I6D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Me cuesta entenderlo?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I6D1
+
+trial F11I6D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Me cuesta entenderlo?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I6D1
+
+trial F11I9D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Es alérgica al polen?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I9D1
+
+trial F11I9D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Es alérgica al polen?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I9D1
+
+trial F12I13D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Tiene pocas mascotas?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I13D1
+
+trial F12I13D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Tiene pocas mascotas?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I13D1
+
+trial F12I19D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Utilizaba muchas especias para cocinar?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I19D1
+
+trial F12I19D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Utilizaba muchas especias para cocinar?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I19D1
+
+trial F11I21D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Pudo arreglarlo al final?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I21D1
+
+trial F11I21D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Pudo arreglarlo al final?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I21D1
+
+trial F11I23D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Va Carlos a las fiestas?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I23D1
+
+trial F11I23D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Va Carlos a las fiestas?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I23D1
+
+trial F12I29D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Estaban sus padres contentos?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I29D1
+
+trial F12I29D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Estaban sus padres contentos?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I29D1
+
+trial F11I32D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Hace más fresco ahora?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I32D1
+
+trial F11I32D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Hace más fresco ahora?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I32D1
+
+trial F12I36D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Tu padre quería que lo alquilaras?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I36D1
+
+trial F12I36D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Tu padre quería que lo alquilaras?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I36D1
+
+trial F11I38D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Perdieron el dinero?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I38D1
+
+trial F11I38D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Perdieron el dinero?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I38D1
+
+trial F11I43D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Pablo quería ser sanitario?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I43D1
+
+trial F11I43D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Pablo quería ser sanitario?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I43D1
+
+trial F12I46D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Termine todas las tareas de mi lista?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I46D1
+
+trial F12I46D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Termine todas las tareas de mi lista?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I46D1
+
+trial F11I52D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Prefiere Eva el frío?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I52D1
+
+trial F11I52D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Prefiere Eva el frío?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I52D1
+
+trial F12I59D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Expulsaron a Pedro por golpear a un compañero?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I59D1
+
+trial F12I59D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Expulsaron a Pedro por golpear a un compañero?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I59D1
+
+trial F12I61D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Miguel es nuevo en la empresa?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I61D1
+
+trial F12I61D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Miguel es nuevo en la empresa?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I61D1
+
+trial F11I64D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Juan estudió psicología?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I64D1
+
+trial F11I64D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Juan estudió psicología?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I64D1
+
+trial F12I67D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Es una persona segura?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I67D1
+
+trial F12I67D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Es una persona segura?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I67D1
+
+trial F11I70D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Me caen mal?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I70D1
+
+trial F11I70D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Me caen mal?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I70D1
+
+trial F11I75D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Los invitados se querían quedar en la boda?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I75D1
+
+trial F11I75D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Los invitados se querían quedar en la boda?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I75D1
+
+trial F12I79D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Nos hemos quedado en casa estas vacaciones?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I79D1
+
+trial F12I79D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Nos hemos quedado en casa estas vacaciones?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I79D1
+
+trial F11I80D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Es necesario traer disfraces?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I80D1
+
+trial F11I80D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Es necesario traer disfraces?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I80D1
+
+trial F11I86D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Ana es una chica agradable?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I86D1
+
+trial F11I86D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Ana es una chica agradable?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I86D1
+
+trial F11I89D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Mi cámara nueva es útil?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I89D1
+
+trial F11I89D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Mi cámara nueva es útil?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I89D1
+
+trial F12I91D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Mi abuela Pepa era una mala mujer?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I91D1
+
+trial F12I91D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Mi abuela Pepa era una mala mujer?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I91D1
+
+trial F12I96D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Soledad iba a preparar la cena?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I96D1
+
+trial F12I96D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Soledad iba a preparar la cena?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I96D1
+
+trial F12I98D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Mi amiga va a adoptar un perro?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I98D1
+
+trial F12I98D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Mi amiga va a adoptar un perro?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I98D1
+
+trial F11I106D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Están buenos esos helados?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I106D1
+
+trial F11I106D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Están buenos esos helados?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I106D1
+
+trial F12I110D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Era segura nuestra zona hace unos años?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I110D1
+
+trial F12I110D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Era segura nuestra zona hace unos años?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I110D1
+
+trial F11I115D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Se porta bien el niño?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I115D1
+
+trial F11I115D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Se porta bien el niño?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I115D1
+
+trial F11I116D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Nerea y Maya eran buenas estudiantes?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I116D1
+
+trial F11I116D1
+button =            leftTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Nerea y Maya eran buenas estudiantes?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F11I116D1
+
+trial F12I119D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Son silenciosos los nuevos vecinos?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I119D1
+
+trial F12I119D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Son silenciosos los nuevos vecinos?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I119D1
+
+trial F12I123D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Apareció el abuelo José?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I123D1
+
+trial F12I123D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿Apareció el abuelo José?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I123D1
+
+trial F12I126D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿La hija del alcalde se casó con un ingeniero?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I126D1
+
+trial F12I126D1
+button =            rightTrigger
+gc_rect =          (0 0 10 10)
+inline =           |¿La hija del alcalde se casó con un ingeniero?\nSí                                 No\n\n
+max_display_time = 90000
+trial_type =       question
+end F12I126D1
+
+sequence SE1I2
+  E1I2D0
+  F12I2D1
+end SE1I2
+
+sequence SE2I2
+  E2I2D0
+  F12I2D1
+end SE2I2
+
+sequence SE1I6
+  E1I6D0
+  F11I6D1
+end SE1I6
+
+sequence SE2I6
+  E2I6D0
+  F11I6D1
+end SE2I6
+
+sequence SE1I9
+  E1I9D0
+  F11I9D1
+end SE1I9
+
+sequence SE2I9
+  E2I9D0
+  F11I9D1
+end SE2I9
+
+sequence SE1I13
+  E1I13D0
+  F12I13D1
+end SE1I13
+
+sequence SE2I13
+  E2I13D0
+  F12I13D1
+end SE2I13
+
+sequence SE1I19
+  E1I19D0
+  F12I19D1
+end SE1I19
+
+sequence SE2I19
+  E2I19D0
+  F12I19D1
+end SE2I19
+
+sequence SE1I21
+  E1I21D0
+  F11I21D1
+end SE1I21
+
+sequence SE2I21
+  E2I21D0
+  F11I21D1
+end SE2I21
+
+sequence SE1I23
+  E1I23D0
+  F11I23D1
+end SE1I23
+
+sequence SE2I23
+  E2I23D0
+  F11I23D1
+end SE2I23
+
+sequence SE1I29
+  E1I29D0
+  F12I29D1
+end SE1I29
+
+sequence SE2I29
+  E2I29D0
+  F12I29D1
+end SE2I29
+
+sequence SE1I32
+  E1I32D0
+  F11I32D1
+end SE1I32
+
+sequence SE2I32
+  E2I32D0
+  F11I32D1
+end SE2I32
+
+sequence SE1I36
+  E1I36D0
+  F12I36D1
+end SE1I36
+
+sequence SE2I36
+  E2I36D0
+  F12I36D1
+end SE2I36
+
+sequence SE1I38
+  E1I38D0
+  F11I38D1
+end SE1I38
+
+sequence SE2I38
+  E2I38D0
+  F11I38D1
+end SE2I38
+
+sequence SE1I43
+  E1I43D0
+  F11I43D1
+end SE1I43
+
+sequence SE2I43
+  E2I43D0
+  F11I43D1
+end SE2I43
+
+sequence SE1I46
+  E1I46D0
+  F12I46D1
+end SE1I46
+
+sequence SE2I46
+  E2I46D0
+  F12I46D1
+end SE2I46
+
+sequence SE1I52
+  E1I52D0
+  F11I52D1
+end SE1I52
+
+sequence SE2I52
+  E2I52D0
+  F11I52D1
+end SE2I52
+
+sequence SE1I59
+  E1I59D0
+  F12I59D1
+end SE1I59
+
+sequence SE2I59
+  E2I59D0
+  F12I59D1
+end SE2I59
+
+sequence SE1I61
+  E1I61D0
+  F12I61D1
+end SE1I61
+
+sequence SE2I61
+  E2I61D0
+  F12I61D1
+end SE2I61
+
+sequence SE1I64
+  E1I64D0
+  F11I64D1
+end SE1I64
+
+sequence SE2I64
+  E2I64D0
+  F11I64D1
+end SE2I64
+
+sequence SE1I67
+  E1I67D0
+  F12I67D1
+end SE1I67
+
+sequence SE2I67
+  E2I67D0
+  F12I67D1
+end SE2I67
+
+sequence SE1I70
+  E1I70D0
+  F11I70D1
+end SE1I70
+
+sequence SE2I70
+  E2I70D0
+  F11I70D1
+end SE2I70
+
+sequence SE1I75
+  E1I75D0
+  F11I75D1
+end SE1I75
+
+sequence SE2I75
+  E2I75D0
+  F11I75D1
+end SE2I75
+
+sequence SE1I79
+  E1I79D0
+  F12I79D1
+end SE1I79
+
+sequence SE2I79
+  E2I79D0
+  F12I79D1
+end SE2I79
+
+sequence SE1I80
+  E1I80D0
+  F11I80D1
+end SE1I80
+
+sequence SE2I80
+  E2I80D0
+  F11I80D1
+end SE2I80
+
+sequence SE1I86
+  E1I86D0
+  F11I86D1
+end SE1I86
+
+sequence SE2I86
+  E2I86D0
+  F11I86D1
+end SE2I86
+
+sequence SE1I89
+  E1I89D0
+  F11I89D1
+end SE1I89
+
+sequence SE2I89
+  E2I89D0
+  F11I89D1
+end SE2I89
+
+sequence SE1I91
+  E1I91D0
+  F12I91D1
+end SE1I91
+
+sequence SE2I91
+  E2I91D0
+  F12I91D1
+end SE2I91
+
+sequence SE1I96
+  E1I96D0
+  F12I96D1
+end SE1I96
+
+sequence SE2I96
+  E2I96D0
+  F12I96D1
+end SE2I96
+
+sequence SE1I98
+  E1I98D0
+  F12I98D1
+end SE1I98
+
+sequence SE2I98
+  E2I98D0
+  F12I98D1
+end SE2I98
+
+sequence SE1I106
+  E1I106D0
+  F11I106D1
+end SE1I106
+
+sequence SE2I106
+  E2I106D0
+  F11I106D1
+end SE2I106
+
+sequence SE1I110
+  E1I110D0
+  F12I110D1
+end SE1I110
+
+sequence SE2I110
+  E2I110D0
+  F12I110D1
+end SE2I110
+
+sequence SE1I115
+  E1I115D0
+  F11I115D1
+end SE1I115
+
+sequence SE2I115
+  E2I115D0
+  F11I115D1
+end SE2I115
+
+sequence SE1I116
+  E1I116D0
+  F11I116D1
+end SE1I116
+
+sequence SE2I116
+  E2I116D0
+  F11I116D1
+end SE2I116
+
+sequence SE1I119
+  E1I119D0
+  F12I119D1
+end SE1I119
+
+sequence SE2I119
+  E2I119D0
+  F12I119D1
+end SE2I119
+
+sequence SE1I123
+  E1I123D0
+  F12I123D1
+end SE1I123
+
+sequence SE2I123
+  E2I123D0
+  F12I123D1
+end SE2I123
+
+sequence SE1I126
+  E1I126D0
+  F12I126D1
+end SE1I126
+
+sequence SE2I126
+  E2I126D0
+  F12I126D1
+end SE2I126
