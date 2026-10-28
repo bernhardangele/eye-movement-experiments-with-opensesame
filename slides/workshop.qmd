@@ -340,7 +340,7 @@ run a practice loop first, then experimental blocks with breaks.
 
 ## Why the gaze target and the corner square?
 
-![The sentence starts inside the gaze target; the corner square (bottom right) ends the trial](images/reading-crop.png){.screenshot style="max-height: 520px"}
+![The sentence starts inside the gaze target; the corner square (bottom right) ends the trial](images/reading-crop.png){.screenshot}
 
 - **Gaze target** (50 × 50 px at x = 100–150): the sentence only appears once the eyes are
   where the first word will be, so the first fixation lands on the first letter

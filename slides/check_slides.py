@@ -5,8 +5,10 @@
 
 Render first (quarto render slides/workshop.qmd). For every slide, this script
 reports content that does not fit on the 1920 x 1080 slide (OVERFLOW), boxes
-with their own scrollbar (INNER-SCROLL, e.g. code that is cut off), and
-JavaScript errors, and saves a screenshot. For slides with an animation it also
+with their own scrollbar (INNER-SCROLL, e.g. code that is cut off), images
+whose displayed aspect ratio differs from the file's (DISTORTED, e.g. a
+max-height squashing a screenshot) and JavaScript errors, and saves a
+screenshot. For slides with an animation it also
 saves screenshots at the given times (seconds after the slide appears), so the
 animations can be checked frame by frame. Exit code 1 if anything is wrong.
 
@@ -28,9 +30,18 @@ INFO = '''() => { const s = Reveal.getCurrentSlide(); const h = s.querySelector(
   let inner = 0;
   s.querySelectorAll('pre, code, table, div').forEach(e => {
     if (e.scrollHeight > e.clientHeight + 4 && getComputedStyle(e).overflowY !== 'visible') inner++; });
+  const distorted = [];
+  s.querySelectorAll('img').forEach(e => {
+    if (!e.naturalWidth || !e.naturalHeight) return;
+    const shown = e.clientWidth / e.clientHeight, natural = e.naturalWidth / e.naturalHeight;
+    if (Math.abs(shown - natural) > 0.02 * natural)
+      distorted.push((e.getAttribute('data-src') || e.getAttribute('src')) + ' ' +
+                     e.clientWidth + 'x' + e.clientHeight + ' (natural ' +
+                     e.naturalWidth + 'x' + e.naturalHeight + ')');
+  });
   const a = s.querySelector('.anim');
   return {title: h ? h.textContent.trim() : '', height: s.scrollHeight, inner: inner,
-          anim: a ? a.dataset.anim : null}; }'''
+          distorted: distorted, anim: a ? a.dataset.anim : null}; }'''
 
 
 def main():
@@ -68,6 +79,8 @@ def main():
                 flags.append("OVERFLOW (%d px)" % info["height"])
             if info["inner"]:
                 flags.append("INNER-SCROLL")
+            if info["distorted"]:
+                flags.append("DISTORTED " + ", ".join(info["distorted"]))
             problems += bool(flags)
             if flags or (info["anim"] and (not only or info["anim"] in only)):
                 print("%3d %-60s %s %s" % (i + 1, info["title"][:60], " ".join(flags),

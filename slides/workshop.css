@@ -5,6 +5,11 @@
   max-height: 340px;
 }
 
+/* reveal.js gives .r-stretch images an explicit width *and* height that fit the space left
+   on the slide, preserving the aspect ratio. A max-height on top would clamp only the
+   height and squash the picture. */
+.reveal img.r-stretch { max-height: none; }
+
 .reveal table {
   font-size: 0.8em;
 }

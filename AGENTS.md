@@ -110,7 +110,7 @@ the right **data**, the displays must look right, and the slides must be readabl
 | Letter and word positions | `check_interest_areas.py` (default: all 488 sentences, legacy backend); also `--backend psycho`, `--font ... --font-file ...` | after changes to fonts, `TEXT_LAYOUT`, sentence position or materials | `RESULT: ... CORRECT` (≤ 1.5 px) |
 | Displays | `test_headless.py NAME --max-trials 2 --screenshots DIR [--screenshot-trials ...]` | after changes to what is drawn | you have looked at the PNGs |
 | Loads in the OpenSesame GUI | `DISPLAY=:0 opensesame experiments/osexp/NAME.osexp &`, screenshot of the noVNC desktop | after structural changes (new items, sequences, plugins) | the item tree appears, no error dialog |
-| Slides | `quarto render slides/workshop.qmd`, then `slides/check_slides.py --out DIR --anim-times 2,6,12` | after every slide, CSS or animation change | `OK` (no OVERFLOW, INNER-SCROLL, JS error) **and** you have looked at the screenshots |
+| Slides | `quarto render slides/workshop.qmd`, then `slides/check_slides.py --out DIR --anim-times 2,6,12` | after every slide, CSS or animation change | `OK` (no OVERFLOW, INNER-SCROLL, DISTORTED, JS error) **and** you have looked at the screenshots |
 | Container | rebuild the devcontainer | after changes to `.devcontainer/` | the commands above work with `/opt/slides-check/bin/python` |
 
 Full-length matrix (each run prints `ALL PASSED`; boundary takes ≈ 15 min, runs can be started in
@@ -245,7 +245,8 @@ how the slides and animations look on the projector. `plan.md` lists these as pi
   structure, trial, waitfix, lists, boundary, blocks, movingwindow, windowlock, vwp.
 - **Check after every change**: `quarto render slides/workshop.qmd`, then
   `/opt/slides-check/bin/python slides/check_slides.py --out /tmp/slides` (headless Chromium):
-  reports OVERFLOW, INNER-SCROLL and JavaScript errors (must print OK) and saves screenshots of every
+  Reports OVERFLOW, INNER-SCROLL, DISTORTED (displayed image aspect ratio differs from the file's)
+  and JavaScript errors (must print OK) and saves screenshots of every
   slide and of each animation at `--anim-times`. Look at the screenshots: the check cannot judge
   readability or overlapping text. Mermaid's default style was unreadable on the projector; prefer
   an animation or an HTML/SVG diagram.
