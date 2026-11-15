@@ -1149,11 +1149,24 @@ def build_experiments():
             practice_rows=comas_rows([r for r in comas if r["block"] == "practice"]),
             blocks=[comas_rows([r for r in comas if r["block"] == b])
                     for b in ("1", "2")]), []),
+        "reading_short": (experiment(
+            "Reading with and without commas (short pilot)",
+            "Sentence reading (short pilot: 2 practice + 12 experimental trials)",
+            TEXTS["es"]["reading"], READING_PREPARE, READING_RUN, lang="es",
+            practice_rows=comas_rows([r for r in comas if r["block"] == "practice"])[:2],
+            blocks=[comas_rows([r for r in comas if r["block"] == b])[:6]
+                    for b in ("1", "2")]), []),
         "boundary": (experiment(
             "Boundary paradigm",
             "Gaze-contingent display change with the published Spanish sentences",
             TEXTS["es"]["reading"], BOUNDARY_PREPARE, BOUNDARY_RUN, lang="es",
             practice_rows=practice, blocks=blocks, rotate_blocks=True), []),
+        "boundary_short": (experiment(
+            "Boundary paradigm (short pilot)",
+            "Gaze-contingent display change (short pilot: 2 practice + 12 experimental trials)",
+            TEXTS["es"]["reading"], BOUNDARY_PREPARE, BOUNDARY_RUN, lang="es",
+            practice_rows=practice[:2], blocks=[b[:4] for b in blocks],
+            rotate_blocks=True), []),
         "movingwindow": (experiment(
             "Moving window paradigm",
             "Gaze-contingent moving window, sentences of the EyeLogic experiment",

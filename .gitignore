@@ -228,6 +228,7 @@ slides/workshop.html
 slides/workshop_files/
 slides/.quarto/
 subject-*.csv
+!experiments/example_data/*/*.csv
 
 # Fonts used only to verify the interest areas locally (licensed, not redistributable)
 examples/*.ttf

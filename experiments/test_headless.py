@@ -36,6 +36,7 @@ import tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 OSEXP = os.path.join(HERE, "osexp")
 ALL = ["reading", "boundary", "movingwindow", "vwp"]
+VALID = ALL + ["reading_short", "boundary_short"]
 
 # Simulated reading: fixations of FIX_MS, each placed exactly on a letter
 # boundary with the gaze drifting +- DRIFT letters across it, and saccades of
@@ -489,7 +490,7 @@ def check(name, rows, participant, script, subject, fake_eyelink):
           "%d boxes" % boxes)
         lines = sum(cmd.startswith("draw_line") for _, cmd in participant.commands)
         c("EyeLink: boundary line drawn on the Host PC only in boundary.osexp",
-          (lines >= len(rows)) if name == "boundary" else lines == 0,
+          (lines >= len(rows)) if name in ("boundary", "boundary_short") else lines == 0,
           "%d lines" % lines)
     else:
         c("EyeLink-only items do nothing with another tracker",
@@ -497,7 +498,7 @@ def check(name, rows, participant, script, subject, fake_eyelink):
           not any(m.startswith(("!V ", "TRIAL_RESULT", "DISPLAY_COORDS"))
                   for _, _, m in messages))
 
-    if name == "reading":
+    if name in ("reading", "reading_short"):
         exp_rows = [r for r in rows if r["block"] != "practice"]
         c("list A for even, list B for odd subject numbers",
           all(r["item_list"] == ("A" if subject % 2 == 0 else "B") for r in rows))
@@ -512,7 +513,7 @@ def check(name, rows, participant, script, subject, fake_eyelink):
         c("practice first, then block 1 and block 2",
           [r["block"] for r in rows] == sorted([r["block"] for r in rows],
                                                key=lambda b: (b != "practice", b)))
-    if name == "boundary":
+    if name in ("boundary", "boundary_short"):
         c("every trial has a display change",
           all(r["display_changed"] == "1" for r in rows))
         c("preview and target words have equal length in every trial",
@@ -664,7 +665,7 @@ def main():
     os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
     failed = 0
     for name in a.experiments:
-        if name not in ALL:
+        if name not in VALID:
             ap.error("unknown experiment %r" % name)
     for name in a.experiments:
         print("%s (subject %d%s)" % (name, a.subject,

@@ -120,7 +120,7 @@ parallel on the same X display):
 |------------|-----------------|-----|
 | `reading` | 1, 2 | both lists (parity); together every item in both conditions |
 | `boundary` | 1, 2, 3 (ideally 1–6) | all three block orders (`subject_nr % 3`) × both preview lists |
-| `movingwindow` | 1, 2 | both lists (window 4 / 12) |
+| `movingwindow` | 1–4 | all four lists (`A`–`D`) of the 2 × 2 Latin square (version × window) |
 | `vwp` | any | no counterbalancing; all 8 trials |
 
 ### What the harness checks
