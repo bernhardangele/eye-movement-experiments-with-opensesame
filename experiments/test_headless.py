@@ -67,6 +67,7 @@ class Participant:
         self.plan = None          # fixations of the current sentence
         self.fixations = []       # (trial, start, end, letter index)
         self.recalibrate_in_trial = 3
+        self.mouse_resets = []    # (trial, (x, y))
 
     @property
     def ws(self):
@@ -112,8 +113,12 @@ class Participant:
         if self.state == "away":
             return 50, 50
         if self.state == "validation":
+            if 1050 <= dt < 1350:
+                return ((-32768, -32768), (-1, -1), (0, 0))[int(dt) % 3]
             return self.point[0] + 3, self.point[1] - 2
         if self.state == "gazetarget":
+            if self.trial == 1 and 50 <= dt < 100:
+                return -32768, -32768
             return self.ws["GAZE_LEFT"] + self.ws["GAZE_SIZE"] / 2, H / 2
         if self.state == "reading":
             return self.reading_sample(dt, corner, H)
@@ -142,6 +147,8 @@ class Participant:
         i = int(i)
         if i >= len(ks):
             return corner
+        if self.trial == 1 and i == 1 and 50 <= into < 110:
+            return ((-32768, -32768), (-1, -1), (0, 0))[int(into) % 3]
         width = (edges[-1] - edges[0]) / (len(edges) - 1)
         if into < FIX_MS:                            # fixation with drift
             x = edges[ks[i]] + DRIFT * width * math.sin(2 * math.pi * dt / 12)
@@ -178,26 +185,67 @@ class Participant:
 def save_screenshots(participant, folder, name, trials=(0, 1, 2), max_per_trial=8):
     """Save the displays of the given trials as PNG (0 = before the first trial)."""
     from openexp._canvas import legacy as canvas_legacy
+    from openexp._canvas import psycho as canvas_psycho
     import pygame
     os.makedirs(folder, exist_ok=True)
-    show = canvas_legacy.Legacy.show
+    legacy_show = canvas_legacy.Legacy.show
+    psycho_show = canvas_psycho.Psycho.show
     count = {}
 
-    def show_and_save(self):
-        t = show(self)
+    def save_path(trial):
+        count[trial] = count.get(trial, 0) + 1
+        return os.path.join(folder, "%s_t%d_%02d.png" % (name, trial, count[trial]))
+
+    def want(trial):
+        return trial in trials and count.get(trial, 0) < max_per_trial
+
+    def legacy_and_save(self):
+        t = legacy_show(self)
         trial = participant.trial
-        if trial in trials and count.get(trial, 0) < max_per_trial:
-            count[trial] = count.get(trial, 0) + 1
-            pygame.image.save(self.surface, os.path.join(
-                folder, "%s_t%d_%02d.png" % (name, trial, count[trial])))
+        if want(trial):
+            pygame.image.save(self.surface, save_path(trial))
         return t
-    canvas_legacy.Legacy.show = show_and_save
+
+    def psycho_and_save(self):
+        win = self.experiment.window
+        flip = win.flip
+        trial = participant.trial
+        grabbed = {}
+
+        def grab_and_flip(*args, **kwargs):
+            if want(trial):
+                grabbed["img"] = win._getFrame(buffer="back")
+            win.flip = flip
+            return flip(*args, **kwargs)
+
+        if want(trial):
+            win.flip = grab_and_flip
+        try:
+            t = psycho_show(self)
+        finally:
+            if win.flip is grab_and_flip:
+                win.flip = flip
+        if "img" in grabbed:
+            grabbed["img"].save(save_path(trial))
+        return t
+
+    canvas_legacy.Legacy.show = legacy_and_save
+    canvas_psycho.Psycho.show = psycho_and_save
+
+    def restore():
+        canvas_legacy.Legacy.show = legacy_show
+        canvas_psycho.Psycho.show = psycho_show
+
+    return restore
 
 
 def patch(participant):
     from pygaze._eyetracker import libdummytracker
+    from openexp.backend import configurable
     from openexp._keyboard import legacy as kb_legacy
+    from openexp._keyboard import psycho as kb_psycho
     from openexp._mouse import legacy as mouse_legacy
+    from openexp._mouse import psycho as mouse_psycho
     import pygame
 
     D = libdummytracker.Dummy
@@ -215,11 +263,30 @@ def patch(participant):
         return key, pygame.time.get_ticks()
     kb_legacy.Legacy._get_key_event = _get_key_event
 
+    @configurable
+    def _psycho_get_key(self):
+        key = participant.key(self.keylist, self.timeout)
+        return key, self.experiment.clock.time()
+    kb_psycho.Psycho.get_key = _psycho_get_key
+
     def _get_mouse_event(self, event_type):
         pygame.event.pump()
         pos = participant.click()
         return (None if pos is None else 1), pos, pygame.time.get_ticks()
     mouse_legacy.Legacy._get_mouse_event = _get_mouse_event
+
+    legacy_set_pos = mouse_legacy.Legacy.set_pos
+
+    def _set_pos(self, pos=(0, 0)):
+        participant.mouse_resets.append((participant.trial, pos))
+        return legacy_set_pos(self, pos=pos)
+    mouse_legacy.Legacy.set_pos = _set_pos
+
+    @configurable
+    def _psycho_get_click(self):
+        pos = participant.click()
+        return (None if pos is None else 1), pos, self.experiment.clock.time()
+    mouse_psycho.Psycho.get_click = _psycho_get_click
 
 
 def limit_trials(script, max_trials):
@@ -254,9 +321,13 @@ def run(name, subject, max_trials, outdir, fake_eyelink=False, screenshots=None,
                      subject_nr=subject, pool_folder=os.path.join(tmp, "pool"))
     participant = Participant(exp)
     patch(participant)
-    if screenshots:
-        save_screenshots(participant, screenshots, name, screenshot_trials)
-    exp.run()
+    restore = (save_screenshots(participant, screenshots, name, screenshot_trials)
+               if screenshots else None)
+    try:
+        exp.run()
+    finally:
+        if restore:
+            restore()
     with open(logfile, encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     return rows, participant, script
@@ -296,11 +367,12 @@ def check(name, rows, participant, script, subject, fake_eyelink):
     trials = by_trial(messages)
 
     # Validation at the start of the experiment.
+    want_dots = 5 if name == "vwp" else 3
     first = trials.get(0, [])
     c("calibration validated and accepted before the first trial",
       any(m.startswith("VALIDATION RESULT") and m.endswith("accepted=1")
           for _, m in first) and
-      sum(m.startswith("VALIDATION ERROR") for _, m in first) == 5)
+      sum(m.startswith("VALIDATION ERROR") for _, m in first) == want_dots)
     c("validation error logged in degrees",
       all(float(r["validation_max_error"]) < 0.5 for r in rows),
       "max %s deg" % rows[0]["validation_max_error"])
@@ -311,8 +383,8 @@ def check(name, rows, participant, script, subject, fake_eyelink):
       and all(s.split()[4] == r["condition"] for s, r in zip(status, rows)),
       status[0] if status else "")
     stim = "PREVIEW_ONSET" if name == "vwp" else "STIMONSET"
-    order = ["trial ", "TRIALINFO item=", "GAZE TARGET ON", stim, "TRIALEND",
-             "stop_trial"]
+    order = ["trial ", "TRIALINFO item=", "REGION n=", "GAZE TARGET ON", stim,
+             "TRIALEND", "stop_trial"]
     bad = []
     for i in range(1, len(rows) + 1):
         msgs = [m for _, m in trials.get(i - 1, [])[-1:]] + \
@@ -349,15 +421,39 @@ def check(name, rows, participant, script, subject, fake_eyelink):
             return dict(f.split("=", 1) for f in m.split()[1:])
         gaps = 0
         n_letters = []
+        max_right = 0
         for i in range(1, len(rows) + 1):
             regions = [fields(m) for _, m in trials.get(i, []) if m.startswith("REGION n=")]
             gaps += sum(int(a["right"]) != int(b["left"]) for a, b in zip(regions, regions[1:]))
+            if regions:
+                max_right = max(max_right, max(int(r["right"]) for r in regions))
             n_letters.append(sum(m.startswith("LETTER ") for _, m in trials.get(i, [])))
         c("word areas touch (the space after a word belongs to it)", gaps == 0,
           "%d gaps" % gaps)
+        c("sentence fits on one line before the corner region",
+          0 < max_right < int(1920 * .9), "max right=%d px" % max_right)
         want_letters = [len(r["sentence"].replace(" ", "")) for r in rows]
         c("one LETTER message per letter", n_letters == want_letters,
           str(n_letters[:4]))
+        spans = []
+        for i in range(1, len(rows) + 1):
+            ts = [tt for tt, m in trials.get(i, [])
+                  if m.startswith(("REGION ", "LETTER "))]
+            if ts:
+                spans.append(round(ts[-1] - ts[0], 2))
+        c("interest-area burst is paced (short pauses so messages are not dropped)",
+          len(spans) == len(rows) and all(s >= 5 for s in spans),
+          "spans ms: %s" % spans[:4])
+    before_gaze = []
+    for i in range(1, len(rows) + 1):
+        tmsgs = [m for _, m in trials.get(i, [])]
+        g = next((j for j, m in enumerate(tmsgs) if m.startswith("GAZE TARGET ON")), None)
+        last_ia = max((j for j, m in enumerate(tmsgs)
+                       if m.startswith(("REGION ", "LETTER "))), default=-1)
+        if g is None or last_ia < 0 or last_ia > g:
+            before_gaze.append(i)
+    c("all REGION/LETTER messages sent before the gaze target",
+      not before_gaze, "bad trials: %s" % before_gaze[:5])
     items = [m.split("=", 1)[1] for _, _, m in messages
              if m.startswith("TRIALINFO item=")]
     c("TRIALINFO message carries the item number",
@@ -376,6 +472,8 @@ def check(name, rows, participant, script, subject, fake_eyelink):
     if fake_eyelink:
         c("EyeLink: DISPLAY_COORDS once",
           sum(m.startswith("DISPLAY_COORDS") for _, _, m in messages) == 1)
+        c("EyeLink: calibration_type set to HV9",
+          any(cmd == "calibration_type = HV9" for _, cmd in participant.commands))
         c("EyeLink: one TRIALID and TRIAL_RESULT per trial",
           trialids == list(range(len(rows))) and
           sum(m == "TRIAL_RESULT 0" for _, _, m in messages) == len(rows))
@@ -417,9 +515,23 @@ def check(name, rows, participant, script, subject, fake_eyelink):
     if name == "boundary":
         c("every trial has a display change",
           all(r["display_changed"] == "1" for r in rows))
-        lat = [float(r["display_change_latency"]) for r in rows]
-        c("display-change latency logged",
-          len([m for _, _, m in messages if m.startswith("DISPLAYCHANGE")])
+        c("preview and target words have equal length in every trial",
+          all(len(r["changed"]) == len(r["target"]) for r in rows))
+        b_trials = [t for t, _, m in messages if m.startswith("BOUNDARY x=")]
+        b_bad = [
+            i for i in range(1, len(rows) + 1)
+            if not any(m.startswith("BOUNDARY x=") for _, m in trials.get(i, []))
+            or next((j for j, (_, m) in enumerate(trials.get(i, []))
+                     if m.startswith("BOUNDARY x=")), 999)
+            > next((j for j, (_, m) in enumerate(trials.get(i, []))
+                    if m.startswith("GAZE TARGET ON")), -1)
+        ]
+        c("BOUNDARY message logged inside every trial (before gaze target)",
+          b_trials == list(range(1, len(rows) + 1)) and not b_bad,
+          "trials: %s, bad order: %s" % (b_trials[:5], b_bad[:5]))
+        lat = [float(r["display_change_draw_duration"]) for r in rows]
+        c("display-change draw duration logged",
+          len([m for _, _, m in messages if m.startswith("DISPLAYCHANGE draw_duration=")])
           == len(rows), "max %.0f ms in this environment" % max(lat))
         with open(os.path.join(HERE, "sentences.csv"), encoding="utf-8") as f:
             table = {r["sentence_number"]: r for r in csv.DictReader(f)}
@@ -483,9 +595,21 @@ def check(name, rows, participant, script, subject, fake_eyelink):
                      if start + 40 <= tm <= end)
         c("no window changes while the gaze drifts during a fixation",
           during == 0, "%d changes during fixations, %d in total" % (during, len(moves)))
-        c("window sizes by item and list (4 / 12)",
-          all(r["window"] == ("4" if expected_condition(r, subject, True, False) else "12")
-              for r in rows))
+        mw_conds = (("high", "4"), ("high", "12"), ("low", "4"), ("low", "12"))
+        mw_list = (subject - 1) % 4
+        want_list = ("A", "B", "C", "D")[mw_list]
+        c("2 x 2 Latin square assigns list A-D, version, window, and matching text",
+          all(
+              r["item_list"] == want_list
+              and (r["version"], r["window"]) == mw_conds[(int(r["item"]) - 1 + mw_list) % 4]
+              and r["condition"] == "%s_window_%s" % (r["version"], r["window"])
+              and r["sentence"] == r[r["version"] + "_sentence"]
+              and r["question"] == r[r["version"] + "_question"]
+              and r["answer"] == r[r["version"] + "_answer"]
+              for r in rows
+          ))
+        c("each source frame appears at most once per participant",
+          len({r["source_item"] for r in rows}) == len(rows))
     if name == "vwp":
         c("clicked the target in every trial",
           all(r["clicked"] == r["target"] and r["click_correct"] == "1"
@@ -502,6 +626,19 @@ def check(name, rows, participant, script, subject, fake_eyelink):
           all(0 <= d <= 10 for d in delays), "%s ms late" % delays[:4])
         c("gaze on the target after target onset",
           all(int(r["target_samples"]) > 0 for r in rows))
+        c("mouse cursor centred before every trial",
+          participant.mouse_resets == [(t, (0, 0)) for t in range(1, len(rows) + 1)],
+          str(participant.mouse_resets[:4]))
+        vwp_boxes = []
+        for t in range(1, len(rows) + 1):
+            for _, m in trials.get(t, []):
+                if m.startswith("REGION "):
+                    f = dict(p.split("=", 1) for p in m.split()[1:])
+                    vwp_boxes.append((int(f["right"]) - int(f["left"]),
+                                      int(f["bottom"]) - int(f["top"])))
+        c("VWP interest areas include 40 px margin (320 x 320 px)",
+          len(vwp_boxes) == 4 * len(rows) and all(wh == (320, 320) for wh in vwp_boxes),
+          str(vwp_boxes[:4]))
     return c.failed
 
 

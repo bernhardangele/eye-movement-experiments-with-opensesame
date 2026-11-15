@@ -78,13 +78,13 @@ set sound_freq 48000
 set sound_channels 2
 set sound_buf_size 1024
 set round_decimals 2
-set mouse_backend legacy
-set keyboard_backend legacy
-set color_backend legacy
-set canvas_backend legacy
-set clock_backend legacy
-set sampler_backend legacy
-set fullscreen no
+set mouse_backend {backend}
+set keyboard_backend {backend}
+set color_backend {backend}
+set canvas_backend {backend}
+set clock_backend {backend}
+set sampler_backend {backend}
+set fullscreen yes
 set font_size 24
 set font_family mono
 set font_bold no
@@ -103,6 +103,7 @@ set no_label "{no_label}"
 set screen_width_cm 53
 set viewing_distance_cm 70
 set validation_threshold 1.0
+set validation_2d {validation_2d}
 set fixation_triggered_drift_check no
 """
 
@@ -188,17 +189,17 @@ def loop(name, item, rows, description="Trials (stimulus table)", order="random"
 def pygaze_items():
     return (
         "define pygaze_init pygaze_init\n\tset tracker_type \"Advanced dummy (mouse simulation)\"\n"
-        "\tset calibrate yes\n\tset calbeep no\n\tset _logfile automatic\n"
+        "\tset calibrate no\n\tset calbeep no\n\tset _logfile automatic\n"
         "\tset sacc_vel_thr 35\n\tset sacc_acc_thr 9500\n"
         "\tset alea_api_key \"Contact Alea for an API key\"\n\tset alea_animated_calibration no\n"
-        "\tset eyelink_force_drift_correct yes\n\tset eyelink_pupil_size_mode area\n"
+        "\tset eyelink_force_drift_correct no\n\tset eyelink_pupil_size_mode area\n"
         "\tset smi_ip 127.0.0.1\n\tset smi_send_port 4444\n\tset smi_recv_port 5555\n"
         "\tset tobiiglasses_address 192.168.71.50\n\tset tobiiglasses_udpport 49152\n"
         "\tset description \"Initialize and calibrate the eye tracker (advanced dummy: mouse = gaze)\"\n\n"
         "define pygaze_drift_correct drift_correct\n\tset xpos 0\n\tset ypos 0\n"
         "\tset fixation_triggered \"{fixation_triggered_drift_check}\"\n\tset target_color black\n"
         "\tset target_style default\n\tset draw_target yes\n"
-        "\tset description \"Drift correction at screen centre (fixation-triggered if "
+        "\tset description \"Drift check / correction at screen centre (fixation-triggered if "
         "fixation_triggered_drift_check = yes)\"\n\n"
         "define pygaze_start_recording start_recording\n"
         "\tset status_msg \"trial {count_trial_sequence + 1}/{n_trials} item {item} {condition}\"\n"
@@ -295,7 +296,9 @@ letter_x = []
 
 
 def ascii_safe(text):
-    """Tracker data files (EDF) do not like non-ASCII characters."""
+    """Tracker data files (EDF) do not like non-ASCII characters: replaces them
+    with '?'. Match words/letters in the analysis by index (`n=`, `word=`) +
+    `item` from the CSV, using `label` / `char` only as a sanity check."""
     return str(text).encode('ascii', 'replace').decode().replace(' ', '_')
 
 
@@ -306,10 +309,22 @@ def add_corner(c):
 
 
 def text_canvas(txt):
-    """Left-aligned sentence starting inside the gaze target, vertically centred."""
+    """Left-aligned sentence starting inside the gaze target, vertically centred.
+
+    Draws with `max_width=W` (matching `_inked_width`) and raises an error if
+    the text wraps onto a second line or reaches `CORNER_X` (the end-of-trial
+    corner region).
+    """
+    end_x = SENTENCE_LEFT + TEXT_MARGIN + text_width(txt)
+    _, h = _probe.text_size(txt, center=False, html=False, max_width=W)
+    if h > TEXT_H or end_x >= CORNER_X:
+        raise ValueError(
+            'Sentence does not fit on one line before the corner region '
+            '(end_x=%d >= CORNER_X=%d, height=%d > TEXT_H=%d): %r'
+            % (round(end_x), CORNER_X, h, TEXT_H, txt))
     c = Canvas(exp)
     c.text(txt, center=False, x=SENTENCE_LEFT - W // 2, y=TEXT_TOP,
-           color='black', html=False)
+           color='black', html=False, max_width=W)
     add_corner(c)
     return c
 
@@ -336,10 +351,20 @@ def word_areas(sentence, edges):
 
 def log_interest_areas():
     """Write the interest areas (words or pictures) and, for sentences, the
-    position of every letter to the tracker data file."""
+    position of every letter to the tracker data file.
+
+    Called after start_recording and before show_gaze_target so the burst of
+    70-100 messages finishes before the stimulus appears and does not delay
+    gaze polling. Sleeps 1 ms every 5 messages so the tracker does not drop
+    messages.
+    """
+    sent = 0
     for n, (label, left, top, right, bottom) in enumerate(interest_areas, 1):
         eyetracker.log('REGION n=%d label=%s left=%d top=%d right=%d bottom=%d'
                        % (n, ascii_safe(label), left, top, right, bottom))
+        sent += 1
+        if sent % 5 == 0:
+            clock.sleep(1)
     word, n = 1, 0
     for k, ch in enumerate(var.get('sentence', '') if letter_x else ''):
         if ch == ' ':
@@ -349,6 +374,17 @@ def log_interest_areas():
         eyetracker.log('LETTER word=%d n=%d char=%s left=%d right=%d'
                        % (word, n, ascii_safe(ch), round(letter_x[k]),
                           round(letter_x[k + 1])))
+        sent += 1
+        if sent % 5 == 0:
+            clock.sleep(1)
+
+
+def valid_sample(x, y):
+    """Reject missing/blink samples ((-32768, -32768), (-1, -1), (0, 0))
+    and off-screen coordinates."""
+    return (x is not None and y is not None
+            and math.isfinite(x) and math.isfinite(y)
+            and 0 <= x < W and 0 <= y < H and (x, y) != (0, 0))
 
 
 def on_gaze_target(x, y):
@@ -371,7 +407,7 @@ def wait_for_fixation(region, duration, timeout=None, keys=('escape',)):
     since = None
     while True:
         x, y = eyetracker.sample()
-        if region(x, y):
+        if valid_sample(x, y) and region(x, y):
             if since is None:
                 since = clock.time()
             elif clock.time() - since >= duration:
@@ -407,10 +443,15 @@ def gaze_target_canvas():
     return c
 
 
-# Validation: works with every tracker. Five dots; for each, the median gaze
-# position over 500 ms is compared with the dot. The error is converted to
-# degrees of visual angle with screen_width_cm and viewing_distance_cm.
-VALIDATION_POINTS = [(.5, .5), (.2, .2), (.8, .2), (.2, .8), (.8, .8)]
+# Validation: works with every tracker. Three dots along the text line for
+# single-line reading (or five 2D dots for VWP); for each, the median gaze
+# position over 500 ms is compared with the dot. Error is converted to degrees
+# with screen_width_cm and viewing_distance_cm.
+VALIDATION_POINTS = (
+    [(.5, .5), (.2, .2), (.8, .2), (.2, .8), (.8, .8)]
+    if var.validation_2d == 'yes'
+    else [(.1, .5), (.5, .5), (.9, .5)]
+)
 
 
 def px_to_deg(px):
@@ -433,11 +474,15 @@ def validate():
         t0 = clock.time()
         while clock.time() - t0 < 500:
             gx, gy = eyetracker.sample()
-            xs.append(gx)
-            ys.append(gy)
+            if valid_sample(gx, gy):
+                xs.append(gx)
+                ys.append(gy)
             clock.sleep(5)
-        gx, gy = sorted(xs)[len(xs) // 2], sorted(ys)[len(ys) // 2]
-        errors.append(px_to_deg(math.hypot(gx - x, gy - y)))
+        if xs:
+            gx, gy = sorted(xs)[len(xs) // 2], sorted(ys)[len(ys) // 2]
+            errors.append(px_to_deg(math.hypot(gx - x, gy - y)))
+        else:
+            errors.append(999.0)             # no valid samples (blink / track loss)
         eyetracker.log('VALIDATION ERROR x=%d y=%d deg=%.2f' % (x, y, errors[-1]))
     eyetracker.stop_recording()
     return errors
@@ -485,8 +530,8 @@ if not EYELINK:
 
 # Trial variables that Data Viewer shows (!V TRIAL_VAR), if they exist.
 EYELINK_TRIAL_VARS = ['item', 'condition', 'response', 'correct',
-                      'trial_aborted', 'display_change_latency', 'clicked',
-                      'click_rt']
+                      'trial_aborted', 'display_change_draw_duration',
+                      'clicked', 'click_rt']
 
 # EyeLink Host PC colours: 0 black, 2 green, 4 red, 7 light grey, 15 white.
 
@@ -516,6 +561,9 @@ def eyelink_draw_host():
 
 
 if EYELINK:
+    # Set calibration type before initial calibrate() runs (HV9 default; H3 is
+    # fine for single-line reading, with trade-offs for 2D fixation detection).
+    eyetracker.send_command('calibration_type = HV9')
     # Data Viewer: screen size, needed to show fixations on the stimulus.
     eyetracker.log('DISPLAY_COORDS 0 0 %d %d' % (W - 1, H - 1))
 '''
@@ -529,6 +577,8 @@ if EYELINK:
     for n, (label, left, top, right, bottom) in enumerate(interest_areas, 1):
         eyetracker.log('!V IAREA RECTANGLE %d %d %d %d %d %s'
                        % (n, left, top, right, bottom, ascii_safe(label)))
+        if n % 5 == 0:
+            clock.sleep(1)
     eyelink_draw_host()
 '''
 
@@ -543,7 +593,9 @@ if EYELINK:
 '''
 
 VALIDATE_CALIBRATION = r'''
-# pygaze_init has calibrated; check the accuracy before the experiment starts.
+# Initial calibration (after eyelink_setup has set calibration_type), then
+# check accuracy before the experiment starts.
+eyetracker.calibrate()
 calibrate_and_validate()
 '''
 
@@ -571,6 +623,10 @@ gazetarget_canvas = gaze_target_canvas()
 # show the target again, as in the published experiment. The experimenter can
 # also press C for a full re-calibration followed by a validation.
 SHOW_GAZE_TARGET_RUN = r'''
+log_interest_areas()
+if 'boundary' in var:
+    eyetracker.log('BOUNDARY x=%d target_word=%d'
+                   % (var.boundary, var.target_word_nr))
 while True:
     gazetarget_canvas.show()
     eyetracker.log('GAZE TARGET ON')
@@ -616,7 +672,6 @@ interest_areas = word_areas(var.sentence, letter_x)
 READING_RUN = r'''
 sentence_canvas.show()
 eyetracker.log('STIMONSET')
-log_interest_areas()
 end_trial_at_corner()
 '''
 
@@ -636,7 +691,12 @@ var.condition = var.preview_condition
 ending = var.posttarget if var.posttarget.endswith('.') else var.posttarget + '.'
 
 # Before the boundary the target position shows the preview: the target word
-# itself (identical) or the `changed` word (dissimilar).
+# itself (identical) or the `changed` word (dissimilar). Preview and target
+# must have the same length so following words do not shift at the change.
+if len(str(var.changed)) != len(str(var.target)):
+    raise ValueError(
+        'Preview (%r) and target (%r) must have the same length in item %s'
+        % (var.changed, var.target, var.item))
 preview_word = var.changed if var.preview_condition == 'dissimilar' else var.target
 pre_sentence = ' '.join([var.pretarget, preview_word, ending])
 tar_sentence = ' '.join([var.pretarget, var.target, ending])
@@ -651,7 +711,6 @@ interest_areas = word_areas(tar_sentence, letter_x)
 # (= left edge of the space before the target) + 0.4 of the width of an X.
 var.target_word_nr = len(var.pretarget.split()) + 1
 var.boundary = letter_x[len(var.pretarget)] + 0.4 * text_width('X')
-eyetracker.log('BOUNDARY x=%d target_word=%d' % (var.boundary, var.target_word_nr))
 '''
 
 # Poll the gaze as fast as possible (no sleep): the display change has to
@@ -659,18 +718,21 @@ eyetracker.log('BOUNDARY x=%d target_word=%d' % (var.boundary, var.target_word_n
 BOUNDARY_RUN = r'''
 pre_canvas.show()
 eyetracker.log('STIMONSET preview=%s' % var.preview_condition)
-log_interest_areas()
 # Not called `changed`: that is the loop column with the preview word.
 var.display_changed = 0
-var.display_change_latency = 'NA'
+var.display_change_draw_duration = 'NA'
 t0 = clock.time()
 while True:
     x, y = eyetracker.sample()
-    if x > var.boundary:
+    if valid_sample(x, y) and x > var.boundary:
         t_pre = clock.time()
         t_post = tar_canvas.show()
-        var.display_change_latency = t_post - t_pre
-        eyetracker.log('DISPLAYCHANGE latency=%d' % var.display_change_latency)
+        # Duration of the show() call only (excludes tracker latency,
+        # refresh wait if show() does not block on vsync, scanout to the
+        # vertical centre, and monitor input lag).
+        var.display_change_draw_duration = t_post - t_pre
+        eyetracker.log('DISPLAYCHANGE draw_duration=%d'
+                       % var.display_change_draw_duration)
         var.display_changed = 1
         break
     key, _ = kb.get_key(keylist=['escape'], timeout=0)
@@ -703,13 +765,18 @@ print('Block order: %s, preview rule: %s subject number'
 # position is prepared in advance, so that updating the window during reading
 # only takes a `show()`.
 MOVINGWINDOW_PREPARE = r'''
-# Two lists, as in the reading experiment: list A (even subject numbers)
-# reads the odd items with the small window, list B with the large one.
-var.item_list = 'A' if var.subject_parity == 'even' else 'B'
-odd_item = int(var.item) % 2 == 1
-small = odd_item if var.item_list == 'A' else not odd_item
-var.window = var.window_small if small else var.window_large
-var.condition = 'window_%s' % var.window
+# 2 x 2 Latin square (4 lists A-D): each participant reads each of the 5 frames
+# once, crossing sentence version (high / low) with window size (small / large).
+_mw_list = (int(var.subject_nr) - 1) % 4
+var.item_list = ('A', 'B', 'C', 'D')[_mw_list]
+var.version, _mw_win = (
+    ('high', 'small'), ('high', 'large'), ('low', 'small'), ('low', 'large')
+)[(int(var.item) - 1 + _mw_list) % 4]
+var.window = var.window_small if _mw_win == 'small' else var.window_large
+var.condition = '%s_window_%s' % (var.version, var.window)
+var.sentence = var.high_sentence if var.version == 'high' else var.low_sentence
+var.question = var.high_question if var.version == 'high' else var.low_question
+var.answer = var.high_answer if var.version == 'high' else var.low_answer
 
 
 def masked(centre):
@@ -743,7 +810,6 @@ interest_areas = word_areas(var.sentence, letter_x)
 MOVINGWINDOW_RUN = r'''
 window_canvases[0].show()
 eyetracker.log('STIMONSET')
-log_interest_areas()
 letter_w = (letter_x[-1] - letter_x[0]) / len(var.sentence)
 min_shift = float(var.min_saccade_letters) * letter_w
 dead_zone = 0.5 * letter_w
@@ -756,7 +822,9 @@ t0 = clock.time()
 while True:
     x, y = eyetracker.sample()
     now = clock.time()
-    if on_corner(x, y):
+    if not valid_sample(x, y):
+        corner_since = None
+    elif on_corner(x, y):
         if corner_since is None:
             corner_since = now
         elif now - corner_since >= 100:
@@ -798,6 +866,8 @@ from openexp.sampler import Sampler
 from openexp.mouse import Mouse
 
 SIZE = 240
+MARGIN = 40
+HALF = SIZE // 2 + MARGIN
 POS = [(-W // 4, -H // 4), (W // 4, -H // 4), (-W // 4, H // 4), (W // 4, H // 4)]
 objects = [var.target, var.competitor, var.distractor1, var.distractor2]
 random.shuffle(objects)
@@ -808,8 +878,8 @@ var.condition = var.target
 scene = Canvas(exp)
 for name, (x, y) in zip(objects, POS):
     scene.image(pool[name + '.png'], x=x, y=y)
-interest_areas = [(name, x + W // 2 - SIZE // 2, y + H // 2 - SIZE // 2,
-                   x + W // 2 + SIZE // 2, y + H // 2 + SIZE // 2)
+interest_areas = [(name, x + W // 2 - HALF, y + H // 2 - HALF,
+                   x + W // 2 + HALF, y + H // 2 + HALF)
                   for name, (x, y) in zip(objects, POS)]
 
 instruction = Sampler(exp, pool[var.sound_file])     # loaded now, played later
@@ -826,19 +896,20 @@ def object_at(x, y):
 
 # Preview the objects for 1 s, play the spoken instruction ("Click on the
 # candle") and wait for a click on one of the objects. The target word starts
-# `target_onset` ms after the sound starts (known from make_vwp_stimuli.py);
-# TARGET_ONSET is time 0 for the analysis. Gaze samples on each object after
-# target onset are counted as a quick check; the real analysis uses the
-# samples in the tracker file.
+# `target_onset` ms after the sound starts (known from make_vwp_stimuli.py).
+# TARGET_ONSET is logged from the 5 ms loop, so it can be a few ms late: in
+# analysis, compute target onset from AUDIO_ONSET + target_onset (+ measured
+# audio delay). Gaze samples on each object after target onset are counted as a
+# quick check; the real analysis uses the samples in the tracker file.
 #
 # AUDIO_ONSET is logged right after play() returns. The sound reaches the
 # loudspeakers a little later (sound card buffer: sound_buf_size / sound_freq
 # = 21 ms, plus the driver). Measure this delay in the lab (microphone +
 # photodiode) and correct for it in the analysis.
 VWP_RUN = r'''
+mouse.set_pos((0, 0))
 scene.show()
 eyetracker.log('PREVIEW_ONSET')
-log_interest_areas()
 clock.sleep(1000)
 instruction.play()
 t_audio = clock.time()
@@ -854,9 +925,10 @@ while True:
         eyetracker.log('TARGET_ONSET')
         target_logged = True
     gx, gy = eyetracker.sample()
-    looked_at = object_at(gx, gy)
-    if target_logged and looked_at is not None:
-        counts[looked_at] += 1
+    if valid_sample(gx, gy):
+        looked_at = object_at(gx, gy)
+        if target_logged and looked_at is not None:
+            counts[looked_at] += 1
     button, position, t_click = mouse.get_click(timeout=0)
     if button is not None:
         # The mouse uses canvas coordinates: (0, 0) is the screen centre.
@@ -900,8 +972,8 @@ QUESTION_ITEMS = (
 TRIAL_SEQUENCE = (
     "define sequence trial_sequence\n\tset flush_keyboard yes\n"
     "\tset description \"One trial\"\n"
-    "\trun setup_condition always\n"
     "\trun prepare_trial always\n"
+    "\trun setup_condition always\n"
     "\trun drift_correct always\n"
     "\trun eyelink_trial_start always\n"
     "\trun start_recording always\n"
@@ -919,12 +991,14 @@ TRIAL_SEQUENCE = (
 
 def experiment(title, description, instructions, prepare, run, *, lang="en",
                practice_rows=None, blocks=None, rows=None, rotate_blocks=False,
-               gaze_target_left=100, extra_vars=None):
+               gaze_target_left=100, backend="psycho", validation_2d="no",
+               extra_vars=None):
     texts = TEXTS[lang]
     n_trials = (len(practice_rows) + sum(len(b) for b in blocks)
                 if practice_rows else len(rows))
     s = HEADER.format(title=title, description=description, n_trials=n_trials,
-                      gaze_target_left=gaze_target_left,
+                      gaze_target_left=gaze_target_left, backend=backend,
+                      validation_2d=validation_2d,
                       yes_label=texts["yes"], no_label=texts["no"])
     for name, value in (extra_vars or {}).items():
         s += "set %s %s\n" % (name, value)
@@ -1042,10 +1116,28 @@ def build_experiments():
               for i in (1, 2, 3)]
     comas = read_csv(COMAS_CSV)
 
-    # Sentences of examples/EyeLogic_LITE.osexp (extract_eyelogic.py).
-    movingwindow_rows = [{k: r[k] for k in ("item", "source_item", "version", "sentence",
-                                            "corrected", "question", "answer")}
-                         for r in read_csv(MOVINGWINDOW_CSV)]
+    # Sentences of examples/EyeLogic_LITE.osexp (extract_eyelogic.py): pair each
+    # frame's high and low versions into one row so a participant reads each
+    # frame once in a 2 x 2 (version x window) Latin square.
+    mw_by_source = {}
+    for r in read_csv(MOVINGWINDOW_CSV):
+        mw_by_source.setdefault(r["source_item"], {})[r["version"]] = r
+    movingwindow_rows = []
+    for i, (src, pair) in enumerate(mw_by_source.items(), 1):
+        hi, lo = pair["high"], pair["low"]
+        movingwindow_rows.append({
+            "item": i,
+            "source_item": src,
+            "high_sentence": hi["sentence"],
+            "high_question": hi["question"],
+            "high_answer": hi["answer"],
+            "low_sentence": lo["sentence"],
+            "low_question": lo["question"],
+            "low_answer": lo["answer"],
+            "corrected": "1" if (hi["corrected"] == "1" or lo["corrected"] == "1") else "0",
+            "question": "NA",
+            "answer": "NA",
+        })
     vwp_pool = sorted(os.path.join(VWP_POOL, f) for f in os.listdir(VWP_POOL)
                       if f.endswith((".png", ".wav")))
 
@@ -1078,7 +1170,8 @@ def build_experiments():
             "Then you will see four pictures and hear an instruction.<br />"
             "Click on the picture that you hear as quickly as possible.<br /><br />"
             "Press any key to start.",
-            VWP_PREPARE, VWP_RUN, rows=vwp_rows(), gaze_target_left=1920 // 2 - 25),
+            VWP_PREPARE, VWP_RUN, rows=vwp_rows(), gaze_target_left=1920 // 2 - 25,
+            backend="legacy", validation_2d="yes"),
             vwp_pool),
     }
 
