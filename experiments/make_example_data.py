@@ -1,13 +1,14 @@
 """Generate realistic 1000 Hz EyeLink .asc and OpenSesame .csv example datasets.
 
 Runs each experiment in `experiments/osexp/` (`reading`, `boundary`, `movingwindow`,
-`vwp`) through OpenSesame for subjects 1-6 (matching the 6-subject boundary
-counterbalancing matrix and covering both reading lists and all 4 moving-window
-Latin-square lists), with a realistic 1000 Hz simulated EyeLink tracker.
+`vwp`) through OpenSesame for subjects 1-18 (`reading`, 9 per list) and 1-6
+(`boundary`, `movingwindow`, `vwp`, matching the 6-subject boundary counterbalancing
+matrix and all 4 moving-window Latin-square lists), with a realistic 1000 Hz
+simulated EyeLink tracker.
 
 Output layout (committed in git for analysis-script testing):
-    experiments/example_data/<experiment>/subject-<1..6>.asc
-    experiments/example_data/<experiment>/subject-<1..6>.csv
+    experiments/example_data/<experiment>/subject-<1..N>.asc
+    experiments/example_data/<experiment>/subject-<1..N>.csv
 
 For `reading` and `boundary`, the loop tables are trimmed to a balanced subset
 (2 practice + 24 experimental trials across all blocks, half odd/even item numbers,
@@ -30,11 +31,27 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OSEXP = os.path.join(HERE, "osexp")
 OUT_DEFAULT = os.path.join(HERE, "example_data")
 ALL = ["reading", "boundary", "movingwindow", "vwp"]
+SUBJECTS = {
+    "reading": range(1, 19),
+    "boundary": range(1, 7),
+    "movingwindow": range(1, 7),
+    "vwp": range(1, 7),
+}
 EYELINK_LINE = "EYELINK = items['pygaze_init'].var.tracker_type == 'EyeLink'"
 
-SUBJ_SPEED = {1: 0.94, 2: 1.06, 3: 0.98, 4: 1.09, 5: 0.90, 6: 1.02}
-SUBJ_BIAS = {1: (3.2, -1.8), 2: (-2.5, 2.4), 3: (1.8, 3.0),
-             4: (-3.6, -1.5), 5: (2.7, 1.2), 6: (-1.4, -2.9)}
+SUBJ_SPEED = {
+    1: 0.94, 2: 1.06, 3: 0.98, 4: 1.09, 5: 0.90, 6: 1.02,
+    7: 0.96, 8: 1.04, 9: 0.92, 10: 1.08, 11: 0.99, 12: 1.01,
+    13: 0.93, 14: 1.05, 15: 0.97, 16: 1.03, 17: 0.95, 18: 1.07,
+}
+SUBJ_BIAS = {
+    1: (3.2, -1.8), 2: (-2.5, 2.4), 3: (1.8, 3.0),
+    4: (-3.6, -1.5), 5: (2.7, 1.2), 6: (-1.4, -2.9),
+    7: (2.1, -2.2), 8: (-3.1, 1.7), 9: (1.4, 2.8),
+    10: (-2.0, -2.4), 11: (3.4, 1.1), 12: (-1.7, 2.9),
+    13: (2.5, -1.4), 14: (-2.9, -2.1), 15: (1.6, 2.3),
+    16: (-3.3, 1.4), 17: (2.9, -2.6), 18: (-1.2, 2.0),
+}
 
 # Deliberate quality issues for the cleaning lesson (verified explicitly below).
 PROBLEMS = {
@@ -120,6 +137,7 @@ class AscSession:
         self.name = name
         self.subject = subject
         self.rng = random.Random(1000 * subject + ALL.index(name) * 97 + 13)
+        self.resp_rng = random.Random(7000 + 100 * subject + ALL.index(name))
         self.speed = SUBJ_SPEED[subject]
         if (name, subject) == PROBLEMS["poor_calibration"]:
             self.bias_x, self.bias_y = (3.0, 45.0)
@@ -129,7 +147,7 @@ class AscSession:
         if (name, subject) == PROBLEMS["low_accuracy"]:
             self.accuracy = 0.55
         else:
-            self.accuracy = 0.90 + 0.02 * (subject % 3)
+            self.accuracy = 0.93 + 0.015 * (subject % 3)
 
         self.t = 10000
         self.last_polled_t = -1
@@ -659,7 +677,7 @@ class AscSession:
             correct = str(self.exp.var.get("correct_button", "1"))
             if correct not in ("1", "2"):
                 correct = "1"
-            if self.rng.random() < self.accuracy:
+            if self.resp_rng.random() < self.accuracy:
                 return correct
             return "2" if correct == "1" else "1"
         self.advance(450)
@@ -837,7 +855,7 @@ def verify_pair(name, subject, csv_path, asc_path):
         if (name, subject) == PROBLEMS["low_accuracy"]:
             assert acc < 0.70, "%s s%d: expected low accuracy, got %.2f" % (name, subject, acc)
         else:
-            assert acc >= 0.70, "%s s%d: accuracy %.2f" % (name, subject, acc)
+            assert acc >= 0.75, "%s s%d: accuracy %.2f" % (name, subject, acc)
         keys = {r["response"] for r in answered}
         assert keys == {"1", "2"} or len(answered) < 3, "%s s%d: only key(s) %s" % (name, subject, keys)
 
@@ -1030,15 +1048,18 @@ def main():
     os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
 
     total_bytes = 0
+    n_pairs = 0
     for name in ALL:
-        for subject in range(1, 7):
+        for subject in SUBJECTS[name]:
             csv_path, asc_path = run_one(name, subject, a.outdir)
             n_fix, n_sac, n_blink = verify_pair(name, subject, csv_path, asc_path)
             sz = os.path.getsize(asc_path) + os.path.getsize(csv_path)
             total_bytes += sz
-            print("%-12s s%d: fix=%4d sac=%4d blink=%d  (%5.1f KB)  OK"
+            n_pairs += 1
+            print("%-12s s%-2d: fix=%4d sac=%4d blink=%2d  (%5.1f KB)  OK"
                   % (name, subject, n_fix, n_sac, n_blink, sz / 1024.0))
-    print("Total size: %.2f MB across 24 .asc + 24 .csv files" % (total_bytes / (1024.0 * 1024.0)))
+    print("Total size: %.2f MB across %d .asc + %d .csv files"
+          % (total_bytes / (1024.0 * 1024.0), n_pairs, n_pairs))
 
 
 if __name__ == "__main__":
