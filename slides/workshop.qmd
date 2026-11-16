@@ -1,6 +1,6 @@
 ---
 title: "Eye-movement experiments with OpenSesame and PyGaze"
-subtitle: "Three challenges: commas, a boundary study, a moving window — and the visual world"
+subtitle: "Three experimental paradigms: single-line reading, gaze-contingent boundary study, gaze-contingent moving window, and the visual world paradigm"
 format:
   revealjs:
     slide-number: true
@@ -15,7 +15,7 @@ execute:
   echo: false
 ---
 
-## Challenge 1: a published reading study
+## Setting up a reading study
 
 ::: {.sentence-pair}
 <span class="label">with comma</span> Siempre tiene flores en casa**,** aun siendo alérgica al polen.
@@ -30,7 +30,38 @@ Angele, Gutiérrez-Cordero, Perea & Marcet (2023). Reading(,) with and without c
   **Do readers slow down when a mandatory comma is missing?**
 - Result: with commas, longer go-past time *before* the comma, but shorter reading times *after* it;
   no overall advantage. Commas shift **when** processing happens
-- Originally programmed in EyeTrack (`examples/frases-comas/`). **Our challenge: rebuild it in OpenSesame**
+- Originally programmed in [EyeTrack](https://websites.umass.edu/eyelab/software/).
+- **Imagine that you want to replicate this study with L2 Spanish learners.**
+
+
+## Options for replication
+
+- Use the original software: [EyeTrack](https://websites.umass.edu/eyelab/software/)
+    - Free to download, but:
+       - Not maintained in 15 years
+       - Written for Windows 95
+          - Can we still trust the presentation timing?
+       - Documentation is lacking
+          - Best way to solve problems: Ask someone from the UMass Lab.
+- Use [Experiment Builder](https://www.sr-research.com/experiment-builder/)
+    - Actively developed
+    - Excellent support
+    - Not free, limited to EyeLink
+- Write your own experiment (in C++ or Python)
+    - You are in full control, but also have to do everything yourself, including stimulus presentation, connection with the eye tracker, testing...
+
+## OpenSesame experiment software
+
+- [Free and open source](https://osdoc.cogsci.nl/)
+- Still actively developed 
+    - ([Sebastiaan Mathôt](https://www.rug.nl/staff/s.mathot/) has a permanent job in Groningen now and keeps making improvements to OpenSesame! Thank you, Sebastiaan!)
+- Precise stimulus presentation using the [PsychoPy](https://psychopy.org/) backend 
+- Easy eye tracker integration using [PyGaze](https://www.pygaze.org/)
+    - (Thank you, [Edwin Dalmaijer](https://research-information.bris.ac.uk/en/persons/edwin-dalmaijer/)!)
+- Graphical user interface for basic experiment logic
+- Python script components for your specific needs
+- I have been using Opensesame for eye tracking for the last five years and am very satisfied so far.
+
 
 ## What does the study need?
 
