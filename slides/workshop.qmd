@@ -63,29 +63,28 @@ Angele, Gutiérrez-Cordero, Perea & Marcet (2023). Reading(,) with and without c
 - I have been using Opensesame for eye tracking for the last five years and am very satisfied so far.
 
 
-## What does the study need?
+## What do we need to do?
 
-The method section, translated into things we have to build:
+Let's look at the Method section:
 
 | In the paper | What we need to learn |
 |---|---|
-| EyeLink 1000+, 1000 Hz; 3-point calibration, repeated when needed | eye tracking, calibration (Part 1); PyGaze (Part 2) |
-| 130 sentences (+ 8 practice) with and without commas, 5 types × 26 | loops and variables (Part 2) |
-| drift check, then a gaze target: the sentence appears after 250 ms on it | gaze-contingent trial start (Part 4) |
-| the end of reading (a button press in the original; here: a look at a corner square) | the trial structure (Part 4) |
-| comprehension questions after 34 sentences | sketchpads, responses (Parts 2, 4) |
-| "each item seen equally often with and without commas, once per participant" | **counterbalancing** (Part 4) |
-| reading times on the regions before and after the comma | interest areas, messages, data (Parts 4, 8) |
+| EyeLink 1000+, 1000 Hz; 3-point calibration, repeated when needed | connect to eye tracker (PyGaze), calibration, validation|
+| 130 sentences (+ 8 practice) with and without commas, 5 types × 26 | Use loops and variables to present the stimuli |
+| drift check, then a gaze target: the sentence appears after 250 ms on it | Gaze-contingent gaze target |
+| the end of reading (a button press in the original; here: a look at a corner square) |Gaze-contingent trial-end |
+| comprehension questions after 34 sentences | Responses|
+| "each item seen equally often with and without commas, once per participant" | **counterbalancing**  |
+| reading times on the regions before and after the comma | interest areas, messages, data |
 
-## What you will be able to do
+## Goals of this workshop
 
-By the end of the workshop you can:
+By the end of the workshop you hopefully will be able to (in increasing order of difficulty):
 
-1. **Explain** what an eye tracker records and why we calibrate
+1. **Explain** what an eye tracker records, why we calibrate and validate, and what a gaze-contingent experiment is
 2. **Find your way** around an OpenSesame experiment (items, loops, variables)
-3. **Build** a published reading study (challenge 1), a gaze-contingent boundary study
-   (challenge 2) and a moving window (challenge 3), and **run** them *without* an eye tracker
-4. **Read and change** the Python code that makes a display react to the eyes
+3. **Build** a published reading study, a gaze-contingent boundary study and a moving window, and **run** them *without* an eye tracker
+4. **Use Python code** for gaze-contingent display changes, interest areas, and logging messages
 5. **Know** what data you get and what to check before testing participants
 
 . . .
@@ -97,31 +96,31 @@ Some Python helps for part 4, but every line is explained.
 
 | Part | Topic |
 |------|-------|
-| 1 | Eye tracking in 10 minutes |
-| 2 | OpenSesame in 15 minutes |
+| 1 | Basics of eye tracking |
+| 2 | Basics of OpenSesame |
 | 3 | Setup: run your first experiment |
-| 4 | **Challenge 1**: the comma study (trial structure, counterbalancing, interest areas) |
-| 5 | **Challenge 2**: a boundary study (display changes during saccades) |
-| 6 | **Challenge 3**: the moving window |
-| 7 | Switching gears: the visual world paradigm |
+| 4 | **Experiment 1**: the comma study (trial structure, counterbalancing, interest areas) |
+| 5 | **Experiment 2**: a boundary study (display changes during saccades) |
+| 6 | **Experiment 3**: the moving window |
+| 7 | **Experiment 4**: the visual world paradigm |
 | 8 | Data, testing, and going to the lab |
 
 # Part 1: Eye tracking in 10 minutes {background-color="#1f3a5f"}
 
 ## What an eye tracker measures
 
-- A camera films the eye; software finds the **pupil** and a **corneal reflection**
+- Infrared camera records the eye; software finds the **pupil** and a **corneal reflection**
 - After calibration it reports a **gaze position** on the screen in pixels:
-  a **sample**, typically 250–2000 times per second on high-speed lab systems (EyeLink: 1000 Hz); many trackers in language labs run at **60–120 Hz**, which rules out saccade-contingent display changes (`boundary`, `movingwindow`) and adds measurement noise to fixation durations (see Part 8)
+  a **sample**, typically 250–2000 times per second on high-speed lab systems (EyeLink: 1000 Hz); many older or cheaper trackers run at **60–120 Hz**, which may add measurement noise to fixation durations
 - From the samples, software derives **events**:
   - **Fixation**: the eye is (nearly) still, ~200–250 ms in reading; information is taken in
-  - **Saccade**: a fast jump between fixations, ~20–40 ms; we are practically **blind** during it
+  - **Saccade**: a fast jump between fixations, ~20–40 ms; no new information is taken in
   - **Blink**
 
 ::: {.callout-tip}
-## Why this matters for the paradigms
+## Saccadic inhibition
 Because vision is suppressed during a saccade, we can **change the screen while the eyes are moving**
-and the reader does not notice. That is the boundary paradigm (challenge 2).
+and the reader does not notice. That is the boundary paradigm (Experiment 2).
 :::
 
 ## Fixations and saccades
@@ -129,20 +128,20 @@ and the reader does not notice. That is the boundary paradigm (challenge 2).
 ::: {.anim data-anim="fixations" style="height: 640px"}
 :::
 
-The eyes **jump** (saccades) and **rest** (fixations). In reading, ~4 fixations per second.
+The eyes **move rapidly** (saccades) and **stay stable** (fixations). In reading, ~4 fixations per second.
 
 ## Calibration, validation, drift correction
 
-- **Calibration**: the participant looks at 5–13 dots; the tracker learns the mapping
+- **Calibration**: the participant looks at 5–13 dots; the tracker establishes the mapping
   *eye image → screen position*
-- **Validation**: repeat the dots and check the error (template threshold `1.0°`; aim for `< 0.5°` on an EyeLink 1000 / Portable Duo)
-- **Drift correction / drift check**: before each trial, one dot. If the gaze is off,
+- **Validation**: show the dots again and check the error (template threshold `1.0°`; aim for `< 0.5°` on an EyeLink 1000 / Portable Duo)
+- **Drift correction / drift check**: One central dot is presented before each trial. If the gaze location is estimated to be far from it,
   re-calibrate. Head movement and fatigue make the mapping drift over time
 
 In our experiments:
 
-- `pygaze_init` calibrates once at the start, then `validate_calibration` measures the error
-  in degrees (works with **every** tracker; see Part 4)
+- `pygaze_init` calibrates once at the start, then a tracker-independent `validate_calibration` measures the error
+  in degrees (Eyelink has its own validation procedure)
 - `pygaze_drift_correct` runs at the start of **every trial**. With the default `fixation_triggered_drift_check = no`, the experimenter presses **Space** on every trial (138 times in `reading`, 220 in `boundary`); setting it to `yes` accepts automatically once the participant fixates the dot, saving keystrokes at the risk of accepting slightly off-centre or premature fixations
 - If the participant cannot "trigger" the start of a trial, a drift correction is
   run again; the experimenter can also press **C** to re-calibrate (see Part 4)
@@ -158,9 +157,9 @@ Every gaze-contingent script is the same loop:
 - The loop has to be **fast**: poll as often as the tracker produces samples
 - Everything that is slow (drawing text, loading images) is done **before** the loop
 
-# Part 2: OpenSesame in 15 minutes {background-color="#1f3a5f"}
+# Part 2: OpenSesame basics {background-color="#1f3a5f"}
 
-## OpenSesame in one slide
+## OpenSesame
 
 :::: {.columns}
 ::: {.column width="45%"}
@@ -208,7 +207,7 @@ How you use a variable:
 
 OpenSesame runs every item in **two phases**:
 
-1. **Prepare**: build the displays for the coming trial (slow work)
+1. **Prepare**: build the displays for the coming trial (not time-critical, is completed before the trial starts)
 2. **Run**: show them and collect responses (time-critical)
 
 An `inline_script` has a **Prepare** tab and a **Run** tab for the same reason.
@@ -227,7 +226,7 @@ sentence_canvas.show()
 eyetracker.log('STIMONSET')
 ```
 
-## Two traps that silently corrupt your data
+## Common mistakes
 
 ::: {.callout-warning}
 ## 1. Globals are variables
@@ -237,9 +236,9 @@ Never reuse a column name for a helper variable.
 :::
 
 ::: {.callout-warning}
-## 2. The log file's columns are fixed at the first trial
+## 2. Log file columns are permanently set at the first trial
 The `logger` decides the columns of the CSV file the first time it runs. A variable that is
-created *later* (e.g. after the practice block) is **never written**. Create all variables
+created *later* (e.g. after the practice block) is **not written to the file**. Create all variables
 before the first trial, e.g. `counterbalance` runs before the practice loop.
 :::
 
@@ -261,12 +260,12 @@ before the first trial, e.g. `counterbalance` runs before the practice loop.
 ::::
 
 Converting between them: `x_canvas = x_screen - W // 2`.
-Mixing them up is the most common bug in gaze-contingent scripts.
+If you mix them up, your gaze-contingent changes will not happen at the right place.
 
-## PyGaze: one experiment, any eye tracker
+## PyGaze: universal eye tracker interface
 
 The `pygaze_init` item connects to the tracker and creates an object called **`eyetracker`**.
-The same **code** runs on EyeLink, Tobii, SMI, EyeLogic, … — **though your method still depends on the tracker's speed, delay, and output format** (see Part 8).
+The same **code** runs on EyeLink, Tobii, SMI, EyeLogic, … — **though they of course differ in speed, delay, and output format**. Some eye trackers such as Eyelink also have specific features (e.g., drawing on the Experimenter PC display) that are not available on other trackers.
 
 | Call | What it does |
 |------|--------------|
@@ -275,17 +274,17 @@ The same **code** runs on EyeLink, Tobii, SMI, EyeLogic, … — **though your m
 | `eyetracker.drift_correction()` | shows a dot and checks/corrects the calibration |
 | `eyetracker.start_recording()` / `stop_recording()` | start/stop saving samples |
 
-Plugin items do the same without code: `pygaze_init`, `pygaze_drift_correct`,
+There are plugin items in OpenSesame that have this functionality built in: `pygaze_init`, `pygaze_drift_correct`,
 `pygaze_start_recording`, `pygaze_log`, `pygaze_stop_recording`.
 
 ## Developing without an eye tracker
 
-In `pygaze_init`, set **Tracker type**:
+In `pygaze_init`, use a dummy in **Tracker type**:
 
 | Tracker type | When |
 |--------------|------|
 | **Advanced dummy (mouse simulation)** | developing and piloting: **the mouse pointer is your gaze** |
-| EyeLink, Tobii, … | in the lab. Nothing else in the experiment changes |
+| EyeLink, Tobii, etc. | Use when eye tracker is connected. Nothing else in the experiment changes |
 
 With the advanced dummy:
 
@@ -299,9 +298,9 @@ OpenSesame's **Back-end** setting (in the General tab) chooses which graphics an
 
 | Backend | How it draws | Timing & when to use |
 |---------|-------------|----------------------|
-| **`psycho`** (default here) | PsychoPy / OpenGL | Waits for vertical refresh (**vsync**) — accurate timing and no tearing; use for `reading`, `boundary`, `movingwindow` |
+| **`psycho`** (usually recommended) | PsychoPy / OpenGL | Waits for vertical refresh (**vsync**) for accurate timing; use for `reading`, `boundary`, `movingwindow` |
 | `xpyriment` | Expyriment / OpenGL + PyGame | OpenGL display with PyGame keyboard/audio |
-| **`legacy`** | PyGame / SDL (software) | **Does not guarantee vsync**; reliable fallback if `psycho` fails on a laptop/VM, and fine when fast changes aren't needed (`vwp`) |
+| **`legacy`** | PyGame / SDL (software) | **Does not guarantee vsync**; reliable fallback for testing if `psycho` fails on a laptop/VM, and fine when fast changes aren't needed (`vwp`) |
 
 - Run real participants with **`fullscreen yes`** (General tab) at the monitor's native resolution so vsync and timing work reliably.
 - If you switch backends on a lab PC, re-check letter positions (`check_interest_areas.py`) and verify display timing once before data collection.
@@ -342,15 +341,9 @@ bash .devcontainer/start-desktop.sh   # inside the container
 
 The experiment starts with 8 practice sentences, then 130 sentences. Stop any time with **Escape**, then **Q**.
 
-::: {.callout-note}
-## Exercise 1 (5 min)
-Run `reading.osexp`. What happens if you never move onto the black square? (Wait 10 s.)
-What happens if you press **C** while the black square is shown?
-:::
+# Part 4: Experiment 1: the comma study {background-color="#1f3a5f"}
 
-# Part 4: Challenge 1: the comma study {background-color="#1f3a5f"}
-
-## From the paper to a loop table
+## Building the loop table from the paper
 
 Each row of the loop table is one **item**, with both versions:
 
@@ -506,7 +499,7 @@ If a participant reads *"Paula no podrá irse de la clase, aunque…"* and later
 
 So: **every participant reads every item once**, in **one** of the two conditions.
 
-## Counterbalancing (2): why not let the items decide?
+## Counterbalancing (2): Why not split the items?
 
 Simplest idea: items 1–65 always with commas, items 66–130 always without. **Don't**:
 
@@ -553,7 +546,7 @@ though secondary balance is worth checking explicitly. For `reading.osexp`:
 If your items come in a meaningful order (e.g. sorted by type), alternating odd/even still
 works; if secondary counts (such as YES/NO answers) or difficulty cluster, shuffle or pair items first.
 
-## Counterbalancing (5): the implementation
+## Counterbalancing (5): implementation
 
 OpenSesame has a built-in variable `subject_parity` (`'odd'` or `'even'`), set from the subject number
 you type in when the experiment starts. `prepare_trial`:
@@ -604,15 +597,14 @@ The same design with the graphical interface only:
 | `list_A_loop` | `subject_parity == 'even'` |
 | `list_B_loop` | `subject_parity == 'odd'` |
 
-Easy to understand, but every item is now in two tables that must be kept in sync.
+This requires each item to be two tables that must be kept in sync.
 The Python version keeps both versions of an item in **one row**.
 
 ## Counterbalancing (7): order effects
 
-Counterbalancing items is not enough: **when** a sentence is read matters too.
 Readers get faster with practice and slower when tired.
 
-- **Practice block** first (fixed order): the first, unrepresentative trials are not data
+- **Practice block** first (fixed order): make sure participants are familiar with the task before the experimental blocks
 - **Random order** within each block (`order = random` in the loop): practice and fatigue
   effects are spread over both conditions
 - **Breaks** between blocks
@@ -720,7 +712,7 @@ Everything you need for the analysis is written to the tracker's data file with 
 | `TRIAL ABORTED`, `… TIMEOUT` | something went wrong; check these trials |
 | `stop_trial` | recording stopped |
 
-## Challenge 1: the code
+## Experiment 1: the code
 
 ```python
 # Prepare (see Counterbalancing (5))
@@ -743,14 +735,7 @@ end_trial_at_corner()
 - Interest areas for the analysis: the word before the comma and the words after it;
   the letter positions show exactly where the comma was
 
-::: {.callout-note}
-## Exercise 2 (10 min)
-Look up item 2 in the `experimental_loop_1` table. Which version does **subject 7** read?
-Which does **subject 8** read? Check your answer: run the experiment as subject 7, read a few
-trials, quit (Escape, then Q), and look at `item`, `item_list`, `condition` and `sentence` in the log file.
-:::
-
-## Challenge 1: done
+## Experiment 2: done
 
 | In the paper | In `reading.osexp` |
 |---|---|
@@ -761,14 +746,14 @@ trials, quit (Escape, then Q), and look at `item`, `item_list`, `condition` and 
 | regions before and after the comma | `REGION` and `LETTER` messages, measured with `letter_edges()` |
 | recalibration "whenever needed" | **C** during the gaze target; validation after every calibration |
 
-**How `reading.osexp` differs from the original study**: corner square instead of a button press (changes final-word reading times); Droid Sans Mono 24 px instead of Courier New 14 pt; `HV9` default calibration instead of 3-point; and OpenSesame's custom 3-dot `validate_calibration` (tracker/lab setup also differs).
+**How `reading.osexp` differs from the original study**: corner square instead of a button press (changes final-word reading times); Droid Sans Mono 24 px instead of Courier New 14 pt; `HV9` default calibration instead of 3-point; and custom 3-dot `validate_calibration`.
 
-Everything else in this workshop reuses this experiment: the next challenges only change
+Everything else in this workshop reuses this experiment: the next experiments only change
 `prepare_trial` and `trial_display`.
 
-# Part 5: Challenge 2: a boundary study {background-color="#1f3a5f"}
+# Part 5: Experiment 2: a boundary study {background-color="#1f3a5f"}
 
-## Challenge 2: a boundary study
+## Experiment 2: a boundary study
 
 Serrano-Carot & Angele (2026). Spanish readers skip articles regardless of gender and number
 agreement. *Journal of Eye Movement Research*, 19(1), 6. **Experiment 1**.
@@ -779,8 +764,7 @@ agreement. *Journal of Eye Movement Research*, 19(1), 6. **Experiment 1**.
   (*el\* forma*); the correct article appears as soon as the eyes cross an invisible boundary
 - Result: agreement did **not** change how often the article was skipped, but readers spent
   more time on the noun after a mismatching preview
-- The original experiment is `examples/ella_experiment_A.osexp` (OpenSesame + PyGaze, EyeLink).
-  **Our challenge: rebuild it** on top of challenge 1
+  **We want to replicate it** on top of Experiment 1
 
 New: the display changes **during a saccade** (gaze-contingent), timing matters, and three blocks of
 sentences whose order has to be counterbalanced as well.
@@ -796,8 +780,7 @@ saccade that crosses it, the preview is replaced by the target.
 
 ## Boundary: the materials
 
-`boundary.osexp` rebuilds Experiment 1 (`examples/ella_experiment_A.osexp`) with its Spanish
-sentences (`experiments/sentences.csv`); `changed` is the mismatching article preview:
+Using the Spanish sentences from Serrano-Carot & Angele (2026); `changed` is the mismatching article preview:
 
 | block | sentence_number | pretarget | target | posttarget | changed | question | answer |
 |-------|-----------------|-----------|--------|------------|---------|----------|--------|
@@ -895,9 +878,9 @@ Do not rely on `display_change_draw_duration` alone — check the **tracker file
 - **Exclude** trials where the change finished after the next fixation began (typically **~10%** of trials; lower at higher refresh rates) or was **triggered by a blink** (excursions at blink onset/offset can briefly cross the boundary).
 - We keep a single valid-sample check for speed (requiring 2 consecutive samples adds delay; restricting `y` risks missing badly calibrated readers).
 
-# Part 6: Challenge 3: the moving window {background-color="#1f3a5f"}
+# Part 6: Experiment 3: the moving window {background-color="#1f3a5f"}
 
-## Challenge 3: the moving window
+## Experiment 3: the moving window
 
 Rayner (2014). The gaze-contingent moving window in reading: Development and review.
 *Visual Cognition*, 22(3–4), 242–258.
@@ -908,8 +891,7 @@ Rayner (2014). The gaze-contingent moving window in reading: Development and rev
 - This measures the **perceptual span**: in English, about 3–4 letters to the left and
   14–15 letters to the right of fixation; it is asymmetric in the direction of reading and
   depends on the writing system and on reading skill (see the review)
-- We do not have a published moving-window experiment here: we build a demonstration with the
-  sentences of `examples/EyeLogic_LITE.osexp`, reusing challenges 1 and 2
+- This demo is not based on a published study, but uses some materials of a previous experiment.
 
 New: the display changes **on every saccade**, not once, and must not flicker while the eyes rest.
 
@@ -918,10 +900,10 @@ New: the display changes **on every saccade**, not once, and must not flicker wh
 ::: {.anim data-anim="movingwindow" style="height: 380px"}
 :::
 
-- Materials: 5 sentence frames × 2 versions (`high` / `low` frequency) from `examples/EyeLogic_LITE.osexp` (`experiments/movingwindow.csv`)
+- Materials: 5 sentence frames × 2 versions (`high` / `low` frequency; `experiments/movingwindow.csv`)
 - **2 × 2 Latin square** (4 lists `A`–`D` via `(item - 1 + list_nr) % 4`): each participant reads each of the **5 frames once**, crossing version (`high` / `low`) with window (`4` = 9 letters vs. `12` = 25 letters on each side)
 
-## Moving window: the code
+## Moving window code
 
 **Prepare**: one canvas for every possible fixated letter, so that the run phase only calls `show()`
 
@@ -939,10 +921,10 @@ edges `letter_x`) and show that letter's canvas … but not on every sample (nex
 
 ::: {.callout-note}
 ## Memory cost of pre-building one canvas per character
-With 70 characters, `window_canvases` prepares 70 full-screen surfaces/textures on **every trial** (with `legacy`, roughly ~8 MB per 1920 × 1080 RGBA canvas ≈ 0.5 GB; `psycho` also allocates GPU textures). Longer sentences or multi-line passages multiply this — verify prepare time and RAM/VRAM on your lab PC.
+With 70 characters, `window_canvases` prepares 70 full-screen surfaces/textures on **every trial** (with `legacy`, roughly ~8 MB per 1920 × 1080 RGBA canvas ≈ 0.5 GB; `psycho` also allocates GPU textures). If you run into issues, you may not have enough RAM or VRAM in your PC.
 :::
 
-## Moving window: no flicker during a fixation
+## Moving window: fixations at boundaries and flicker
 
 ::: {.anim data-anim="windowlock" style="height: 600px"}
 :::
@@ -995,14 +977,15 @@ over time.
 ::: {.anim data-anim="vwp" style="height: 760px"}
 :::
 
-After Allopenna, Magnuson & Tanenhaus (1998): do the eyes go to the **competitor** (*candy*)
+- After Allopenna, Magnuson & Tanenhaus (1998): do the eyes go to the **competitor** (*candy*)
 while hearing "*cand…*", before the word is over?
+- This is adapted from the Visual World Paradigm tutorial on OpenSesame (https://osdoc.cogsci.nl/4.1/tutorials/visual-world/) 
 
 ## Visual world: the materials
 
 ![](images/vwp.png){.screenshot style="max-height: 450px"}
 
-- 4 displays × 2 targets (*candle/candy*, *bell/belt*, *cat/cap*, *star/stairs*) + 2 unrelated distractors (**technical demonstration only**: every trial has a cohort competitor, each display is shown twice without fillers, and quadrants are randomised — real studies add fillers, one display per list, and counterbalanced quadrants)
+- 4 displays × 2 targets (*candle/candy*, *bell/belt*, *cat/cap*, *star/stairs*) + 2 unrelated distractors (**demonstration only**): every trial has a cohort competitor, each display is shown twice without fillers, and quadrants are randomised — real studies add fillers, one display per list, and counterbalanced quadrants)
 - Pictures (PNG) and sounds (WAV) are in the experiment's **file pool**; `pool['candle.png']` gives the path
 - `experiments/make_vwp_stimuli.py` draws the pictures and synthesises the sentences
   (carrier "*Click on the*" + word, spliced), so the **target-word onset** in each file is known: `target_onset`
@@ -1061,8 +1044,8 @@ if EYELINK:
     eyetracker.send_command('draw_line %d 0 %d %d 4' % (var.boundary, var.boundary, H))
 ```
 
-Data Viewer then shows trials, interest areas and condition variables without extra work.
-*(Note: EyeLink-only commands have so far been tested only with a simulated tracker via `--fake-eyelink` and still require a lab pilot on real EyeLink hardware.)*
+Data Viewer then shows trials, interest areas and condition variables.
+*Disclaimer: I have not tried that this actually works with Data Viewer, but it should in theory.*
 
 ## What data do you get?
 
@@ -1071,22 +1054,15 @@ Data Viewer then shows trials, interest areas and condition variables without ex
 | `subject-1.csv` | one row/trial: `item`, `item_list`, `condition`, `preview_condition`, `block_order`, `response`, `correct`, `display_change_draw_duration`, `click_rt`, `validation_max_error`, … | conditions, accuracy, exclusions |
 | tracker file | EyeLink `.edf`: samples, fixations, saccades, **messages**; other PyGaze trackers (`.tsv`/`.csv`/`.txt`): **samples + messages** (detect fixations offline) | eye-movement measures |
 
-Typical reading measures between `STIMONSET` and `TRIALEND` (using `REGION`):
+Software that can be used for analysis:
 
-- **Measures**: first fixation duration, gaze duration, go-past time, total time, skipping & regression probabilities
-- **Joining text**: match words/letters by `item` and index (`n=`, `word=`) from your CSV (`ascii_safe()` replaces non-ASCII with `?`, e.g. `label=critic?`)
-- **Word 1 is not analysable**: gaze target sits on word 1 (10 of 130 `comas.csv` items put the comma after word 2)
+- EyeLink Data Viewer
 
-Tools: EyeLink Data Viewer; R (`eyelinkReader`, `popEye`, `eyetrackingR`); Python `pandas`.
+- R (`eyelinkReader`, `popEye`, `eyetrackingR`); 
 
-## What will be excluded later: standard quality checks
+- Python `pymovements`. 
 
-Full preprocessing and statistical modelling belong to the **follow-up data-analysis workshop**, but check these quality signals already during piloting and data collection:
-
-- **Participant level**: high `validation_max_error` across blocks, heavy track loss, or comprehension accuracy (`correct`) near chance
-- **Trial level**: `trial_aborted == 1`, timeouts (`CORNER TIMEOUT`, `BOUNDARY TIMEOUT`, `CLICK TIMEOUT`), and blinks on critical words
-- **Boundary trials**: missed changes (`display_changed == 0`), slow draws (`display_change_draw_duration`), or display changes completing **after** fixation onset on the target ("hook" trials)
-- **Fixation level**: blinks/track loss and extreme durations (commonly very short < ~80 ms or very long > ~800–1000 ms)
+- See tomorrow's **data-analysis workshop**.
 
 ## Which tracker for which paradigm?
 
@@ -1103,59 +1079,15 @@ PyGaze makes the **code** portable, not every **method**:
 | **EyeLink** | `.edf` | Detected online by the tracker + samples & messages |
 | **Tobii / SMI / EyeLogic** | `_TOBII_output.tsv`, `_SMILOG.txt`, `.eyelogic.csv` | **Not pre-detected**: detect offline from samples + messages |
 
-## Testing without a participant
-
-Two levels of testing:
-
-1. **Manually**, with the advanced dummy: mouse = eyes; check every screen and the log file
-2. **Automatically**: `experiments/test_headless.py` runs an experiment with a *simulated
-   participant* (scripted gaze, keys and mouse clicks) and checks the data. It also ignores
-   the gaze target once and presses C once, to test the recovery paths
-
-```bash
-python experiments/test_headless.py boundary --subject 2 --max-trials 4
-python experiments/test_headless.py boundary --fake-eyelink   # test the EyeLink-only items
-```
-
-```
-boundary (subject 2)
-  PASS calibration validated and accepted before the first trial
-  PASS ignored gaze target -> drift correction, trial continues
-  PASS experimenter key C -> calibration + validation, trial continues
-  PASS EyeLink-only items do nothing with another tracker
-  PASS preview condition follows subject parity
-  PASS block order rotates with subject_nr % 3 (2-3-1)
-  ...
-ALL PASSED
-```
-
-*(Note: `--fake-eyelink` simulates the EyeLink-only path in software; Host PC drawing, Data Viewer `.edf` messages, audio delay, and real-tracker noise still require a pilot on real EyeLink hardware.)*
-
 ## Running a session
 
-- **Chin rest & viewing distance**: keep distance fixed (usually 60–75 cm) and match `viewing_distance_cm` in the experiment; adjust chair height, not just the chin rest, so the participant stays comfortable
+- **Chin rest & viewing distance**: keep distance from screen fixed (follow the manual, usually 80-90 cm) and match `viewing_distance_cm` in the experiment; adjust chair height, not just the chin rest, so the participant stays comfortable
 - **Which eye to track**: monocular tracking (typically right eye) is standard for reading; switch eyes if the other gives a cleaner pupil/corneal reflection (e.g. astigmatism, drooping lid)
 - **Glasses & contact lenses**: ask for glasses clean of smudges; anti-reflective coatings or progressive/bifocal lenses and dry/hard contacts can add reflections or track loss — test before starting
 - **Make-up**: dark mascara and eyeliner confuse pupil detection (and can reflect IR); inform participants beforehand when recruiting
 - **Room lighting**: keep constant, moderate illumination (no windows/sunlight changing over time or bright light behind the participant, which dilates/constricts pupils or adds IR interference)
 - **When to re-calibrate**: after breaks, after any chin-rest adjustment, or whenever drift checks repeatedly fail (press **C** on the gaze target)
 - **Session length**: keep recording blocks short and total eye-tracking time under ~45–60 min; fatigue dries the eyes and degrades calibration
-
-## Before you test real participants
-
-- [ ] `pygaze_init`: the right **tracker type** (not the dummy!)
-- [ ] Experiment resolution = **monitor resolution**; run **fullscreen**
-- [ ] Monitor refresh rate **≥ 120 Hz** for display changes
-- [ ] `screen_width_cm` and `viewing_distance_cm` set for your lab (validation in degrees)
-- [ ] Visual world: measured **audio delay** (play → loudspeaker)
-- [ ] Subject numbers: plan counterbalancing **within each group** (reading: multiples of 2; boundary: multiples of 6);
-      for replacements, pick an unused ID with the same list/order — never reuse a subject number
-- [ ] Font, size, and letters per degree of visual angle reported in your methods
-- [ ] Calibrate and validate; know the keys: **C** re-calibrate, **Escape** pause
-- [ ] Measure actual LCD pixel-change delay once per lab setup (photodiode or slow-motion phone video)
-- [ ] Pilot with yourself: check in the tracker file that `DISPLAYCHANGE` + refresh/scanout finishes during the saccade; check `display_change_draw_duration`, timeouts, aborted trials
-- [ ] Count messages per trial in the tracker file (every `REGION`, `LETTER`, and `!V IAREA` arrived)
-- [ ] Data are copied off the lab PC after every session
 
 ## Beyond single-line templates: multi-line texts
 
@@ -1166,13 +1098,13 @@ The `text_canvas()`, `word_areas()`, and `letter_edges()` helpers handle **one l
 - **Vertical interest-area limits**: build `(left, top, right, bottom)` boxes line by line using the exact wrapped lines rendered on screen (not one shared `TEXT_TOP`/`TEXT_BOTTOM`)
 - **Return sweeps in analysis**: expect long right-to-left saccades to the next line and frequent corrective fixations near line starts (avoid putting critical words at line edges)
 
-## If your language is not Spanish or English
+## Non-Latin scripts
 
 - **Unspaced scripts** (Chinese, Japanese, Thai): `word_areas()` splits on spaces and treats the whole sentence as one word; pre-segment words or analyse by character (`LETTER`)
-- **Right-to-left scripts** (Arabic, Hebrew): `bidi` is off and geometry assumes left-to-right; enable `bidi` and mirror the gaze target (right), boundary test (`<=`), and corner square (bottom-left)
-- **Moving window**: masks characters with `'x'` and assumes one glyph width per Python character (`mono`); breaks for proportional scripts, ligatures, or combining marks
-- **Fonts and glyphs**: Droid Sans Mono lacks non-Latin glyphs and Qt silently falls back without warning (in OpenSesame 4.1.17, `.ttf` files in the file pool fail to register); install your font in the OS and verify with `check_interest_areas.py`
-- **Tracker logs**: `ascii_safe()` turns non-ASCII characters into `?`, so join EDF data to your CSV by `item` and word/letter index
+- **Right-to-left scripts** (Arabic, Hebrew): `bidi` is off and geometry assumes left-to-right; enable `bidi` and adjust (mirror) the gaze target (right), boundary test (`<=`), and corner square (bottom-left)
+- **Moving window**: masks characters with `'x'` and assumes one glyph width per Python character (`mono`); does not work for proportional scripts, ligatures, or combining marks
+- **Fonts and glyphs**: Install your script-specific font in the OS and verify interest areas visually
+- **Tracker logs**: non-ASCII characters will not be written to EDF files. Use a code instead
 
 ## Adapting timing and questions for slower readers
 
@@ -1193,39 +1125,13 @@ Save a copy of the `.osexp` under a new name, then replace the built-in material
 1. **Add your CSV** (UTF-8) to the **File pool** (plus any new PNG/WAV files for `vwp`)
 2. **Switch each `loop`** (`practice_loop`, `experimental_loop_*`, or `trial_loop`): change **Source** from **`table`** to **`file`** and **Browse** to your CSV
 3. **Keep the column names** expected by `prepare_trial` and `setup_condition` (`item`, `question`, `answer` with `'NA'` when there is no question; `'YES'`/`'NO'` or `'SI'`/`'NO'` in `answer`)
-4. **Translate UI text** (templates ship in English/Spanish only): edit the `sketchpad` items `instructions`, `end_of_practice`, `break_instr`, and `goodbye`, plus `yes_label` and `no_label`
-
-## Exercises
-
-3. **Boundary** (15 min): open `prepare_trial` in `boundary.osexp`. Which preview does
-   subject 2 see for sentence 1? Check it: run as subject 2, finish the practice, read a few
-   trials, quit (Escape, then Q), and look at `sentence_number` and `preview_condition` in the log file.
-4. **Moving window** (10 min): set `window_small` and `window_large` to 1 and 15 (click the experiment root in the Overview → **General script**). How does "reading" with the mouse feel?
-5. **Show the boundary** (10 min): in `prepare_trial` of `boundary.osexp`, draw a thin line at
-   the boundary on `pre_canvas` (remember the coordinate systems!). Remove it again before data collection.
-6. **Visual world** (15 min): add a ninth trial: draw two new pictures (or use your own PNGs),
-   add them and a WAV file to the file pool, and add a row to `trial_loop` with the correct `target_onset`.
-7. **Fixation-triggered drift check** (5 min): set `fixation_triggered_drift_check` to `yes`
-   (click the experiment root in the Overview → **General script**) and run `reading.osexp`. What changes?
-8. **Counterbalancing without Python** (20 min): in a copy of `reading.osexp`, replace the
-   two-list logic by two loops with Run-if conditions (see Counterbalancing (6)). Use 6 items.
-
-## Where the files come from
-
-- The four `.osexp` files are **generated** by `experiments/build_osexp.py` from the stimulus
-  tables (`comas.csv`, `sentences.csv`, `vwp_pool/`) and the code inside the script
-- `extract_comas.py` (EyeTrack script → `comas.csv`) and `make_vwp_stimuli.py` (pictures + sounds)
-  make the materials
-- You can edit them in OpenSesame like any other experiment, but running the generator
-  again **overwrites** them: save your own version under a new name
-- `python experiments/build_osexp.py` → regenerate; then `python experiments/test_headless.py` → test
+4. **Translate instructiontext** : edit the `sketchpad` items `instructions`, `end_of_practice`, `break_instr`, and `goodbye`, plus `yes_label` and `no_label`
 
 ## Resources: software and methods
 
 - OpenSesame documentation: <https://osdoc.cogsci.nl>
 - PyGaze: <http://www.pygaze.org>, Dalmaijer, Mathôt & Van der Stigchel (2014), *Behavior Research Methods*
-- GSAP (the animations in these slides): <https://gsap.com>
-- Holmqvist et al. (2011). *Eye tracking: A comprehensive guide to methods and measures*. Oxford University Press
+- Rayner (2014). The gaze-contingent moving window in reading: Development and review. *Visual Cognition*, 22(3–4), 242–258. <https://doi.org/10.1080/13506285.2013.879084>
 - Pollatsek & Well (1995). On the use of counterbalanced designs in cognitive research: A suggestion for a better and more powerful analysis. *JEP: Learning, Memory, and Cognition*
 - Baayen, Davidson & Bates (2008). Mixed-effects modeling with crossed random effects for subjects and items. *Journal of Memory and Language*
 
